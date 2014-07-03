@@ -4,16 +4,13 @@
 
     <div class="jumbotron">
         <h1>ECSEL Portal</h1>
-        <p class="lead">Welcome</p>       
+        <p class="lead">A new collaborative program for special education administrators between the University of Washington, Bothell Campus and Washington State University.</p>       
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>New Session Starting Soon</h2>
-            <p>
-                A new collaborative program for special education administrators is now accepting applications for potential students. This is a collaborative effort between the University of Washington, Bothell Campus and Washington State University.</p>
-<p>
-This program is a state-wide collaborative partnership program that focuses on knowledge and skills needed for local education administration. Led by a faculty team from across the UW and WSU campuses, the program qualifies candidates for the required Washington Residency Program Administrator Certification.
+            <h2>Now Accepting Candidates</h2>
+<p>The Expanding Capacity for Special Education Leadership - Education Program is now accepting applications for potential students. This program is a state-wide collaborative partnership program that focuses on knowledge and skills needed for local education administration. Led by a faculty team from across the UW and WSU campuses, the program qualifies candidates for the required Washington Residency Program Administrator Certification.
             </p>
             <p>
                 <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Go &raquo;</a>
