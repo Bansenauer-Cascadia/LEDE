@@ -1,0 +1,26 @@
+﻿@model LEDE_MVC.Models.TaskRatingViewModel
+
+@{
+    ViewBag.Title = "Task Evaluation";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@using (Html.BeginForm("Select", "TaskRatings", FormMethod.Post, new { id = "DropForm" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Choose Task</h4>
+    
+    @Html.DropDownList("ID", null, "Select User", new { onchange = "document.getElementById('DropForm').submit();" })
+
+    if (ViewBag.TaskID != null)
+    {
+        @Html.DropDownList("TaskID", null, "Select Task", new { onchange = "document.getElementById('DropForm').submit();" })
+    }
+    else
+    {       
+        @:No Tasks
+    }
+
+}
