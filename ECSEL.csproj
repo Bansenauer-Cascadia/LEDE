@@ -342,6 +342,7 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="WebForms\Default.aspx" />
+    <Content Include="WebForms\identity.aspx" />
     <Content Include="WebForms\TaskDownload.aspx" />
     <Content Include="WebForms\TaskRating.aspx" />
     <Content Include="WebForms\TaskScore.aspx" />
