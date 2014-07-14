@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="LEDEPortal.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="LEDE_MVC.MvcApplication" Language="C#" %>
