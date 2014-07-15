@@ -70,12 +70,12 @@
         <h2>Forms and Buttons</h2>
         <form>
             <label for="test1">Test Label 1</label>
-            <input type="text" id="test1" value="test1"/>
+            <input type="text" id="test1" class="form-control" value="test1"/>
         </form>
 
-        <button id="SubmitButton">Submit</button>
-        <button id="UploadStatusLabel">Update</button>
-        <button id="CancelButton">Cancel</button>
+        <button class="btn btn-default" id="SubmitButton">Submit</button>
+        <button class="btn btn-default" id="UploadStatusLabel">Update</button>
+        <button class="btn btn-default" id="CancelButton">Cancel</button>
     </section>
 
 </asp:Content>
