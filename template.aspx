@@ -1,7 +1,7 @@
 <%@ Page Title="Template" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="LEDE_Entity._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-	<section class="row">
+	<section>
 		<p>This is an example of a full-width ROW, using section class "row".</p>
 		<p>Here is a paragraph of filler text. Here, have a <a href="#">test list</a>. This is <a href="#" target="_blank">another test link</a> that opens in a new tab. For text, here is <em>emphasized text</em> and <strong>strong text</strong></p>
 		
@@ -15,7 +15,10 @@
 		<h4>Header 4</h4>
 		<h5>Header 5</h5>
 		<h6>Header 6</h6>
-
+    </section>
+    <hr />
+    <section>
+        <h2>Tables</h2>
 		<table>
 			<tr>
 				<th>Column Header 1</th>
@@ -34,9 +37,9 @@
 			</tr>
 		</table>
 	</section>
-	
-	<section class="row">
-		<h1>(H1) List 1</h1>
+	<hr />
+	<section>
+		<h2>Lists</h2>
 		<p>Lorem ipsum dolor test paragraph test test test.</p>
 		<ul>
 			<li>This is an unordered list item.</li>
@@ -62,4 +65,17 @@
 				<ul><li>This is an unordered list item nested within an ordered list.</li></ul></li>
 		</ol>
 	</section>
+    <hr />
+    <section>
+        <h2>Forms and Buttons</h2>
+        <form>
+            <label for="test1">Test Label 1</label>
+            <input type="text" id="test1" value="test1"/>
+        </form>
+
+        <button id="SubmitButton">Submit</button>
+        <button id="UploadStatusLabel">Update</button>
+        <button id="CancelButton">Cancel</button>
+    </section>
+
 </asp:Content>
