@@ -6,9 +6,8 @@ using System.Configuration;
 using System.ComponentModel;
 using System.Linq;
 using System.Data.Entity;
-using LEDE_MVC.Models;
-using LEDE_MVC.Models.LEDE;
-using LEDE_MVC.Models.FormModels;
+using ECSEL.Models;
+using ECSEL.Models.FormModels;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 
@@ -31,9 +30,9 @@ public class ledeDB
     }
 
     //TaskRating Methods
-    public static IEnumerable getTaskRatings(string versid, string taskid, int userid)
-    {
-        int TaskIDint = Convert.ToInt32(taskid);
+   
+    public static IEnumerable getTaskRatings(string versid)
+    {        
         int VersIDint;
 
         if (versid == null)
@@ -43,8 +42,9 @@ public class ledeDB
 
         List<CoreGridView> taskgrid = new List<CoreGridView>();
 
-        var coretopics = db.CoreTopics.Where(c => c.Seminar.Tasks.FirstOrDefault(t => t.TaskID == TaskIDint) != null).
-            Select(c => new { c.CoreTopicID, c.CoreTopicDesc, c.CoreRatings });
+        var coretopics = db.CoreTopics.Where(c => c.Seminar.Tasks.
+            FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v=> v.VersID == VersIDint) != null ) != null).
+            Select(c => new { c.CoreTopicID, c.CoreTopicDesc, c.CoreRatings }); 
 
         foreach (var c in coretopics)
         {
@@ -98,10 +98,9 @@ public class ledeDB
     }
 
     [DataObjectMethod(DataObjectMethodType.Select)]
-    public static IEnumerable getCoreRatings(string versid, string taskid, int userid)
+    public static IEnumerable getCoreRatings(string versid)
     {
-        int VersIDint;
-        int TaskIDint = Convert.ToInt32(taskid);
+        int VersIDint = Convert.ToInt32(versid);        
 
         if (versid == null)            
             return null;
@@ -109,7 +108,8 @@ public class ledeDB
             VersIDint = Convert.ToInt32(versid);
 
         var ratings = db.CoreRatings.
-            Where(r => r.TaskRating.VersID == VersIDint && r.CoreTopic.Seminar.Tasks.FirstOrDefault(t => t.TaskID == TaskIDint) == null).
+            Where(r => r.TaskRating.VersID == VersIDint && r.CoreTopic.Seminar.Tasks.
+                FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v=> v.VersID == VersIDint) != null ) == null).
             Select(r => new
             {
                 r.RatingID,
@@ -144,11 +144,12 @@ public class ledeDB
         {
             TaskRating = taskRating,
             CoreTopicID = Convert.ToInt32(CoreTopicID),
-            Cscore = Convert.ToInt32(Cscore),
-            Pscore = Convert.ToInt32(Pscore),
-            Sscore = Convert.ToInt32(Sscore)
+            Cscore = Cscore == null ? null : (int?)Convert.ToInt32(Cscore),
+            Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore),
+            Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore)
         };
         
+        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete"; 
         db.TaskRatings.Add(taskRating);
         db.CoreRatings.Add(coreRating);
         db.SaveChanges();
@@ -158,22 +159,13 @@ public class ledeDB
     public static void updateCoreRating(string Cscore, string Sscore, string Pscore, int original_RatingID)
     {
         var coreRating = db.CoreRatings.Find(original_RatingID);
-        coreRating.Cscore = Convert.ToInt32(Cscore);
-        coreRating.Sscore = Convert.ToInt32(Sscore);
-        coreRating.Pscore = Convert.ToInt32(Pscore);
+        coreRating.Cscore = Cscore == null ? null : (int?)Convert.ToInt32(Cscore);
+        coreRating.Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore);
+        coreRating.Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore);
         db.SaveChanges();
-    }
+    }    
 
-    //if user hasn't selected a version from the dropdown, give them most recent
-    public static int getDefaultVersID(int taskid, int userid)
-    {
-        var relevantTaskVersions = db.TaskVersions.Where(v => v.TaskID == taskid && v.ID == userid);
-        int maxValue = relevantTaskVersions.Max(v => v.Version);
-        int versid = relevantTaskVersions.SingleOrDefault(v => v.Version == maxValue).VersID;
-        return versid;
-    }
-
-    public static IEnumerable getImpactGrid(string versid, int taskid, int userid)
+    public static IEnumerable getImpactGrid(string versid)
     {
         int versidInt;
         if (versid == null)        
@@ -188,12 +180,12 @@ public class ledeDB
     }
 
     [DataObjectMethod(DataObjectMethodType.Update)]
-    public static void updateImpactGrid(int original_RatingID, string Sscore, string Pscore, string Lscore)
+    public static void updateImpactGrid(int RatingID, string Sscore, string Pscore, string Lscore)
     {
-        var impactRating = db.ImpactTypeRatings.Find(original_RatingID);
-        impactRating.Sscore = Convert.ToInt32(Sscore);
-        impactRating.Pscore = Convert.ToInt32(Pscore);
-        impactRating.Lscore = Convert.ToInt32(Lscore);
+        var impactRating = db.ImpactTypeRatings.Find(RatingID);
+        impactRating.Lscore = Lscore == null ? null : (int?)Convert.ToInt32(Lscore);
+        impactRating.Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore);
+        impactRating.Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore);
         db.SaveChanges();
     }
 
@@ -209,39 +201,138 @@ public class ledeDB
         var impactRating = new ImpactTypeRating
         {
             TaskRating = taskRating,
-            Sscore = Convert.ToInt32(Sscore),
-            Pscore = Convert.ToInt32(Pscore),
-            Lscore = Convert.ToInt32(Lscore)
+            Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore),
+            Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore),
+            Lscore = Lscore == null ? null : (int?)Convert.ToInt32(Lscore)
         };
 
+        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete"; 
         db.TaskRatings.Add(taskRating);
         db.ImpactTypeRatings.Add(impactRating);
         db.SaveChanges();
     }
 
-    public static IEnumerable getUsers(string taskID)
+    //additional info select/ submission 
+
+
+    public static ReadingLog getReadingLog(string versid){
+        if (versid == null)
+            return null; 
+        var readinglog = db.ReadingLogs.Find(Convert.ToInt32(versid));
+        return readinglog;
+    }
+
+    public static void updateReadingLog(int numEntries, string versid)
+    {
+        ReadingLog updateLog = db.ReadingLogs.Find(Convert.ToInt32(versid));
+       
+
+        db.SaveChanges(); 
+    }
+
+    public static void insertReadingLog(int numEntries, string versid)
+    {
+        ReadingLog submitLog = new ReadingLog
+        {
+            VersID = Convert.ToInt32(versid),
+            
+        };
+
+        db.ReadingLogs.Add(submitLog);
+        db.SaveChanges(); 
+    }
+
+    public static InternReflection getReflectionEntry(string versid)
+    {
+        if (versid == null)
+        {
+            return null; 
+        }
+        var reflection = db.InternReflections.Find(Convert.ToInt32(versid));
+        return reflection; 
+    }
+
+    public static void insertReflectionEntry(int NumHrs, string ReflectionDate, string versid)
+    {
+        InternReflection insertReflection = new InternReflection
+        {
+            VersID = Convert.ToInt32(versid),
+            
+            NumHrs = NumHrs
+        };
+
+        db.InternReflections.Add(insertReflection); 
+        db.SaveChanges(); 
+    }
+
+    public static void updateReflectionEntry(int NumHrs, string ReflectionDate, string versid)
+    {
+        InternReflection updateReflection = db.InternReflections.Find(Convert.ToInt32(versid));
+        updateReflection.NumHrs = NumHrs;
+       
+
+        db.SaveChanges(); 
+    }
+
+    //drop downs
+    /*public static IEnumerable getUsers(string taskID)
     {
         int IntTaskID = Convert.ToInt32(taskID);
-        var users = db.Users.Where(u => u.TaskVersions.FirstOrDefault(v => v.TaskID == IntTaskID) != null);
+        var users = db.Users.Where(u => u.TaskVersions.FirstOrDefault(v => v.TaskID == IntTaskID) != null).
+            Select(u => new { LastName = u.LastName + ", " + u.FirstName, u.Id });
         return users;
+    }*/
+   
+    public static Task getTask(int versid)
+    {
+        if (versid == 0)
+            return null;
+        var task = db.Tasks.Include(t=> t.Seminar).FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == versid) != null); 
+        if (task == null)
+            return null;
+        else
+            return task; 
+    }
+
+    public static string getCandidateName(int versid)
+    {
+        if (versid == 0)
+            return null;
+        var taskversion = db.TaskVersions.Find(versid);
+        if (taskversion == null)
+            return null;
+        else
+            return taskversion.User.LastName + " " + taskversion.User.FirstName; 
     }
 
     public static IEnumerable<Task> getTasks()
     {
-        var sel = db.Tasks;
+        var sel = db.Tasks.Where(t=> t.TaskVersions.FirstOrDefault() != null);
         return sel;
     }
 
-    public static IEnumerable getVersion(string taskID, string userID)
+    public static IEnumerable getVersion(string versid)
     {
-        int taskidInt = Convert.ToInt32(taskID);
-        int useridInt = Convert.ToInt32(userID);
-        var version = db.TaskVersions.Where(v => v.TaskID == taskidInt && v.ID == useridInt).
-            Select(v => new { v.VersID, v.Version }).OrderByDescending(v => v.Version);
-        return version;
+        if (versid == null)
+            return null; 
+        int versidint = Convert.ToInt32(versid);
+        TaskVersion version = db.TaskVersions.Find(versidint);
+        if (version != null)
+        {
+            var versiondropdown = db.TaskVersions.Where(v => v.ID == version.ID && v.TaskID == version.TaskID).OrderByDescending(v => v.Version);
+            return versiondropdown;
+        }
+        else
+            return null;
+        
 
     }
     //Task Score Methods
+
+    public static IEnumerable getUploadTasks()
+    {
+        return db.Tasks; 
+    }
     public static IEnumerable getCoreScores(int versid, int userid)
     {
         var scores = db.CoreRatings.Where(r => r.TaskRating.VersID == versid && r.TaskRating.TaskVersion.ID == userid).
@@ -280,6 +371,20 @@ public class ledeDB
         return taskversion.Task.TaskName + " Version " + taskversion.Version;
     }
 
+    //misc
+    public static string getSeminarLabel(int taskid)
+    {
+        string title = db.Tasks.Find(taskid).Seminar.SeminarTitle;
+        return "Core Ratings for " + title + " Seminar";
+    }
+    public static string getInitialSeminarLabel()
+    {
+        return getSeminarLabel(initializeTaskSelectedValue()); 
+    }
+
+
+    ///////////////////////////////////////////////////////
+
     //Upload Data Methods
     [DataObjectMethod(DataObjectMethodType.Select)]
     public static IEnumerable getUploadGrid(string userID, string taskID)
@@ -302,18 +407,16 @@ public class ledeDB
         return uploads;
     }
 
-    public static IEnumerable getCoreTopics(string taskid, string versid)
+    public static IEnumerable getCoreTopics(string versid)
     {
-        if (taskid == null || versid == null)
-        {
+        if ( versid == null)
             return null;
-        }
         else
-        {
-            int taskidInt = Convert.ToInt32(taskid);
+        {            
             int versidInt = Convert.ToInt32(versid);
 
-            var topics = db.CoreTopics.Where(c => c.Seminar.Tasks.FirstOrDefault(t => t.TaskID == taskidInt) == null &&
+            var topics = db.CoreTopics.Where(c => c.Seminar.Tasks.FirstOrDefault(t => t.TaskVersions.
+                FirstOrDefault(v=> v.VersID == versidInt) != null) == null &&
                 c.CoreRatings.FirstOrDefault(r => r.TaskRating.VersID == versidInt) == null);
             return topics;
         }
@@ -333,12 +436,14 @@ public class ledeDB
     public static void submitAssignment(string taskid, string userid, string version,
         string filename, string filepath, int filesize)
     {
+        DateTime UniversalTime = DateTime.UtcNow;  
+        DateTime date = UniversalTime.AddHours(-7);
         Document uploadDoc = new Document
         {
             FileName = filename,
             FilePath = filepath,
             FileSize = filesize.ToString(),
-            UploadDate = DateTime.Now
+            UploadDate = date
         };
 
         TaskVersion uploadTask = new TaskVersion
@@ -347,7 +452,7 @@ public class ledeDB
             TaskID = Convert.ToInt32(taskid),
             ID = Convert.ToInt32(userid),
             Version = Convert.ToInt32(version),
-            RatingStatus = "pend"
+            RatingStatus = "Pending"
         };
 
         db.Documents.Add(uploadDoc);
@@ -367,7 +472,7 @@ public class ledeDB
         return feedback;
     }
 
-    //TaskDownload 
+    //Tasks 
 
     public static IEnumerable getUsers()
     {
@@ -382,9 +487,13 @@ public class ledeDB
             v.VersID,
             Assignment = v.Task.TaskName,
             v.Version,
+            v.Document.FileName, 
             v.Document.UploadDate,
-            v.RatingStatus
-        }).OrderBy(v => v.RatingStatus);
+            FeedbackFileName = v.FeedbackDocument.FileName,
+            FeedbackUploadDate = (DateTime?)v.FeedbackDocument.UploadDate, 
+            v.RatingStatus,
+            RatingLink = (v.RatingStatus == "Complete")? "View Rating" : "Rate Now"
+        }).OrderBy(v => v.UploadDate).OrderByDescending(v => v.RatingStatus);
 
         return assignments;
     }
@@ -424,5 +533,10 @@ public class ledeDB
         var value = getTasks();
         string foo = value.FirstOrDefault().TaskID.ToString(); 
         return value.FirstOrDefault().TaskID;      
+    }
+    //Account methods
+    public static IEnumerable getRoles()
+    {
+        return db.Roles; 
     }
 }

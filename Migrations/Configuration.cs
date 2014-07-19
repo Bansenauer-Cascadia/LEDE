@@ -1,18 +1,18 @@
-namespace LEDE_MVC.Migrations
+namespace ECSEL.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LEDE_MVC.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ECSEL.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(LEDE_MVC.Models.ApplicationDbContext context)
+        protected override void Seed(ECSEL.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

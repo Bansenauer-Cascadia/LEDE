@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
+using Microsoft.Owin.Security.Google;
 using Owin;
-using System;
-using LEDE_MVC.Models;
+using ECSEL.Models;
 
-namespace LEDE_MVC
+namespace ECSEL
 {
-    public partial class Startup
-    {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+    public partial class Startup {
+
+        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301883
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
@@ -28,15 +29,15 @@ namespace LEDE_MVC
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User, int>
-    (
-         validateInterval: TimeSpan.FromMinutes(30),
-         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
-         getUserIdCallback: (id) => (Int32.Parse(id.GetUserId()))
-    )
+                    OnValidateIdentity = SecurityStampValidator
+                .OnValidateIdentity<ApplicationUserManager, User, int>(
+                    validateInterval: TimeSpan.FromMinutes(30),
+                    regenerateIdentityCallback: (manager, user) =>
+                        user.GenerateUserIdentityAsync(manager),
+                    getUserIdCallback: (id) => (Int32.Parse(id.GetUserId())))
                 }
             });
-
+            // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
@@ -52,7 +53,11 @@ namespace LEDE_MVC
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }

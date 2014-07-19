@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using LEDE_MVC.Models.LEDE;
+using ECSEL.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic; 
 
-namespace LEDE_MVC.Models
+namespace ECSEL.Models
 {
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
-    {        
+    {
         [Required]
         [StringLength(10)]
         public string UniversityID { get; set; }

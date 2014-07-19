@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using LEDE_MVC.Models.LEDE;
+using ECSEL.Models;
 
-namespace LEDE_MVC.Models.FormModels
+namespace ECSEL.Models.FormModels
 {
     public class CoreGridView 
     {
