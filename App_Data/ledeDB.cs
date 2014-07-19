@@ -476,16 +476,17 @@ public class ledeDB
 
     public static IEnumerable getUsers()
     {
-        var users = db.Users.Select(u => new { u.Id, name = u.LastName + ", " + u.FirstName }).OrderBy(u => u.name);
+        Role candidateRole = db.Roles.Find(1); 
+        var users = db.Users.Where(u=> u.Roles.FirstOrDefault(r=> r.RoleId == 1) != null).Select(u => new { u.Id, name = u.LastName + ", " + u.FirstName }).OrderBy(u => u.name);
         return users;
     }
 
-    public static IEnumerable getAssignments(int userid)
+    public static IEnumerable getAssignments(int userid, string sortOrder)
     {
         var assignments = db.TaskVersions.Where(v => v.ID == userid).Select(v => new
         {
             v.VersID,
-            Assignment = v.Task.TaskName,
+            Assignment = v.Task.TaskCode + ": " + v.Task.TaskName,
             v.Version,
             v.Document.FileName, 
             v.Document.UploadDate,
@@ -493,9 +494,25 @@ public class ledeDB
             FeedbackUploadDate = (DateTime?)v.FeedbackDocument.UploadDate, 
             v.RatingStatus,
             RatingLink = (v.RatingStatus == "Complete")? "View Rating" : "Rate Now"
-        }).OrderBy(v => v.UploadDate).OrderByDescending(v => v.RatingStatus);
+        });
 
-        return assignments;
+        switch (sortOrder)
+        {
+            case "uploaddate":
+                return assignments.OrderBy(a => a.UploadDate);
+            case "uploaddate DESC":
+                return assignments.OrderByDescending(a => a.UploadDate);
+            case "assignment, version":
+                return assignments.OrderBy(a=> a.Assignment).ThenByDescending(a=> a.Version); 
+            case "assignment, version DESC":
+                return assignments.OrderByDescending(a => a.Assignment).ThenByDescending(a=> a.Version); 
+            case "ratingstatus":
+                return assignments.OrderBy(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenBy(a => a.Version); 
+            case "ratingstatus DESC":
+                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version); 
+            default:
+                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version); 
+        }        
     }
 
     public static void submitFeedback(Document feedbackDoc, int versid)

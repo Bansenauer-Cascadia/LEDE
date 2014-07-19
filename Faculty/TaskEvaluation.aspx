@@ -18,22 +18,23 @@
         <br />
         <asp:Button ID="CancelButton" runat="server" Text="Cancel" OnClick="CancelButton_Click" Visible="false" />
         <br /> 
-        <asp:GridView ID="AssignmentGrid" runat="server" AutoGenerateColumns="false" DataSourceID="GridDataSource" 
-            DataKeyNames="versid" OnRowCommand="AssignmentGrid_RowCommand">
+        <asp:GridView ID="AssignmentGrid" runat="server" AutoGenerateColumns="false" DataSourceID="AssignmentGridDataSource" 
+            DataKeyNames="versid" OnRowCommand="AssignmentGrid_RowCommand" AllowSorting="true">
             <Columns>                
-                <asp:BoundField DataField="assignment" HeaderText="Assignment " />
+                <asp:BoundField DataField="assignment" HeaderText="Task " SortExpression ="assignment, version"/>
                 <asp:BoundField DataField="version" HeaderText ="Version" />
                 <asp:ButtonField DataTextField="FileName" CommandName="DownloadAssignment" HeaderText="Document" />
-                <asp:BoundField datafield="uploaddate" HeaderText="Date Modified" />
+                <asp:BoundField datafield="uploaddate" HeaderText="Date Modified" SortExpression="uploaddate"/>
                 <asp:ButtonField DataTextField="FeedbackFileName" CommandName="DownloadFeedback" 
                     HeaderText="Feedback Document"/>                
                 <asp:ButtonField Text="Upload Feedback" CommandName="Upload"/>
                 <asp:BoundField DataField="FeedbackUploadDate" HeaderText="Date Modified" />
-                <asp:BoundField DataField ="ratingstatus" HeaderText="Rating Status" />
+                <asp:BoundField DataField ="ratingstatus" HeaderText="Rating Status" SortExpression ="ratingstatus"/>
                 <asp:ButtonField DataTextField="RatingLink" CommandName="Rate"></asp:ButtonField>               
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource ID="GridDataSource" runat="server" SelectMethod="getAssignments" TypeName="ledeDB">
+        <asp:ObjectDataSource ID="AssignmentGridDataSource" runat="server" SelectMethod="getAssignments" TypeName="ledeDB" 
+            SortParameterName="sortOrder">
             <SelectParameters>
                 <asp:ControlParameter ControlID="StudentDropDown" Name="userID" PropertyName="SelectedValue" type="String"/>  
             </SelectParameters>

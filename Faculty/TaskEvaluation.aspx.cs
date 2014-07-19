@@ -28,7 +28,11 @@ namespace ECSEL.Faculty
         }
         protected void AssignmentGrid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
+            int index; 
+            bool isSortCommand = !Int32.TryParse(e.CommandArgument.ToString(), out index); 
+            if (isSortCommand)
+                return; 
+         
             TableRow row = AssignmentGrid.Rows[index];
             int versid = (int)AssignmentGrid.DataKeys[index].Value;
             
