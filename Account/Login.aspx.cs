@@ -12,15 +12,17 @@ namespace ECSEL.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            RegisterHyperLink.NavigateUrl = "Register";
+            if (Context.User.IsInRole("Candidate"))
+            {
+                Response.Redirect("~/Candidate"); 
+            }
+            else if (Context.User.IsInRole("Faculty"))
+            {
+                Response.Redirect("~/Faculty"); 
+            }
             // Enable this once you have account confirmation enabled for password reset functionality
             // ForgotPasswordHyperLink.NavigateUrl = "Forgot";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
-            var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
-            {
-                RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
-            }
+            var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);           
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -29,11 +31,12 @@ namespace ECSEL.Account
             {
                 // Validate the user password
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                User user = manager.Find(Email.Text, Password.Text);
+                User user = manager.Find(Username.Text, Password.Text);
                 if (user != null)
                 {
                     IdentityHelper.SignIn(manager, user, RememberMe.Checked);
-                    IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                                    
+                    Response.Redirect("~/Account/Login");                    
                 }
                 else
                 {

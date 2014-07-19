@@ -69,6 +69,18 @@ namespace ECSEL
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (Context.User.IsInRole("Super Admin") || Context.User.IsInRole("LEDE Admin") || Context.User.IsInRole("ECSEL Admin"))
+            {
+                AdminLinks.Visible = true;
+            }
+            else if (Context.User.IsInRole("Candidate"))
+            {
+                CandidateLinks.Visible = true; 
+            }
+            else if (Context.User.IsInRole("Faculty"))
+            {
+                FacultyLinks.Visible = true; 
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

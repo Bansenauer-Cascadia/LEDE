@@ -13,6 +13,33 @@ namespace ECSEL {
     public partial class SiteMaster {
         
         /// <summary>
+        /// AdminLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AdminLinks;
+        
+        /// <summary>
+        /// CandidateLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CandidateLinks;
+        
+        /// <summary>
+        /// FacultyLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl FacultyLinks;
+        
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

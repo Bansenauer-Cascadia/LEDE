@@ -6,6 +6,7 @@
     Choose a Student:<asp:DropDownList ID="StudentDropDown" AutoPostBack="true" runat="server" DataSourceID="StudentDataSource" 
         DataTextField="name" DataValueField="id">
             </asp:DropDownList>
+
         <asp:ObjectDataSource ID="StudentDataSource" runat="server" SelectMethod="getUsers" 
             TypeName="ledeDB" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource> <br /> 
          <asp:Label ID="UploadLabel" runat="server"></asp:Label>
@@ -29,7 +30,7 @@
                 <asp:ButtonField Text="Upload Feedback" CommandName="Upload"/>
                 <asp:BoundField DataField="FeedbackUploadDate" HeaderText="Date Modified" />
                 <asp:BoundField DataField ="ratingstatus" HeaderText="Rating Status" />
-                <asp:ButtonField DataTextField="RatingLink" CommandName="Rate"/>               
+                <asp:ButtonField DataTextField="RatingLink" CommandName="Rate"></asp:ButtonField>               
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource ID="GridDataSource" runat="server" SelectMethod="getAssignments" TypeName="ledeDB">
