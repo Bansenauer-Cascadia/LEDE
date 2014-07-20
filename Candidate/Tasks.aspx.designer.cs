@@ -13,15 +13,6 @@ namespace ECSEL.Candidate {
     public partial class Tasks {
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// taskNameDropDown control.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace ECSEL.Candidate {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList taskNameDropDown;
+        
+        /// <summary>
+        /// UploadToggleButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UploadToggleButton;
         
         /// <summary>
         /// UploadPanel control.
@@ -49,6 +49,60 @@ namespace ECSEL.Candidate {
         protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
+        /// ReadingEntriesLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReadingEntriesLabel;
+        
+        /// <summary>
+        /// ReadingEntriesTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReadingEntriesTextBox;
+        
+        /// <summary>
+        /// PageTextValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator PageTextValidator;
+        
+        /// <summary>
+        /// ReflectionHoursLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReflectionHoursLabel;
+        
+        /// <summary>
+        /// ReflectionHoursTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReflectionHoursTextBox;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// SubmitButton control.
         /// </summary>
         /// <remarks>
@@ -67,40 +121,13 @@ namespace ECSEL.Candidate {
         protected global::System.Web.UI.WebControls.Button ReflectionSubmitButton;
         
         /// <summary>
-        /// UploadLabel control.
+        /// CancelButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UploadLabel;
-        
-        /// <summary>
-        /// AdditionalDataPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AdditionalDataPanel;
-        
-        /// <summary>
-        /// ReadingListView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ReadingListView;
-        
-        /// <summary>
-        /// ReadingDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ReadingDataSource;
+        protected global::System.Web.UI.WebControls.Button CancelButton;
         
         /// <summary>
         /// ReadingValidationSummary control.
@@ -112,40 +139,40 @@ namespace ECSEL.Candidate {
         protected global::System.Web.UI.WebControls.ValidationSummary ReadingValidationSummary;
         
         /// <summary>
-        /// ReflectionListView control.
+        /// UploadFileValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ReflectionListView;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator UploadFileValidator;
         
         /// <summary>
-        /// ReflectionDataSource control.
+        /// UploadLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ReflectionDataSource;
+        protected global::System.Web.UI.WebControls.Label UploadLabel;
         
         /// <summary>
-        /// ReflectionValidationSummary control.
+        /// TaskNameDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ReflectionValidationSummary;
+        protected global::System.Web.UI.WebControls.ObjectDataSource TaskNameDataSource;
         
         /// <summary>
-        /// taskNameDataSource control.
+        /// TaskLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource taskNameDataSource;
+        protected global::System.Web.UI.WebControls.Label TaskLabel;
         
         /// <summary>
         /// UploadGridView control.

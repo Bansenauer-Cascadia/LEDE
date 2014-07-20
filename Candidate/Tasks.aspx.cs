@@ -23,7 +23,7 @@ namespace ECSEL.Candidate
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ObjectDataSource1.SelectParameters["userID"].DefaultValue = User.Identity.GetUserId();
+            ObjectDataSource1.SelectParameters["userID"].DefaultValue = User.Identity.GetUserId(); //"16";
 
             if (!IsPostBack) //get the taskids which will require special behavior and add them to view state (reading log & reflection)
             {
@@ -44,29 +44,49 @@ namespace ECSEL.Candidate
             List<int> ReadingTaskIDs = (List<int>)ViewState["ReadingTaskIDs"];
             List<int> ReflectionTaskIDs = (List<int>)ViewState["ReflectionTaskIDs"];
 
+            TaskLabel.Text = ledeDB.getTaskLabel(taskID); 
+
             if (ReadingTaskIDs.Contains(taskID)) //task is a reading log
             {
                 UploadGridView.Columns[1].HeaderText = "Entry";
-                ReadingListView.Visible = true;
-                ReflectionListView.Visible = false;
+               
                 ReflectionSubmitButton.Visible = false;
                 SubmitButton.Visible = true;
+
+                ReadingEntriesTextBox.Visible = true;
+                ReadingEntriesLabel.Visible = true; 
+                ReflectionHoursTextBox.Visible = false;
+                ReflectionHoursLabel.Visible = false;
+
+                ViewState.Add("TaskType", "ReadingLog"); 
             }
             else if (ReflectionTaskIDs.Contains(taskID)) // task is a reflection
             {
                 UploadGridView.Columns[1].HeaderText = "Version";
-                ReadingListView.Visible = false;
-                ReflectionListView.Visible = true;
+               
                 ReflectionSubmitButton.Visible = true;
                 SubmitButton.Visible = false;
+
+                ReadingEntriesTextBox.Visible = false;
+                ReadingEntriesLabel.Visible = false; 
+                ReflectionHoursTextBox.Visible = true;
+                ReflectionHoursLabel.Visible = true;
+
+                ViewState.Add("TaskType", "Reflection"); 
             }
             else //task is regular assignment 
-            {
-                ReadingListView.Visible = false;
-                ReflectionListView.Visible = false;
+            {                
                 UploadGridView.Columns[1].HeaderText = "Version";
                 ReflectionSubmitButton.Visible = false;
                 SubmitButton.Visible = true;
+
+                ReadingEntriesTextBox.Visible = false;
+                ReadingEntriesLabel.Visible = false; 
+                ReflectionHoursTextBox.Visible = false;
+                ReflectionHoursLabel.Visible = false;
+
+                ViewState.Add("TaskType", "Normal"); 
+            
             }
         }
 
@@ -77,7 +97,12 @@ namespace ECSEL.Candidate
 
             if (e.CommandName == "score")
             {
-                Response.Redirect("~/WebForms/TaskScore.aspx?versid=" + versID);
+                Response.Redirect("~/Candidate/TaskScore.aspx?versid=" + versID);
+                return; 
+            }
+            else if (e.CommandName == "delete")
+            {
+                return; 
             }
             else if (e.CommandName == "submission" || e.CommandName == "feedback")
             {
@@ -103,6 +128,16 @@ namespace ECSEL.Candidate
             }
         }
 
+        protected bool isDeleteVisible(bool RatingSubmitted)
+        {
+            return !RatingSubmitted; 
+        }
+
+        protected bool isScoreVisible(bool RatingSubmitted)
+        {
+            return RatingSubmitted; 
+        }
+
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             if (FileUpload1.HasFile == true)
@@ -113,6 +148,22 @@ namespace ECSEL.Candidate
                 string filename = FileUpload1.PostedFile.FileName;
                 int filesize = FileUpload1.PostedFile.ContentLength;
                 string filepath = taskid + "/" + version;
+                int numHours; 
+                numHours = Int32.TryParse(ReflectionHoursTextBox.Text, out numHours) == true ? numHours: -1;
+                int numEntries;
+                numEntries = Int32.TryParse(ReadingEntriesTextBox.Text, out numEntries) == true ? numEntries : -1; 
+
+                //make sure the user has entered appropriate fields if we are dealing with a log or reflection 
+                if (ViewState["TaskType"] == "Reflection" && numHours == -1)
+                {
+                    UploadLabel.Text = "Please enter an integer number of hours";
+                    return;
+                }
+                else if (ViewState["TaskType"] == "ReadingLog" && numEntries == -1) 
+                {
+                    UploadLabel.Text = "Please enter an integer number of entries";
+                    return; 
+                }
 
                 try
                 {
@@ -132,23 +183,25 @@ namespace ECSEL.Candidate
                     return;
                 }
 
-                ledeDB.submitAssignment(taskid, userID, version, filename, filepath, filesize);
-                UploadLabel.Text = "Upload Successfull!";
+                ledeDB.submitAssignment(taskid, userID, version, filename, filepath, filesize, numEntries, numHours);
+                UploadLabel.Text = "Upload Successful!";
+                UploadPanel.Visible = false; 
             }
             else
                 UploadLabel.Text = "Please choose a file to submit";
 
-        }
-        protected void ReadingListView_DataBound(object sender, EventArgs e)
+        }      
+
+        protected void UploadToggleButton_Click(object sender, EventArgs e)
         {
-            if (ReadingListView.Items.Any())
-                ReadingListView.InsertItem.Visible = false;
+            UploadPanel.Visible = true;
+            UploadToggleButton.Visible = false;  
         }
 
-        protected void ReflectionListView_DataBound(object sender, EventArgs e)
+        protected void CancelButton_Click(object sender, EventArgs e)
         {
-            if (ReflectionListView.Items.Any())
-                ReflectionListView.InsertItem.Visible = false;
+            UploadPanel.Visible = false;
+            UploadToggleButton.Visible = true;
         }        
     }
 }

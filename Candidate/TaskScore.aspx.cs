@@ -11,13 +11,14 @@ namespace ECSEL.Candidate
     public partial class TaskScore : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-            CoreScoreDataSource.SelectParameters["userid"].DefaultValue =
-                ImpactScoreDataSource.SelectParameters["userid"].DefaultValue =
-                User.Identity.GetUserId();
-
+        {            
             string versid = Request.QueryString["versid"];
+
+            if (versid == null)
+                Response.Redirect("~/Candidate/Tasks.aspx");
+
             Label1.Text = ledeDB.getScoreLabel(versid);
+            SeminarLabel.Text = ledeDB.getSeminarName(versid); 
         }
     }
 }

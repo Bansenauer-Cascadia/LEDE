@@ -30,21 +30,21 @@ public class ledeDB
     }
 
     //TaskRating Methods
-   
+
     public static IEnumerable getTaskRatings(string versid)
-    {        
+    {
         int VersIDint;
 
         if (versid == null)
-            return null; 
+            return null;
         else
             VersIDint = Convert.ToInt32(versid);
 
         List<CoreGridView> taskgrid = new List<CoreGridView>();
 
         var coretopics = db.CoreTopics.Where(c => c.Seminar.Tasks.
-            FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v=> v.VersID == VersIDint) != null ) != null).
-            Select(c => new { c.CoreTopicID, c.CoreTopicDesc, c.CoreRatings }); 
+            FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == VersIDint) != null) != null).
+            Select(c => new { c.CoreTopicID, c.CoreTopicDesc, c.CoreRatings });
 
         foreach (var c in coretopics)
         {
@@ -100,16 +100,16 @@ public class ledeDB
     [DataObjectMethod(DataObjectMethodType.Select)]
     public static IEnumerable getCoreRatings(string versid)
     {
-        int VersIDint = Convert.ToInt32(versid);        
+        int VersIDint = Convert.ToInt32(versid);
 
-        if (versid == null)            
+        if (versid == null)
             return null;
         else
             VersIDint = Convert.ToInt32(versid);
 
         var ratings = db.CoreRatings.
             Where(r => r.TaskRating.VersID == VersIDint && r.CoreTopic.Seminar.Tasks.
-                FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v=> v.VersID == VersIDint) != null ) == null).
+                FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == VersIDint) != null) == null).
             Select(r => new
             {
                 r.RatingID,
@@ -148,8 +148,8 @@ public class ledeDB
             Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore),
             Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore)
         };
-        
-        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete"; 
+
+        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete";
         db.TaskRatings.Add(taskRating);
         db.CoreRatings.Add(coreRating);
         db.SaveChanges();
@@ -163,13 +163,13 @@ public class ledeDB
         coreRating.Sscore = Sscore == null ? null : (int?)Convert.ToInt32(Sscore);
         coreRating.Pscore = Pscore == null ? null : (int?)Convert.ToInt32(Pscore);
         db.SaveChanges();
-    }    
+    }
 
     public static IEnumerable getImpactGrid(string versid)
     {
         int versidInt;
-        if (versid == null)        
-            return null;        
+        if (versid == null)
+            return null;
         else
             versidInt = Convert.ToInt32(versid);
 
@@ -206,7 +206,7 @@ public class ledeDB
             Lscore = Lscore == null ? null : (int?)Convert.ToInt32(Lscore)
         };
 
-        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete"; 
+        db.TaskVersions.Find(Convert.ToInt32(versID)).RatingStatus = "Complete";
         db.TaskRatings.Add(taskRating);
         db.ImpactTypeRatings.Add(impactRating);
         db.SaveChanges();
@@ -215,9 +215,10 @@ public class ledeDB
     //additional info select/ submission 
 
 
-    public static ReadingLog getReadingLog(string versid){
+    public static ReadingLog getReadingLog(string versid)
+    {
         if (versid == null)
-            return null; 
+            return null;
         var readinglog = db.ReadingLogs.Find(Convert.ToInt32(versid));
         return readinglog;
     }
@@ -225,9 +226,9 @@ public class ledeDB
     public static void updateReadingLog(int numEntries, string versid)
     {
         ReadingLog updateLog = db.ReadingLogs.Find(Convert.ToInt32(versid));
-       
 
-        db.SaveChanges(); 
+
+        db.SaveChanges();
     }
 
     public static void insertReadingLog(int numEntries, string versid)
@@ -235,21 +236,21 @@ public class ledeDB
         ReadingLog submitLog = new ReadingLog
         {
             VersID = Convert.ToInt32(versid),
-            
+
         };
 
         db.ReadingLogs.Add(submitLog);
-        db.SaveChanges(); 
+        db.SaveChanges();
     }
 
     public static InternReflection getReflectionEntry(string versid)
     {
         if (versid == null)
         {
-            return null; 
+            return null;
         }
         var reflection = db.InternReflections.Find(Convert.ToInt32(versid));
-        return reflection; 
+        return reflection;
     }
 
     public static void insertReflectionEntry(int NumHrs, string ReflectionDate, string versid)
@@ -257,21 +258,21 @@ public class ledeDB
         InternReflection insertReflection = new InternReflection
         {
             VersID = Convert.ToInt32(versid),
-            
+
             NumHrs = NumHrs
         };
 
-        db.InternReflections.Add(insertReflection); 
-        db.SaveChanges(); 
+        db.InternReflections.Add(insertReflection);
+        db.SaveChanges();
     }
 
     public static void updateReflectionEntry(int NumHrs, string ReflectionDate, string versid)
     {
         InternReflection updateReflection = db.InternReflections.Find(Convert.ToInt32(versid));
         updateReflection.NumHrs = NumHrs;
-       
 
-        db.SaveChanges(); 
+
+        db.SaveChanges();
     }
 
     //drop downs
@@ -282,16 +283,16 @@ public class ledeDB
             Select(u => new { LastName = u.LastName + ", " + u.FirstName, u.Id });
         return users;
     }*/
-   
+
     public static Task getTask(int versid)
     {
         if (versid == 0)
             return null;
-        var task = db.Tasks.Include(t=> t.Seminar).FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == versid) != null); 
+        var task = db.Tasks.Include(t => t.Seminar).FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == versid) != null);
         if (task == null)
             return null;
         else
-            return task; 
+            return task;
     }
 
     public static string getCandidateName(int versid)
@@ -302,19 +303,19 @@ public class ledeDB
         if (taskversion == null)
             return null;
         else
-            return taskversion.User.LastName + " " + taskversion.User.FirstName; 
+            return taskversion.User.LastName + " " + taskversion.User.FirstName;
     }
 
     public static IEnumerable<Task> getTasks()
     {
-        var sel = db.Tasks.Where(t=> t.TaskVersions.FirstOrDefault() != null);
+        var sel = db.Tasks.Where(t => t.TaskVersions.FirstOrDefault() != null);
         return sel;
     }
 
     public static IEnumerable getVersion(string versid)
     {
         if (versid == null)
-            return null; 
+            return null;
         int versidint = Convert.ToInt32(versid);
         TaskVersion version = db.TaskVersions.Find(versidint);
         if (version != null)
@@ -324,17 +325,13 @@ public class ledeDB
         }
         else
             return null;
-        
+
 
     }
     //Task Score Methods
 
-    public static IEnumerable getUploadTasks()
-    {
-        return db.Tasks; 
-    }
     public static IEnumerable getCoreScores(int versid, int userid)
-    {
+    {      
         var scores = db.CoreRatings.Where(r => r.TaskRating.VersID == versid && r.TaskRating.TaskVersion.ID == userid).
             Select(r => new
         {
@@ -379,7 +376,15 @@ public class ledeDB
     }
     public static string getInitialSeminarLabel()
     {
-        return getSeminarLabel(initializeTaskSelectedValue()); 
+        return getSeminarLabel(initializeTaskSelectedValue());
+    }
+
+    public static string getSeminarName(string versid)
+    {
+        int versidint = Convert.ToInt32(versid);
+        var seminar = db.TaskVersions.Find(versidint).Task.Seminar;
+        return seminar.SeminarTitle; 
+
     }
 
 
@@ -392,7 +397,7 @@ public class ledeDB
         int TaskIDint = Convert.ToInt32(taskID);
         int UserIDint = Convert.ToInt32(userID);
 
-        var uploads = db.TaskVersions.Where(v => v.TaskID == TaskIDint && v.ID == UserIDint).
+        var uploads = db.TaskVersions.Include(t=> t.TaskRatings).Where(v => v.TaskID == TaskIDint && v.ID == UserIDint).
             Select(v => new
             {
                 v.VersID,
@@ -401,22 +406,49 @@ public class ledeDB
                 v.Document.FileName,
                 v.Document.UploadDate,
                 feedbackfilename = v.FeedbackDocument.FileName,
-                feedbackuploaddate = (DateTime?)v.FeedbackDocument.UploadDate
-            });
+                feedbackuploaddate = (DateTime?)v.FeedbackDocument.UploadDate,
+                RatingSubmitted = (v.TaskRatings.FirstOrDefault() != null)
+            }).OrderByDescending(v=> v.Version);
 
         return uploads;
     }
 
+    public static void deleteTaskVersion(int versid)
+    {
+        TaskVersion deleteVersion = db.TaskVersions.Find(versid);
+        ReadingLog deleteLog = deleteVersion.ReadingLogEntry;
+        InternReflection deleteReflection = deleteVersion.InternReflection;
+        if (deleteLog != null)
+            db.ReadingLogs.Remove(deleteLog);
+        else if (deleteReflection != null)
+            db.InternReflections.Remove(deleteReflection);
+        db.TaskVersions.Remove(deleteVersion);
+
+        db.SaveChanges(); 
+        
+    }
+
+    public static string getTaskLabel(int taskid)
+    {
+        Task task = db.Tasks.Find(taskid);
+        return task.TaskCode + ": " + task.TaskName;  
+    }
+
+    public static IEnumerable getUploadTasks()
+    {
+        return db.Tasks; 
+    }
+
     public static IEnumerable getCoreTopics(string versid)
     {
-        if ( versid == null)
+        if (versid == null)
             return null;
         else
-        {            
+        {
             int versidInt = Convert.ToInt32(versid);
 
             var topics = db.CoreTopics.Where(c => c.Seminar.Tasks.FirstOrDefault(t => t.TaskVersions.
-                FirstOrDefault(v=> v.VersID == versidInt) != null) == null &&
+                FirstOrDefault(v => v.VersID == versidInt) != null) == null &&
                 c.CoreRatings.FirstOrDefault(r => r.TaskRating.VersID == versidInt) == null);
             return topics;
         }
@@ -434,9 +466,9 @@ public class ledeDB
     }
 
     public static void submitAssignment(string taskid, string userid, string version,
-        string filename, string filepath, int filesize)
+        string filename, string filepath, int filesize, int numEntires, int numHours)
     {
-        DateTime UniversalTime = DateTime.UtcNow;  
+        DateTime UniversalTime = DateTime.UtcNow;
         DateTime date = UniversalTime.AddHours(-7);
         Document uploadDoc = new Document
         {
@@ -453,10 +485,23 @@ public class ledeDB
             ID = Convert.ToInt32(userid),
             Version = Convert.ToInt32(version),
             RatingStatus = "Pending"
-        };
+        };       
 
         db.Documents.Add(uploadDoc);
         db.TaskVersions.Add(uploadTask);
+
+        if (numEntires > 0) //enter a Reading Log
+        {
+            ReadingLog log = new ReadingLog { NumEntries = numEntires, TaskVersion = uploadTask };
+            db.ReadingLogs.Add(log); 
+        }
+
+        if (numHours > 0)
+        {
+            InternReflection reflection = new InternReflection { NumHrs = numHours, TaskVersion = uploadTask };
+            db.InternReflections.Add(reflection); 
+        }
+
         db.SaveChanges();
     }
 
@@ -476,8 +521,8 @@ public class ledeDB
 
     public static IEnumerable getUsers()
     {
-        Role candidateRole = db.Roles.Find(1); 
-        var users = db.Users.Where(u=> u.Roles.FirstOrDefault(r=> r.RoleId == 1) != null).Select(u => new { u.Id, name = u.LastName + ", " + u.FirstName }).OrderBy(u => u.name);
+        Role candidateRole = db.Roles.Find(1);
+        var users = db.Users.Where(u => u.Roles.FirstOrDefault(r => r.RoleId == 1) != null).Select(u => new { u.Id, name = u.LastName + ", " + u.FirstName }).OrderBy(u => u.name);
         return users;
     }
 
@@ -488,12 +533,12 @@ public class ledeDB
             v.VersID,
             Assignment = v.Task.TaskCode + ": " + v.Task.TaskName,
             v.Version,
-            v.Document.FileName, 
+            v.Document.FileName,
             v.Document.UploadDate,
             FeedbackFileName = v.FeedbackDocument.FileName,
-            FeedbackUploadDate = (DateTime?)v.FeedbackDocument.UploadDate, 
+            FeedbackUploadDate = (DateTime?)v.FeedbackDocument.UploadDate,
             v.RatingStatus,
-            RatingLink = (v.RatingStatus == "Complete")? "View Rating" : "Rate Now"
+            RatingLink = (v.RatingStatus == "Complete") ? "View Rating" : "Rate Now"
         });
 
         switch (sortOrder)
@@ -503,16 +548,16 @@ public class ledeDB
             case "uploaddate DESC":
                 return assignments.OrderByDescending(a => a.UploadDate);
             case "assignment, version":
-                return assignments.OrderBy(a=> a.Assignment).ThenByDescending(a=> a.Version); 
+                return assignments.OrderBy(a => a.Assignment).ThenByDescending(a => a.Version);
             case "assignment, version DESC":
-                return assignments.OrderByDescending(a => a.Assignment).ThenByDescending(a=> a.Version); 
+                return assignments.OrderByDescending(a => a.Assignment).ThenByDescending(a => a.Version);
             case "ratingstatus":
-                return assignments.OrderBy(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenBy(a => a.Version); 
+                return assignments.OrderBy(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenBy(a => a.Version);
             case "ratingstatus DESC":
-                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version); 
+                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version);
             default:
-                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version); 
-        }        
+                return assignments.OrderByDescending(a => a.RatingStatus).ThenBy(a => a.Assignment).ThenByDescending(a => a.Version);
+        }
     }
 
     public static void submitFeedback(Document feedbackDoc, int versid)
@@ -524,18 +569,18 @@ public class ledeDB
     }
 
     //Conditional Formatting For Reading Log and Impact Entries 
-    private static List<int> getTaskIDs (int taskType)
-    {        
+    private static List<int> getTaskIDs(int taskType)
+    {
         List<int> readingIDs = new List<int>();
-        foreach (var task in db.Tasks.Where(t => t.TaskTypeID == taskType)) 
-        {           
+        foreach (var task in db.Tasks.Where(t => t.TaskTypeID == taskType))
+        {
             readingIDs.Add(task.TaskID);
         }
 
         return readingIDs;
     }
 
-    public static List<int> getReadingTaskIDs ()
+    public static List<int> getReadingTaskIDs()
     {
         return getTaskIDs(2);
     }
@@ -548,12 +593,12 @@ public class ledeDB
     public static int initializeTaskSelectedValue()
     {
         var value = getTasks();
-        string foo = value.FirstOrDefault().TaskID.ToString(); 
-        return value.FirstOrDefault().TaskID;      
+        string foo = value.FirstOrDefault().TaskID.ToString();
+        return value.FirstOrDefault().TaskID;
     }
     //Account methods
     public static IEnumerable getRoles()
     {
-        return db.Roles; 
+        return db.Roles;
     }
 }

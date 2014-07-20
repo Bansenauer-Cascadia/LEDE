@@ -181,19 +181,19 @@
                         <asp:RangeValidator ID="CEditValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="CText" Type="Integer" runat="server"
                             ErrorMessage="C Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>'></asp:TextBox>
-                        <asp:RangeValidator ID="PEditValidator" MinimumValue="0" MaximumValue="3"
-                            ControlToValidate="PText" Type="Integer" runat="server"
-                            ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
-                    </td>
+                    </td>                    
                     <td>
                         <asp:TextBox ID="SText" runat="server" Text='<%# Bind("Sscore") %>'></asp:TextBox>
                         <asp:RangeValidator ID="SEditValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="SText" Type="Integer" runat="server"
                             ErrorMessage="S Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
                     </td> 
+                    <td>
+                        <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>'></asp:TextBox>
+                        <asp:RangeValidator ID="PEditValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="PText" Type="Integer" runat="server"
+                            ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
+                    </td>
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" ValidationGroup="CoreEdit" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
@@ -214,12 +214,12 @@
                     </td>
                     <td>
                         <asp:Label ID="CLabel" runat="server" Text='<%# Eval("Cscore") %>'></asp:Label>
+                    </td>                    
+                    <td>
+                        <asp:Label ID="RLabel" runat="server" Text='<%# Eval("Sscore") %>'></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="PLabel" runat="server" Text='<%# Eval("Pscore") %>'></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="RLabel" runat="server" Text='<%# Eval("Sscore") %>'></asp:Label>
                     </td>
                     <td>
                         <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Clear"/>
@@ -235,8 +235,8 @@
                                 <tr runat="server" style="">                                    
                                     <th runat="server">Core Topic</th>
                                     <th runat="server">Conceptual</th>
-                                    <th runat="server">Personal</th>
                                     <th runat="server">Strategic</th>
+                                    <th runat="server">Personal</th>
                                     <th runat="server"></th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
@@ -297,19 +297,19 @@
                         <asp:RangeValidator ID="AllCEditValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="CText" Type="Integer" runat="server"
                             ErrorMessage="C Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>'></asp:TextBox>
-                        <asp:RangeValidator ID="AllPEditValidator" MinimumValue="0" MaximumValue="3"
-                            ControlToValidate="PText" Type="Integer" runat="server"
-                            ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
-                    </td>
+                    </td>                    
                     <td>
                         <asp:TextBox ID="SText" runat="server" Text='<%# Bind("Sscore") %>'></asp:TextBox>
                         <asp:RangeValidator ID="AllSEditValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="SText" Type="Integer" runat="server"
                             ErrorMessage="S Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
                     </td> 
+                    <td>
+                        <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>'></asp:TextBox>
+                        <asp:RangeValidator ID="AllPEditValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="PText" Type="Integer" runat="server"
+                            ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
+                    </td>
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" ValidationGroup="AllCoreEdit"/>
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
@@ -335,18 +335,18 @@
                         <asp:RangeValidator ID="AllCInsertValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="CText" Type="Integer" runat="server"
                             ErrorMessage="C Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
+                    </td>                    
+                    <td>
+                        <asp:TextBox ID="SText" runat="server" Text='<%# Bind("Sscore") %>'></asp:TextBox>
+                        <asp:RangeValidator ID="AllSInsertValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="SText" Type="Integer" runat="server"
+                            ErrorMessage="S Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
                     </td>
                     <td>
                         <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>'></asp:TextBox>
                         <asp:RangeValidator ID="AllPInsertValidator" MinimumValue="0" MaximumValue="3"
                             ControlToValidate="PText" Type="Integer" runat="server"
                             ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="SText" runat="server" Text='<%# Bind("Sscore") %>'></asp:TextBox>
-                        <asp:RangeValidator ID="AllSInsertValidator" MinimumValue="0" MaximumValue="3"
-                            ControlToValidate="SText" Type="Integer" runat="server"
-                            ErrorMessage="S Score Must Be Between 0 and 3" ValidationGroup="AllCoreEdit">*</asp:RangeValidator>
                     </td>
                      <td>
                         <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" ValidationGroup="AllCoreEdit"/>
@@ -361,12 +361,12 @@
                     </td>
                     <td>
                         <asp:Label ID="CLabel" runat="server" Text='<%# Eval("Cscore") %>'></asp:Label>
+                    </td>                    
+                    <td>
+                        <asp:Label ID="RLabel" runat="server" Text='<%# Eval("Sscore") %>'></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="PLabel" runat="server" Text='<%# Eval("Pscore") %>'></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="RLabel" runat="server" Text='<%# Eval("Sscore") %>'></asp:Label>
                     </td>
                     <td>
                         <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" />
@@ -382,8 +382,8 @@
                                 <tr runat="server" style="">                                    
                                     <th runat="server">Core Topic</th>
                                     <th runat="server">Conceptual</th>
-                                    <th runat="server">Personal</th>
                                     <th runat="server">Strategic</th>
+                                    <th runat="server">Personal</th>
                                     <th runat="server"></th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
@@ -488,9 +488,9 @@
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="0" style="">
                                 <tr runat="server">                                                                        
-                                    <th runat="server">Structures & Operations (S)</th>
-                                    <th runat="server">Professional Practices (P)</th>
-                                    <th runat="server">Student Learning (L)</th>
+                                    <th runat="server">Structures & Operations</th>
+                                    <th runat="server">Professional Practices</th>
+                                    <th runat="server">Student Learning</th>
                                     <th runat="server"></th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
