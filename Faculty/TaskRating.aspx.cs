@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ECSEL.Models; 
+using ECSEL.Models;
+using Microsoft.AspNet.Identity; 
 
 namespace ECSEL.Faculty
 {
@@ -37,10 +38,10 @@ namespace ECSEL.Faculty
                 task = ledeDB.getTask(versid);
             }
 
-            //make sure we get faculty ID for inserting new ratings            UNCOMMENT FACULTY ID GETTER!!! 
+            //make sure we get faculty ID for inserting new ratings           
             CoreRatingDataSource.InsertParameters["FacultyID"].DefaultValue =
                 TaskRatingDataSource.UpdateParameters["FacultyID"].DefaultValue =
-                ImpactGridDataSource.InsertParameters["FacultyID"].DefaultValue = /*User.Identity.GetUserId()*/ "3";
+                ImpactGridDataSource.InsertParameters["FacultyID"].DefaultValue = User.Identity.GetUserId();
 
             //Set up conditional formatting 
             if (task != null && versid != 0)

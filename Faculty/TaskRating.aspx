@@ -14,7 +14,7 @@
                         DataValueField="versid">
                     </asp:DropDownList> 
                 </td>
-            </tr>            
+            </tr>           
         </table>
         
         <asp:Panel ID="AdditionalDataPanel" runat="server">
@@ -97,8 +97,11 @@
                 DataKeyNames="versid" OnDataBound="ReflectionListView_DataBound" InsertItemPosition="FirstItem">
                 <ItemTemplate>
                     <td>
-                        <asp:Label ID="PageText" runat="server" Text='<%# Eval("NumHrs") %>'></asp:Label>                        
-                    </td>                                                    
+                        <asp:Label ID="HoursText" runat="server" Text='<%# Eval("NumHrs") %>'></asp:Label>                        
+                    </td>  
+                    <td>
+                        <asp:Label ID="SumHoursText" runat="server" Text='<%# Eval("SumHrs") %>'></asp:Label>
+                    </td>                                                  
                     <td>                       
                         <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
                     </td>                 
@@ -125,6 +128,9 @@
                             ErrorMessage="Please enter number of hours" ValidationGroup="ReflectionEdit">*</asp:RequiredFieldValidator>
                          <asp:CompareValidator ControlToValidate="HoursText" Type="Integer" runat="server" Operator="DataTypeCheck"
                             ErrorMessage="Please enter an integer number of hours" ValidationGroup="ReflectionEdit">*</asp:CompareValidator>
+                    </td>    
+                     <td>
+                        <asp:Label ID="SumHoursText" runat="server" Text='<%# Eval("SumHrs") %>'></asp:Label>
                     </td>                    
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" ValidationGroup="ReflectionEdit" />
@@ -137,7 +143,8 @@
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="0" style="">
                                 <tr runat="server" style="">                                                                        
-                                    <th runat="server">Number of Hours</th>                                                                       
+                                    <th runat="server">Entry Hours</th>
+                                    <th runat="server">Cumulative Hours</th>                                                                       
                                     <th runat="server"></th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
@@ -221,9 +228,9 @@
                     <td>
                         <asp:Label ID="PLabel" runat="server" Text='<%# Eval("Pscore") %>'></asp:Label>
                     </td>
-                    <td>
-                        <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Clear"/>
+                    <td>                        
                         <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Clear"/>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -369,8 +376,8 @@
                         <asp:Label ID="PLabel" runat="server" Text='<%# Eval("Pscore") %>'></asp:Label>
                     </td>
                     <td>
-                        <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" />
                         <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                        <asp:Button ID="DeleteButton" runat="server" CommandName="Clear" Text="Clear" />
                     </td>
                 </tr>
             </ItemTemplate>

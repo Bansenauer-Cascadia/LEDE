@@ -44,7 +44,7 @@ public class ledeDB
 
         var coretopics = db.CoreTopics.Where(c => c.Seminar.Tasks.
             FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == VersIDint) != null) != null).
-            Select(c => new { c.CoreTopicID, c.CoreTopicDesc, c.CoreRatings });
+            Select(c => new { c.CoreTopicID, CoreTopicDesc = c.CoreTopicNum + ": " + c.CoreTopicDesc, c.CoreRatings });
 
         foreach (var c in coretopics)
         {
@@ -113,7 +113,7 @@ public class ledeDB
             Select(r => new
             {
                 r.RatingID,
-                r.CoreTopic.CoreTopicDesc,
+                CoreTopicDesc = r.CoreTopic.CoreTopicNum + ": " + r.CoreTopic.CoreTopicDesc,
                 r.Cscore,
                 r.Pscore,
                 r.Sscore
@@ -223,10 +223,10 @@ public class ledeDB
         return readinglog;
     }
 
-    public static void updateReadingLog(int numEntries, string versid)
+    public static void updateReadingLog(int numEntries, int versid)
     {
-        ReadingLog updateLog = db.ReadingLogs.Find(Convert.ToInt32(versid));
-
+        ReadingLog updateLog = db.ReadingLogs.Find(versid);
+        updateLog.NumEntries = numEntries; 
 
         db.SaveChanges();
     }
@@ -243,17 +243,25 @@ public class ledeDB
         db.SaveChanges();
     }
 
-    public static InternReflection getReflectionEntry(string versid)
+    public static InternGrid getReflectionEntry(string versid)
     {
-        if (versid == null)
-        {
-            return null;
-        }
-        var reflection = db.InternReflections.Find(Convert.ToInt32(versid));
-        return reflection;
+        if (versid == null)        
+            return null;        
+
+        int versidint = Convert.ToInt32(versid);
+        int userid = db.TaskVersions.Find(versidint).ID;
+
+        var reflections = db.InternReflections.Where(r => r.TaskVersion.ID == userid);
+        if (reflections == null)
+            return null; 
+
+        double SumHrs = reflections.Sum(r=> r.NumHrs);
+        double NumHrs = db.InternReflections.Find(versidint).NumHrs;
+
+        return new InternGrid() { versid = versidint, NumHrs = NumHrs, SumHrs = SumHrs };
     }
 
-    public static void insertReflectionEntry(int NumHrs, string ReflectionDate, string versid)
+    public static void insertReflectionEntry(double NumHrs, string ReflectionDate, string versid)
     {
         InternReflection insertReflection = new InternReflection
         {
@@ -266,23 +274,14 @@ public class ledeDB
         db.SaveChanges();
     }
 
-    public static void updateReflectionEntry(int NumHrs, string ReflectionDate, string versid)
+    public static void updateReflectionEntry(double NumHrs, int versid)
     {
-        InternReflection updateReflection = db.InternReflections.Find(Convert.ToInt32(versid));
+        InternReflection updateReflection = db.InternReflections.Find(versid);
         updateReflection.NumHrs = NumHrs;
 
 
         db.SaveChanges();
     }
-
-    //drop downs
-    /*public static IEnumerable getUsers(string taskID)
-    {
-        int IntTaskID = Convert.ToInt32(taskID);
-        var users = db.Users.Where(u => u.TaskVersions.FirstOrDefault(v => v.TaskID == IntTaskID) != null).
-            Select(u => new { LastName = u.LastName + ", " + u.FirstName, u.Id });
-        return users;
-    }*/
 
     public static Task getTask(int versid)
     {
@@ -303,7 +302,7 @@ public class ledeDB
         if (taskversion == null)
             return null;
         else
-            return taskversion.User.LastName + " " + taskversion.User.FirstName;
+            return taskversion.User.LastName + ", " + taskversion.User.FirstName;
     }
 
     public static IEnumerable<Task> getTasks()
@@ -449,7 +448,8 @@ public class ledeDB
 
             var topics = db.CoreTopics.Where(c => c.Seminar.Tasks.FirstOrDefault(t => t.TaskVersions.
                 FirstOrDefault(v => v.VersID == versidInt) != null) == null &&
-                c.CoreRatings.FirstOrDefault(r => r.TaskRating.VersID == versidInt) == null);
+                c.CoreRatings.FirstOrDefault(r => r.TaskRating.VersID == versidInt) == null).
+                Select(t => new {t.CoreTopicID, CoreTopicDesc = t.CoreTopicNum + ": " + t.CoreTopicDesc});
             return topics;
         }
     }

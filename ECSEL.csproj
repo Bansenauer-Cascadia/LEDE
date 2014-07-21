@@ -341,6 +341,7 @@
     <Compile Include="Models\CoreTopic.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\FormModels\CoreGridView.cs" />
+    <Compile Include="Models\FormModels\InternGrid.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImpactTypeRating.cs" />
     <Compile Include="Models\InternReflection.cs" />
