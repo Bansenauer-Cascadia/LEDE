@@ -26,8 +26,8 @@
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
             ControlToValidate="ReflectionHoursTextBox" runat="server"
             ErrorMessage="Please enter number of hours" ValidationGroup="Upload">*</asp:RequiredFieldValidator>
-        <asp:CompareValidator ControlToValidate="ReflectionHoursTextBox" Type="Integer" runat="server" Operator="DataTypeCheck"
-            ErrorMessage="Please enter an integer number of hours" ValidationGroup="Upload">*</asp:CompareValidator>
+        <asp:CompareValidator ControlToValidate="ReflectionHoursTextBox" Type="Double" runat="server" Operator="DataTypeCheck"
+            ErrorMessage="Please enter a number value of hours" ValidationGroup="Upload">*</asp:CompareValidator>
 
         <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" ValidationGroup="Upload" />        
         <asp:Button ID="ReflectionSubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" ValidationGroup="Upload" />

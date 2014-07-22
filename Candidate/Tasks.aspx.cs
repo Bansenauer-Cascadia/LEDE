@@ -152,18 +152,18 @@ namespace ECSEL.Candidate
                 string filename = FileUpload1.PostedFile.FileName;
                 int filesize = FileUpload1.PostedFile.ContentLength;
                 string filepath = taskid + "/" + version;
-                int numHours; 
-                numHours = Int32.TryParse(ReflectionHoursTextBox.Text, out numHours) == true ? numHours: -1;
+                double numHours; 
+                numHours = Double.TryParse(ReflectionHoursTextBox.Text, out numHours) == true ? numHours: -1;
                 int numEntries;
                 numEntries = Int32.TryParse(ReadingEntriesTextBox.Text, out numEntries) == true ? numEntries : -1; 
 
                 //make sure the user has entered appropriate fields if we are dealing with a log or reflection 
-                if (ViewState["TaskType"] == "Reflection" && numHours == -1)
+                if ((string)ViewState["TaskType"] == "Reflection" && numHours == -1)
                 {
                     UploadLabel.Text = "Please enter an integer number of hours";
                     return;
                 }
-                else if (ViewState["TaskType"] == "ReadingLog" && numEntries == -1) 
+                else if ((string)ViewState["TaskType"] == "ReadingLog" && numEntries == -1) 
                 {
                     UploadLabel.Text = "Please enter an integer number of entries";
                     return; 

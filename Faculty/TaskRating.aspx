@@ -112,7 +112,7 @@
                         <asp:RequiredFieldValidator ID="PageTextValidator" 
                             ControlToValidate="HoursText" runat="server" 
                             ErrorMessage="Please enter number of hours" ValidationGroup="ReflectionEdit">*</asp:RequiredFieldValidator>
-                        <asp:CompareValidator ControlToValidate="HoursText" Type="Integer" runat="server" Operator="DataTypeCheck"
+                        <asp:CompareValidator ControlToValidate="HoursText" Type="Double" runat="server" Operator="DataTypeCheck"
                             ErrorMessage="Please enter an integer number of hours" ValidationGroup="ReflectionEdit">*</asp:CompareValidator>                        
                     </td>                             
                     <td>

@@ -258,7 +258,7 @@ public class ledeDB
         double SumHrs = reflections.Sum(r=> r.NumHrs);
         double NumHrs = db.InternReflections.Find(versidint).NumHrs;
 
-        return new InternGrid() { versid = versidint, NumHrs = NumHrs, SumHrs = SumHrs };
+        return new InternGrid() { versid = versidint, NumHrs = NumHrs, SumHrs = SumHrs};
     }
 
     public static void insertReflectionEntry(double NumHrs, string ReflectionDate, string versid)
@@ -466,7 +466,7 @@ public class ledeDB
     }
 
     public static void submitAssignment(string taskid, string userid, string version,
-        string filename, string filepath, int filesize, int numEntires, int numHours)
+        string filename, string filepath, int filesize, int numEntires, double numHours)
     {
         DateTime UniversalTime = DateTime.UtcNow;
         DateTime date = UniversalTime.AddHours(-7);
