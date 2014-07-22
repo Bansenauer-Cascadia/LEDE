@@ -190,6 +190,7 @@ namespace ECSEL.Candidate
                 ledeDB.submitAssignment(taskid, userID, version, filename, filepath, filesize, numEntries, numHours);
                 UploadLabel.Text = "Upload Successful!";
                 UploadPanel.Visible = false;
+                UploadToggleButton.Visible=false;
                 UploadGridView.DataBind(); // refresh the gridview to show the uploaded file
             }
             else
