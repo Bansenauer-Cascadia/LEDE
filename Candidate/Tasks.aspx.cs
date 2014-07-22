@@ -157,7 +157,7 @@ namespace ECSEL.Candidate
                 int numEntries;
                 numEntries = Int32.TryParse(ReadingEntriesTextBox.Text, out numEntries) == true ? numEntries : -1; 
 
-                //make sure the user has entered appropriate fields if we are dealing with a log or reflection 
+                //server side validation for log or reflection 
                 if ((string)ViewState["TaskType"] == "Reflection" && numHours == -1)
                 {
                     UploadLabel.Text = "Please enter an integer number of hours";

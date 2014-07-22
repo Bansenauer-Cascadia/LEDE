@@ -380,7 +380,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Admin\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407190158403_shouldbenull.resx">
       <DependentUpon>201407190158403_shouldbenull.cs</DependentUpon>
