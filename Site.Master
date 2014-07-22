@@ -90,7 +90,7 @@
     </form>
     <hr />
     <footer>
-        <p>&copy; <%: DateTime.Now.Year %> - University of Washington, Bothell</p>
+        <!--<p>&copy; <%: DateTime.Now.Year %> - University of Washington, Bothell</p>-->
     </footer>
 </body>
 </html>
