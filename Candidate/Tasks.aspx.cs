@@ -39,7 +39,7 @@ namespace ECSEL.Candidate
             }
             //reset Upload Panel
             UploadLabel.Text = "";
-            UploadPanel.Visible = true;
+            UploadToggleButton.Visible = true;
             
         }
 
