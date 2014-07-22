@@ -37,6 +37,10 @@ namespace ECSEL.Candidate
             {
                 formatForTask(Convert.ToInt32(taskNameDropDown.SelectedValue));
             }
+            //reset Upload Panel
+            UploadLabel.Text = "";
+            UploadPanel.Visible = true;
+            
         }
 
         private void formatForTask(int taskID)
