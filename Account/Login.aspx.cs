@@ -13,13 +13,11 @@ namespace ECSEL.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Context.User.IsInRole("Candidate"))
-            {
-                Response.Redirect("~/Candidate"); 
-            }
+                Response.Redirect("~/Candidate");
             else if (Context.User.IsInRole("Faculty"))
-            {
-                Response.Redirect("~/Faculty"); 
-            }
+                Response.Redirect("~/Faculty");
+            else if (Context.User.IsInRole("Super Admin") || Context.User.IsInRole("ECSEL Admin"))
+                Response.Redirect("~/Admin");
             // Enable this once you have account confirmation enabled for password reset functionality
             // ForgotPasswordHyperLink.NavigateUrl = "Forgot";
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);           

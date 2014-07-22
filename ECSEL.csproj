@@ -165,14 +165,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Account\Confirm.aspx" />
-    <Content Include="Account\Forgot.aspx" />
+    <Content Include="Admin\Confirm.aspx" />
+    <Content Include="Admin\Forgot.aspx" />
     <Content Include="Account\Login.aspx" />
-    <Content Include="Account\Manage.aspx" />
+    <Content Include="Admin\Manage.aspx" />
     <Content Include="Account\OpenAuthProviders.ascx" />
-    <Content Include="Account\Register.aspx" />
-    <Content Include="Account\ResetPassword.aspx" />
-    <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Admin\Register.aspx" />
+    <Content Include="Admin\ResetPassword.aspx" />
+    <Content Include="Admin\ResetPasswordConfirmation.aspx" />
     <Content Include="Candidate\Tasks.aspx" />
     <Content Include="Candidate\TaskScore.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -188,6 +188,7 @@
     <Content Include="Account\Web.config" />
     <Content Include="Candidate\Web.config" />
     <Content Include="Faculty\Web.config" />
+    <Content Include="Admin\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -235,18 +236,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\Confirm.aspx.cs">
+    <Compile Include="Admin\Confirm.aspx.cs">
       <DependentUpon>Confirm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\Confirm.aspx.designer.cs">
+    <Compile Include="Admin\Confirm.aspx.designer.cs">
       <DependentUpon>Confirm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Forgot.aspx.cs">
+    <Compile Include="Admin\Forgot.aspx.cs">
       <DependentUpon>Forgot.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\Forgot.aspx.designer.cs">
+    <Compile Include="Admin\Forgot.aspx.designer.cs">
       <DependentUpon>Forgot.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Login.aspx.cs">
@@ -256,11 +257,11 @@
     <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Manage.aspx.cs">
+    <Compile Include="Admin\Manage.aspx.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\Manage.aspx.designer.cs">
+    <Compile Include="Admin\Manage.aspx.designer.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\OpenAuthProviders.ascx.cs">
@@ -270,25 +271,25 @@
     <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
       <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Register.aspx.cs">
+    <Compile Include="Admin\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\Register.aspx.designer.cs">
+    <Compile Include="Admin\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\ResetPassword.aspx.cs">
+    <Compile Include="Admin\ResetPassword.aspx.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\ResetPassword.aspx.designer.cs">
+    <Compile Include="Admin\ResetPassword.aspx.designer.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\ResetPasswordConfirmation.aspx.cs">
+    <Compile Include="Admin\ResetPasswordConfirmation.aspx.cs">
       <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
+    <Compile Include="Admin\ResetPasswordConfirmation.aspx.designer.cs">
       <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Data\ledeDB.cs" />
@@ -380,9 +381,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407190158403_shouldbenull.resx">
       <DependentUpon>201407190158403_shouldbenull.cs</DependentUpon>
