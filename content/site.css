@@ -32,7 +32,9 @@ body {
     /*padding-top: 100px;*/
     padding-bottom: 0;
     margin:0 auto;
-    background:#D2D1D1;
+    background:#FFF;
+    /*if wrapper div included around content, then use*/
+    /*background:#D2D1D1; */
 }
 
 /* Wrapping element */
@@ -59,8 +61,17 @@ table th, table td{
     padding:5px;
 }
 
+table th{
+    background-color:#00563B;
+    color:#FFF;
+}
+
 table tr:nth-of-type(even){
     background-color:#7DB9EF;
+}
+
+td:empty{
+    display:none;
 }
 
 table.table-dashboard{
@@ -80,6 +91,17 @@ input[type="email"] {
     max-width: 280px;
 }
 
+input[type="submit"]{
+    min-width:80px;
+    background-color:#D2D1D1;
+    border-width:0 2px 2px 0;
+    border-radius:10px;
+}
+
+input[type="submit"]:hover, input[type="submit"]:active{
+    background-color:#FFF;
+}
+
 /* 01.07 BUTTONS
 *****************************/
 .btn-primary{
@@ -89,6 +111,7 @@ input[type="email"] {
 .btn-primary:hover{
 	background-color:#005638;
 }
+
 
 /* 02.00 HEADER
 *****************************/
