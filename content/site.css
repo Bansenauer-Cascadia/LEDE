@@ -29,7 +29,7 @@
 *****************************/
 /* Move down content if using fixed navbar */
 body {
-    /*padding-top: 100px;*/
+    padding-top: 75px;
     padding-bottom: 0;
     margin:0 auto;
     background:#FFF;
@@ -66,8 +66,22 @@ table th{
     color:#FFF;
 }
 
+table th a{
+    color:#FFF;
+}
+
+table th a:hover{
+    color:#F8F4B2;
+}
+
+table th a:after{
+    content:" [sort by]";
+    font-size:64%;
+    vertical-align:top;
+}
+
 table tr:nth-of-type(even){
-    background-color:#7DB9EF;
+    background-color:#F8F4B2;
 }
 
 td:empty{
@@ -82,6 +96,17 @@ table.table-dashboard > tr:nth-of-type(even){
     background-color:#008457;
 }
 
+td input[type="submit"]{
+    min-width:80px;
+    background-color:#D2D1D1;
+    border-width:0 2px 2px 0;
+    border-radius:10px;
+}
+
+td input[type="submit"]:hover, td input[type="submit"]:active{
+    background-color:#FFF;
+}
+
 /* 01.06 FORMS
 *****************************/
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -89,17 +114,7 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
     max-width: 280px;
-}
-
-input[type="submit"]{
-    min-width:80px;
-    background-color:#D2D1D1;
-    border-width:0 2px 2px 0;
-    border-radius:10px;
-}
-
-input[type="submit"]:hover, input[type="submit"]:active{
-    background-color:#FFF;
+    min-width:150px;
 }
 
 /* 01.07 BUTTONS
