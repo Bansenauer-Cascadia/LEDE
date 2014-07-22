@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Tasks</h1>
 
-    Performance Task:<asp:DropDownList ID="taskNameDropDown" runat="server" DataSourceID="taskNameDataSource"
+    <h2>Performance Task:<asp:DropDownList ID="taskNameDropDown" runat="server" DataSourceID="taskNameDataSource"
         DataValueField="TaskID" DataTextField="TaskName" AutoPostBack="True">
     </asp:DropDownList>
-    <br />
+    </h2>
     <asp:Button ID="UploadToggleButton" runat="server" OnClick="UploadToggleButton_Click" Text="Upload" />
     <asp:Panel ID="UploadPanel" runat="server" Visible="false">
         File<asp:FileUpload ID="FileUpload1" runat="server" />
@@ -47,9 +47,9 @@
 
     <asp:ObjectDataSource runat="server" ID="TaskNameDataSource" SelectMethod="getUploadTasks" TypeName="ledeDB"></asp:ObjectDataSource>
 
-    <br />
-    Submissions For Task <asp:Label ID="TaskLabel" runat = server></asp:Label>:
-        <br />
+    <h2>
+    Submissions for Task <asp:Label ID="TaskLabel" runat = server></asp:Label>
+    </h2>
     <asp:GridView ID="UploadGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="VersID"
         DataSourceID="ObjectDataSource1" OnRowCommand="UploadGridView_RowCommand">
         <Columns>
