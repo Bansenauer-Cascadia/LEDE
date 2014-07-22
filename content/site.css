@@ -1,7 +1,38 @@
-﻿/* Move down content because we have a fixed navbar that is 50px tall */
+﻿/*Cascading Style Sheet for ECSEL Portal UI*/
+
+/*
+*   CONTENTS:
+*   01.00 BASICS
+*       01.01 TYPEFACE
+*       01.02 PAGE BODY
+*       01.03 LINKS
+*       01.04 LISTS
+*       01.05 TABLES
+*       01.06 FORMS
+*		01.07 BUTTONS
+*   02.00 HEADER
+*   03.00 NAVIGATION
+*   04.00 MAIN CONTENT
+*   05.00 FOOTER TAG
+*   06.00 LOG IN AND ACCOUNTS
+*   07.00 RESPONSIVE
+*/
+
+/* 01.00 BASICS
+*****************************/
+
+
+/* 01.01 TYPEFACE
+*****************************/
+
+/* 01.02 PAGE BODY
+*****************************/
+/* Move down content if using fixed navbar */
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 100px;*/
+    padding-bottom: 0;
+    margin:0 auto;
+    background:#D2D1D1;
 }
 
 /* Wrapping element */
@@ -11,6 +42,37 @@ body {
     padding-right: 15px;
 }
 
+
+/* 01.03 LINKS
+*****************************/
+
+/* 01.04 LISTS
+*****************************/
+ul.list-dashboard{
+	
+}
+
+/* 01.05 TABLES
+*****************************/
+table th, table td{
+    border:solid 1px #D2D1D1;
+    padding:5px;
+}
+
+table tr:nth-of-type(even){
+    background-color:#7DB9EF;
+}
+
+table.table-dashboard{
+    border:none;
+}
+
+table.table-dashboard > tr:nth-of-type(even){
+    background-color:#008457;
+}
+
+/* 01.06 FORMS
+*****************************/
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input[type="text"],
 input[type="password"],
@@ -18,6 +80,103 @@ input[type="email"] {
     max-width: 280px;
 }
 
+/* 01.07 BUTTONS
+*****************************/
+.btn-primary{
+	background-color:#008457;
+}
+
+.btn-primary:hover{
+	background-color:#005638;
+}
+
+/* 02.00 HEADER
+*****************************/
+header{
+    background-color:#412177;
+    color:#FEFEFE;
+}
+
+header a, header a:visited, header a:active{
+    color:#FEFEFE;
+    background-color:transparent;
+}
+
+header a:hover, header ul.nav > li > a:hover{
+    color:#C19045;
+    background-color:transparent;
+}
+
+/* 03.00 NAVIGATION
+*****************************/
+nav#mainnav{
+    margin-bottom:0;
+}
+
+nav.navbar{
+    min-height:40px;
+}
+
+/* 04.00 MAIN CONTENT
+*****************************/
+div#wrapper{
+    background-color:#FFF;
+    border:solid thin #A18B3A;
+    border-width:0 thin;
+    padding:15px;
+}
+
+
+/* 05.00 FOOTER
+*****************************/
+footer{
+    background-color:#222;
+    color:#FFF;
+}
+
+footer > div.copyright{
+    clear:both;
+    padding:0 15px 15px;
+    text-align:center;
+    font-size:.8em;
+}
+
+footer > ul.nav > li > a{
+    color:#999;
+    line-height:1em;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+
+footer > ul.nav > li > a:hover{
+    color:#FFF;
+}
+
+footer > ul.nav{
+
+}
+
+footer > ul.nav > li{
+    border-right:#999 solid thin;
+    margin:10px 0;
+}
+
+footer > ul.nav > li:last-of-type{
+    border:none;
+}
+
+footer > .nav > li > a:hover{
+    background-color:transparent;
+}
+
+/* 06.00 LOG IN AND ACCOUNTS
+*****************************/
+/*#socialLoginForm{
+    display:none;
+}*/
+
+/* 07.00 RESPONSIVE
+*****************************/
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {
