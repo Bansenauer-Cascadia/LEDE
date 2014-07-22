@@ -58,6 +58,15 @@ namespace ECSEL.Candidate {
         protected global::System.Web.UI.WebControls.Label ReadingEntriesLabel;
         
         /// <summary>
+        /// ReflectionHoursLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReflectionHoursLabel;
+        
+        /// <summary>
         /// ReadingEntriesTextBox control.
         /// </summary>
         /// <remarks>
@@ -74,15 +83,6 @@ namespace ECSEL.Candidate {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator PageTextValidator;
-        
-        /// <summary>
-        /// ReflectionHoursLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ReflectionHoursLabel;
         
         /// <summary>
         /// ReflectionHoursTextBox control.

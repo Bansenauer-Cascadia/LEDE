@@ -11,8 +11,10 @@
     <asp:Panel ID="UploadPanel" runat="server" Visible="false">
         File<asp:FileUpload ID="FileUpload1" runat="server" />
 
-        <br />
         <asp:Label ID="ReadingEntriesLabel" Text="Number of Entries" runat="server" Visible="false"></asp:Label>
+        <asp:Label ID="ReflectionHoursLabel" Text="Number of Hours" runat="server" Visible="false"></asp:Label>
+        <br />
+
         <asp:TextBox ID="ReadingEntriesTextBox" runat="server" Visible="false"></asp:TextBox>
         <asp:RequiredFieldValidator ID="PageTextValidator"
             ControlToValidate="ReadingEntriesTextBox" runat="server"
@@ -20,15 +22,14 @@
         <asp:CompareValidator ControlToValidate="ReadingEntriesTextBox" Type="Integer" runat="server" Operator="DataTypeCheck"
             ErrorMessage="Please enter an integer number of entries" ValidationGroup="Upload">*</asp:CompareValidator>
 
-        <asp:Label ID="ReflectionHoursLabel" Text="Number of Hours" runat="server" Visible="false"></asp:Label>
         <asp:TextBox ID="ReflectionHoursTextBox" runat="server" Visible="false"></asp:TextBox>
-
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
             ControlToValidate="ReflectionHoursTextBox" runat="server"
             ErrorMessage="Please enter number of hours" ValidationGroup="Upload">*</asp:RequiredFieldValidator>
         <asp:CompareValidator ControlToValidate="ReflectionHoursTextBox" Type="Double" runat="server" Operator="DataTypeCheck"
             ErrorMessage="Please enter a number value of hours" ValidationGroup="Upload">*</asp:CompareValidator>
 
+        <br /><br />
         <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" ValidationGroup="Upload" />        
         <asp:Button ID="ReflectionSubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" ValidationGroup="Upload" />
         <asp:Button ID="CancelButton" runat="server" Text="Cancel" OnClick="CancelButton_Click" />
