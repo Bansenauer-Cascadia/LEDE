@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Tasks</h1>
 
-    <h2>Performance Task:<asp:DropDownList ID="taskNameDropDown" runat="server" DataSourceID="taskNameDataSource"
+    <h2>Performance Task:&nbsp;&nbsp;<asp:DropDownList ID="taskNameDropDown" runat="server" DataSourceID="taskNameDataSource"
         DataValueField="TaskID" DataTextField="TaskName" AutoPostBack="True">
     </asp:DropDownList>
     </h2>
@@ -53,18 +53,18 @@
     <asp:GridView ID="UploadGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="VersID"
         DataSourceID="ObjectDataSource1" OnRowCommand="UploadGridView_RowCommand">
         <Columns>
-            <asp:BoundField DataField="taskname" HeaderText="Task" />
+            <asp:BoundField DataField="taskname" HeaderText="Performance Task" />
             <asp:BoundField DataField="version" HeaderText="Version" />
-            <asp:ButtonField CommandName="submission" DataTextField="filename" HeaderText="Assignment File" />
-            <asp:BoundField DataField="uploaddate" HeaderText="Upload Date" />
-            <asp:TemplateField HeaderText="Feedback File" ShowHeader="False">
+            <asp:ButtonField CommandName="submission" DataTextField="filename" HeaderText="Submission" />
+            <asp:BoundField DataField="uploaddate" HeaderText="Submission Date" />
+            <asp:TemplateField HeaderText="Faculty Feedback" ShowHeader="False">
                 <ItemTemplate>
                     <asp:LinkButton ID="FeedbackLink" runat="server" CausesValidation="false"
                         CommandName="feedback" Text='<%# Eval("feedbackfilename") %>'
                         CommandArgument="<%# ((GridViewRow)Container).RowIndex %>"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="feedbackuploaddate" HeaderText="Upload Date" />
+            <asp:BoundField DataField="feedbackuploaddate" HeaderText="Feedback Date" />
             <asp:TemplateField HeaderText="Actions">
                     <ItemTemplate>
                         <asp:Button runat="server" Text="Delete" CommandName="delete" Visible='<%# !(bool)Eval("RatingSubmitted") %>'
