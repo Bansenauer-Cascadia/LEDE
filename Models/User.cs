@@ -15,7 +15,7 @@ namespace ECSEL.Models
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
     {
         [Required]
-        [StringLength(10)]
+        [StringLength(15)]
         public string UniversityID { get; set; }
 
         [Required]

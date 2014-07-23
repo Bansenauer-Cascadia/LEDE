@@ -336,6 +336,10 @@
     <Compile Include="Migrations\201407190159355_reallyshouldbenull.Designer.cs">
       <DependentUpon>201407190159355_reallyshouldbenull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407231657118_univerid.cs" />
+    <Compile Include="Migrations\201407231657118_univerid.Designer.cs">
+      <DependentUpon>201407231657118_univerid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CohortEnrollment.cs" />
     <Compile Include="Models\CoreRating.cs" />
@@ -388,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407190159355_reallyshouldbenull.resx">
       <DependentUpon>201407190159355_reallyshouldbenull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407231657118_univerid.resx">
+      <DependentUpon>201407231657118_univerid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

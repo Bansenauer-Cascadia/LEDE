@@ -137,3 +137,4 @@ C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.reallyshould
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.csproj.GenerateResource.Cache
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.dll
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.pdb
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.univerid.resources
