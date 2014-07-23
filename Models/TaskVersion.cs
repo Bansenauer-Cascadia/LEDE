@@ -28,7 +28,7 @@ namespace ECSEL.Models
         public string RatingStatus { get; set; }
 
         [Column ("UserID")]
-        public int ID { get; set; }
+        public int UserID { get; set; }
 
         public int? FeedbackDocID { get; set; }
 
@@ -46,7 +46,7 @@ namespace ECSEL.Models
 
         public virtual ICollection<TaskRating> TaskRatings { get; set; }
 
-
+        [ForeignKey("UserID")]
         public virtual User User { get; set; }
     }
 }
