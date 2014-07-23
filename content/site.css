@@ -96,8 +96,9 @@ table.table-dashboard > tr:nth-of-type(even){
     background-color:#008457;
 }
 
+/*Sized to account for "View Rating" buttons.*/
 td input[type="submit"]{
-    width:80px;
+    width:90px;
     background-color:#D2D1D1;
     border-width:0 2px 2px 0;
     border-radius:10px;
@@ -111,10 +112,10 @@ td input[type="text"]{
     width:90%;
 }
 
-/*Faculty task rating tables.*/
+/*Tables for Faculty task rating, sized to allow for 2 input buttons.*/
 td > table td:last-of-type {
     text-align:center;
-    width:180px;
+    width:200px;
 }
 
 td:empty{
