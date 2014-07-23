@@ -56,6 +56,10 @@ ul.list-dashboard{
 
 /* 01.05 TABLES
 *****************************/
+table{
+    width:100%;
+}
+
 table th, table td{
     border:solid 1px #D2D1D1;
     padding:5px;
@@ -84,10 +88,6 @@ table tr:nth-of-type(even){
     background-color:#F8F4B2;
 }
 
-td:empty{
-    display:none;
-}
-
 table.table-dashboard{
     border:none;
 }
@@ -97,7 +97,7 @@ table.table-dashboard > tr:nth-of-type(even){
 }
 
 td input[type="submit"]{
-    min-width:80px;
+    width:80px;
     background-color:#D2D1D1;
     border-width:0 2px 2px 0;
     border-radius:10px;
@@ -105,6 +105,20 @@ td input[type="submit"]{
 
 td input[type="submit"]:hover, td input[type="submit"]:active{
     background-color:#FFF;
+}
+
+td input[type="text"]{
+    width:90%;
+}
+
+/*Faculty task rating tables.*/
+td > table td:last-of-type {
+    text-align:center;
+    width:180px;
+}
+
+td:empty{
+    display:none;
 }
 
 /* 01.06 FORMS
