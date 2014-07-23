@@ -176,7 +176,50 @@
 
         </asp:Panel>
 
-        <h3> Seminar Core Topic Assesments</h3>
+        <h3> Seminar Core Topic Assesments</h3> 
+        <asp:Button ID="EditButton" runat="server" OnClick="CoreTaskEditButton_Click" ValidationGroup="CoreEdit"/>
+        <asp:Button ID="CancelButton" runat="server" OnClick="CancelTaskEditButton_Click" Text="Cancel" Visible="false"/>
+        <asp:GridView ID="TaskRatingGridView" AutoGenerateColumns="false" runat="server" OnDataBound="TaskRatingGridView_DataBound" 
+            DataKeyNames="ratingid" DataSourceID="TaskRatingDataSource">
+            <Columns>
+                <asp:TemplateField HeaderText="Core Topic">
+                    <ItemTemplate>
+                        <asp:Label ID ="CoreLabel" runat="server" Text='<%# Eval("CoreTopicDesc") %>'></asp:Label> 
+                        <asp:HiddenField ID="CoreTopicID" runat="server" Value='<%# Eval("CoreTopicID") %>'/> 
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Conceptual">
+                    <ItemTemplate>
+                        <asp:Label ID="CLabel" runat="server" Text='<%# Eval("Cscore") %>' Visible='<%#  !isInEditMode %>'></asp:Label>
+                        <asp:TextBox ID="CText" runat="server" Text='<%# Bind("Cscore") %>' Visible='<%# isInEditMode %>'></asp:TextBox>
+                        <asp:RangeValidator ID="CEditValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="CText" Type="Integer" runat="server"
+                            ErrorMessage="C Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Strategic">
+                    <ItemTemplate>
+                        <asp:Label ID="SLabel" runat="server" Text='<%# Eval("Sscore") %>' Visible='<%#  !isInEditMode %>'></asp:Label>
+                        <asp:TextBox ID="SText" runat="server" Text='<%# Bind("Sscore") %>' Visible='<%# isInEditMode %>'></asp:TextBox>
+                        <asp:RangeValidator ID="SEditValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="SText" Type="Integer" runat="server"
+                            ErrorMessage="S Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Personal">
+                    <ItemTemplate>
+                        <asp:Label ID="PLabel" runat="server" Text='<%# Eval("Pscore") %>' Visible='<%#  !isInEditMode %>'></asp:Label>
+                        <asp:TextBox ID="PText" runat="server" Text='<%# Bind("Pscore") %>' Visible='<%# isInEditMode %>'></asp:TextBox>
+                        <asp:RangeValidator ID="PEditValidator" MinimumValue="0" MaximumValue="3"
+                            ControlToValidate="PText" Type="Integer" runat="server"
+                            ErrorMessage="P Score Must Be Between 0 and 3" ValidationGroup="CoreEdit">*</asp:RangeValidator>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+
+        <!--
+        <h3> Seminar Core Topic Assesments</h3> 
         <asp:ListView ID="TaskCoreRating" runat="server" DataSourceID="TaskRatingDataSource" DataKeyNames="coretopicid, ratingid">            
             <EditItemTemplate>
                 <tr style="">                    
@@ -265,6 +308,7 @@
                 </tr>
             </SelectedItemTemplate>
         </asp:ListView>
+        -->
 
         <asp:ValidationSummary ID="CoreRatingValidationSummary" runat="server" HeaderText="Please Correct These Entries:" 
             ValidationGroup="CoreEdit" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"/>         
