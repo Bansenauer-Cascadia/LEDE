@@ -175,9 +175,9 @@
             ValidationGroup="ReflectionEdit" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"/> 
 
         </asp:Panel>
-        <strong>
-        <br />
-        Seminar Core Topic Assesments</strong><asp:ListView ID="TaskCoreRating" runat="server" DataSourceID="TaskRatingDataSource" DataKeyNames="coretopicid, ratingid">            
+
+        <h3> Seminar Core Topic Assesments</h3>
+        <asp:ListView ID="TaskCoreRating" runat="server" DataSourceID="TaskRatingDataSource" DataKeyNames="coretopicid, ratingid">            
             <EditItemTemplate>
                 <tr style="">                    
                     <td>
@@ -283,7 +283,7 @@
             </UpdateParameters>
         </asp:ObjectDataSource>
 
-        <span class="auto-style2"><strong>Other Core Rating Assesments</strong></span> 
+        <h3>Other Core Rating Assesments</h3>
 
         <asp:ListView ID="ListView1" runat="server" DataSourceID="CoreRatingDataSource" DataKeyNames="ratingid" InsertItemPosition="FirstItem" 
             >    
@@ -417,10 +417,8 @@
             ValidationGroup="AllCoreEdit" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"/> 
 
         <br />
-        <span class="auto-style2">
-            <strong>Impact Type Assessments
-        </strong></span>        
-
+       <h3>Impact Type Assessments</h3>
+        
         <asp:ListView ID="ImpactListView" runat="server" DataSourceID="ImpactGridDataSource" DataKeyNames="RatingID" 
             InsertItemPosition="LastItem" OnDataBound="ImpactListView_DataBound" >            
             <EditItemTemplate>
