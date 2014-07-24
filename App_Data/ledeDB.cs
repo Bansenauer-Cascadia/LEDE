@@ -600,10 +600,8 @@ public class ledeDB
     }
 
     public static int initializeTaskSelectedValue()
-    {
-        var value = getTasks();
-        string foo = value.FirstOrDefault().TaskID.ToString();
-        return value.FirstOrDefault().TaskID;
+    {        
+        return db.Tasks.FirstOrDefault().TaskID;
     }
     //Account methods
     public static IEnumerable getRoles()
