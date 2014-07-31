@@ -12,21 +12,22 @@ namespace ECSEL.Models
         public ProgramCohort()
         {
             CohortEnrollments = new HashSet<CohortEnrollment>();
-            Seminars = new HashSet<Seminar>();
         }
 
         public int ProgramCohortID { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string ProgramCohortDesc { get; set; }
+        [StringLength(50)]
+        public string AcademicYear { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Status { get; set; }
 
         public int ProgramID { get; set; }
 
         public virtual ICollection<CohortEnrollment> CohortEnrollments { get; set; }
 
         public virtual Program Program { get; set; }
-
-        public virtual ICollection<Seminar> Seminars { get; set; }
     }
 }

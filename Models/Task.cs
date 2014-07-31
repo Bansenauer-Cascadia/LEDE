@@ -30,8 +30,6 @@ namespace ECSEL.Models
 
         public virtual Seminar Seminar { get; set; }
 
-        public virtual Seminar Seminar1 { get; set; }
-
         public virtual TaskType TaskType { get; set; }
 
         public virtual ICollection<TaskVersion> TaskVersions { get; set; }

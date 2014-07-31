@@ -13,7 +13,6 @@ namespace ECSEL.Models
         {
             CoreTopics = new HashSet<CoreTopic>();
             Tasks = new HashSet<Task>();
-            Tasks1 = new HashSet<Task>();
         }
 
         public int SeminarID { get; set; }
@@ -22,14 +21,13 @@ namespace ECSEL.Models
         [StringLength(250)]
         public string SeminarTitle { get; set; }
 
-        public int ProgramCohortID { get; set; }
+        public int ProgramID { get; set; }
 
         public virtual ICollection<CoreTopic> CoreTopics { get; set; }
 
-        public virtual ProgramCohort ProgramCohort { get; set; }
+        public virtual Program Program { get; set; }
 
         public virtual ICollection<Task> Tasks { get; set; }
 
-        public virtual ICollection<Task> Tasks1 { get; set; }
     }
 }

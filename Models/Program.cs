@@ -19,6 +19,10 @@ namespace ECSEL.Models
         [Required]
         public string ProgramTitle { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string ProgramType { get; set; }
+
         public virtual ICollection<ProgramCohort> ProgramCohorts { get; set; }
     }
 }

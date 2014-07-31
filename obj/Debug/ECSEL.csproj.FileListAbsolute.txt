@@ -138,3 +138,6 @@ C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.csproj.GenerateResource
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.dll
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.pdb
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.univerid.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.programcohortidremoval.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.postphase1update.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\obj\Debug\ECSEL.Migrations.check.resources

@@ -288,6 +288,8 @@ public class ledeDB
         if (versid == 0)
             return null;
         var task = db.Tasks.Include(t => t.Seminar).FirstOrDefault(t => t.TaskVersions.FirstOrDefault(v => v.VersID == versid) != null);
+
+        //return task == null ? null : task; 
         if (task == null)
             return null;
         else

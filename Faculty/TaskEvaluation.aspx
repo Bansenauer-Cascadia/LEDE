@@ -12,7 +12,7 @@
          <asp:Label ID="UploadLabel" runat="server"></asp:Label>
         <br />
          <asp:FileUpload ID="FileUpload1" runat="server" visible="false"/>
-
+        
         <asp:Button ID="SubmitButton" runat="server" Text="Submit" visible="false" OnClick="SubmitButton_Click" /> 
         <asp:Label ID="UploadStatusLabel" runat="server"></asp:Label>
         <br />
@@ -29,7 +29,6 @@
                     HeaderText="Feedback Document"/>                
                 <asp:ButtonField Text="Upload Feedback" CommandName="Upload"/>
                 <asp:BoundField DataField="FeedbackUploadDate" HeaderText="Date Modified" />
-                <asp:BoundField DataField ="ratingstatus" HeaderText="Rating Status" SortExpression ="ratingstatus"/>
                 <asp:ButtonField DataTextField="RatingLink" CommandName="Rate"></asp:ButtonField>               
             </Columns>
         </asp:GridView>

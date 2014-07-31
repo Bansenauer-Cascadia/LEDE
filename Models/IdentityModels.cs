@@ -147,18 +147,9 @@ namespace ECSEL.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProgramCohort>()
-                .Property(e => e.ProgramCohortDesc)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProgramCohort>()
                 .HasMany(e => e.CohortEnrollments)
                 .WithRequired(e => e.ProgramCohort)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ProgramCohort>()
-                .HasMany(e => e.Seminars)
-                .WithRequired(e => e.ProgramCohort)
-                .WillCascadeOnDelete(false);            
+                .WillCascadeOnDelete(false);          
 
             modelBuilder.Entity<Seminar>()
                 .Property(e => e.SeminarTitle)
@@ -172,12 +163,6 @@ namespace ECSEL.Models
             modelBuilder.Entity<Seminar>()
                 .HasMany(e => e.Tasks)
                 .WithRequired(e => e.Seminar)
-                .HasForeignKey(e => e.SeminarID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Seminar>()
-                .HasMany(e => e.Tasks1)
-                .WithRequired(e => e.Seminar1)
                 .HasForeignKey(e => e.SeminarID)
                 .WillCascadeOnDelete(false);
 
