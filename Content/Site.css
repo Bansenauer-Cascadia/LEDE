@@ -60,7 +60,7 @@ table th, table td{
 }
 
 table tr:nth-of-type(even){
-    background-color:#7DB9EF;
+    background-color:rgba(125, 185, 239, 0.25);
 }
 
 table.table-dashboard{
@@ -69,6 +69,40 @@ table.table-dashboard{
 
 table.table-dashboard > tr:nth-of-type(even){
     background-color:#008457;
+}
+
+/**TABLES FOR DISPLAYING STUDENT AND CORE TOPIC RATINGS**/
+table.tbl_ratings{
+	width:100%;
+}
+
+table.tbl_ratings tr{
+	line-height:2em;
+}
+
+table.tbl_ratings tr td, table.tbl_ratings tr th{
+	border:none;
+	padding:10px;
+}
+
+table.tbl_ratings tr th{
+	border-bottom:thin black solid;
+}
+
+table.tbl_ratings th:first-of-type, table.tbl_ratings td:first-of-type{
+	width:20%;
+	border-right:thin black solid;
+	text-align:right;
+}
+
+table.tbl_ratings td:nth-of-type(2){
+	text-align:left;
+}
+
+table.tbl_ratings td > div{
+	text-align:center;
+	display: inline-block;
+	border:solid 1px #222;
 }
 
 /* 01.06 FORMS
