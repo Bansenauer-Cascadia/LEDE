@@ -151,5 +151,138 @@
         <button class="btn btn-default" id="UploadStatusLabel">Update</button>
         <button class="btn btn-default" id="CancelButton">Cancel</button>
     </section>
+	<hr />
+	<section>
+		<h2>Ratings Chart Tests</h2>
+		<p>For the sake of example, these charts currently use static data within the HTML. When used within the portal application, the data will be retrieved from the appropriate database. Base styling is added through the use of CSS, while front end interactivity is achieved through the use of JavaScript and jQuery.</p>
+		
+		<h3>Progress by Student</h3>
+		<table class="tbl_ratings">
+			<tr>
+				<th>Student #</th>
+				<th>Progress</th>
+			</tr>
+			<tr>
+				<td>325368006</td>
+				<td>
+					<div class="conceptual">8</div>
+					<div class="strategic">16</div>
+					<div class="personal">7</div>
+				</td>
+			</tr>
+			<tr>
+				<td>193354040</td>
+				<td>
+					<div class="conceptual">5</div>
+					<div class="strategic">7</div>
+					<div class="personal">20</div>
+				</td>
+			</tr>
+			<tr>
+				<td>850260189</td>
+				<td>
+					<div class="conceptual">18</div>
+					<div class="strategic">6</div>
+					<div class="personal">17</div>
+				</td>
+			</tr>
+			<tr>
+				<td>525211700</td>
+				<td>
+					<div class="conceptual">20</div>
+					<div class="strategic">19</div>
+					<div class="personal">17</div>
+				</td>
+			</tr>
+			<tr>
+				<td>687068163</td>
+				<td>
+					<div class="conceptual">17</div>
+					<div class="strategic">8</div>
+					<div class="personal">9</div>
+				</td>
+			</tr>
+			<tr>
+				<td>179184227</td>
+				<td>
+					<div class="conceptual">5</div>
+					<div class="strategic">16</div>
+					<div class="personal">5</div>
+				</td>
+			</tr>
+			<tr>
+				<td>856752135</td>
+				<td>
+					<div class="conceptual">15</div>
+					<div class="strategic">6</div>
+					<div class="personal">12</div>
+				</td>
+			</tr>
+		</table>
+		
+		<h3>Progress by Core Topic</h3>
+		<table class="tbl_ratings">
+			<tr>
+				<th>Core Topic</th>
+				<th>Progress</th>
+			</tr>
+			<tr>
+				<td>1.1</td>
+				<td>
+					<div class="conceptual">7</div>
+					<div class="strategic">2</div>
+					<div class="personal">5</div>
+				</td>
+			</tr>
+			<tr>
+				<td>1.2</td>
+				<td>
+					<div class="conceptual">16</div>
+					<div class="strategic">17</div>
+					<div class="personal">7</div>
+				</td>
+			</tr>
+			<tr>
+				<td>1.3</td>
+				<td>
+					<div class="conceptual">18</div>
+					<div class="strategic">13</div>
+					<div class="personal">14</div>
+				</td>
+			</tr>
+			<tr>
+				<td>1.4</td>
+				<td>
+					<div class="conceptual">7</div>
+					<div class="strategic">13</div>
+					<div class="personal">18</div>
+				</td>
+			</tr>
+			<tr>
+				<td>1.5</td>
+				<td>
+					<div class="conceptual">10</div>
+					<div class="strategic">16</div>
+					<div class="personal">12</div>
+				</td>
+			</tr>
+			<tr>
+				<td>1.6</td>
+				<td>
+					<div class="conceptual">16</div>
+					<div class="strategic">10</div>
+					<div class="personal">15</div>
+				</td>
+			</tr>
+			<tr>
+				<td>2.1</td>
+				<td>
+					<div class="conceptual">19</div>
+					<div class="strategic">9</div>
+					<div class="personal">5</div>
+				</td>
+			</tr>
+		</table>
+	</section>
 
 </asp:Content>
