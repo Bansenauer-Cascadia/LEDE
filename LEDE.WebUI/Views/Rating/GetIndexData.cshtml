@@ -1,0 +1,38 @@
+﻿@using LEDE.Domain.Entities;
+@model IEnumerable<TaskVersion>
+
+@foreach (TaskVersion version in Model)
+{
+    @Html.Hidden("VersID", version.VersID)
+    <tr>
+        <td>@version.Task.TaskCode: @version.Task.TaskName</td>
+        <td> @version.Version</td>
+        <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID, UserID = version.UserID })</td>
+        <td>@version.Document.UploadDate</td>
+
+        @if (version.FeedbackDoc != null)
+        {
+            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.DocumentID, UserID = version.UserID })</td>
+            <td>@version.FeedbackDoc.UploadDate</td>
+            <td>@Html.ActionLink("Upload New Feedback", "Index", new { UploadVisible = true, VersID = version.VersID }, new { @class = "btn btn-default" })</td>
+        }
+        else
+        {
+            <td>-</td>
+            <td>-</td>
+            <td>@Html.ActionLink("Upload Feedback", "Index", new { UploadVisible = true, VersID = version.VersID }, new { @class = "btn btn-default" })</td>
+        }
+        <td>
+            @if (version.TaskRatings.FirstOrDefault() == null)
+            {
+                @Html.ActionLink("Rate Now", "Rate", new { VersID = version.VersID }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("View Rating", "Rate", new { VersID = version.VersID }, new { @class = "btn btn-default" })
+            }
+        </td>
+    </tr>
+}
+
+

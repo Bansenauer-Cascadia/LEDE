@@ -1,0 +1,76 @@
+﻿@using LEDE.Domain.Entities
+@model CompleteRating
+@{
+    ViewBag.Title = "Score";
+}
+<div class="page-header">
+    <h2>
+        Task Score <br />
+        <small>@ViewBag.Task</small>
+    </h2>
+</div>
+
+<h3>Task Core Ratings</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Core Topic</th>
+        <th>Conceptual</th>
+        <th>Strategic</th>
+        <th>Personal</th>
+    </tr>
+    @foreach (CoreRating rating in Model.TaskCoreRatings)
+    {
+        <tr>
+            <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
+            <td>@rating.Cscore</td>
+            <td>@rating.Sscore</td>
+            <td>@rating.Pscore</td>
+        </tr>
+    }
+</table>
+@if (Model.OtherCoreRatings.Count() > 0)
+{
+    <h3>Other Core Ratings</h3>
+    <table class="table table-striped">
+        <tr>
+            <td>
+                Core Topic
+            </td>
+            <td>Conceptual</td>
+            <td>Strategic</td>
+            <td>Personal</td>
+        </tr>
+        @foreach (CoreRating rating in Model.OtherCoreRatings)
+        {
+            <tr>
+                <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
+                <td>@rating.Cscore</td>
+                <td>@rating.Sscore</td>
+                <td>@rating.Pscore</td>
+            </tr>
+        }
+    </table>
+
+}
+@if (Model.ImpactRating != null)
+{
+    <h3>Impact Ratings</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Structures & Operations</th>
+            <th>Professional Practices</th>
+            <th>Student Learning</th>
+            <th></th>
+        </tr>
+        <tr>
+            @Model.ImpactRating.Sscore
+        </tr>
+        <tr>
+            @Model.ImpactRating.Pscore
+        </tr>
+        <tr>
+            @Model.ImpactRating.Lscore
+        </tr>
+    </table>
+}
+

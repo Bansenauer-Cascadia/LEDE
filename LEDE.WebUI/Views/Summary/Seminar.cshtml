@@ -1,0 +1,34 @@
+﻿@model LEDE.Domain.Entities.SeminarSummary
+@using LEDE.Domain.Entities
+
+@{
+    ViewBag.Title = "Seminar";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<h2>Core Ratings Summary</h2>
+
+<div class="progress">
+    <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
+    <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
+    <div class="progress-bar progress-bar-danger" style="width: 33.3%">Personal</div>
+</div>
+
+<br />
+@using (Html.BeginForm("Seminar", "Summary", new {SelectedCohortID = Model.SelectedCohortID }))
+{
+    <h3>Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange="this.form.submit();" })</h3>
+}
+
+@foreach (StudentTotal totals in Model.TotalsList)
+{
+    @Html.ActionLink(totals.User.LastName + ", " + totals.User.FirstName, "Student", new { id = totals.User.Id })
+    
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" style="width: @totals.CPercentage%">@totals.CTotal</div>
+        <div class="progress-bar progress-bar-warning" style="width: @totals.SPercentage%">@totals.STotal</div>
+        <div class="progress-bar progress-bar-danger" style="width: @totals.PPercentage%">@totals.PTotal</div>
+    </div>
+
+}
+

@@ -1,0 +1,26 @@
+﻿@using LEDE.Domain.Entities
+@model StudentSummary
+@{
+    ViewBag.Title = "Student";
+}
+
+<h2>Student</h2>
+
+<div class="progress">
+    <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
+    <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
+    <div class="progress-bar progress-bar-danger" style="width: 33.3%">Personal</div>
+</div>
+
+@foreach (CoreTotal totals in Model.RatingsList)
+{
+    @totals.CoreTopic.CoreTopicNum@:-@totals.CoreTopic.CoreTopicDesc
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" style="width: @totals.CPercentage%">@totals.CTotal</div>
+        <div class="progress-bar progress-bar-warning" style="width: @totals.SPercentage%">@totals.STotal</div>
+        <div class="progress-bar progress-bar-danger" style="width: @totals.PPercentage%">@totals.PTotal</div>
+    </div>
+}
+
+
+

@@ -1,0 +1,81 @@
+﻿@using LEDE.Domain.Entities;
+@model EnrollmentViewModel
+@{
+    ViewBag.Title = "Index";
+}
+    <h2>Edit Cohort Enrollments</h2>
+
+    <div class="panel panel-default">
+        <h3>Program Cohorts</h3>
+        <table class="table table-condensed" id="CohortTable">
+            <tr>
+                <th>Program</th>
+                <th style="text-align:center">Academic Year</th>
+                <th></th>
+            </tr>
+            @foreach (ProgramCohort cohort in Model.Cohorts)
+            {
+                <tr>
+                    <td>@cohort.Program.ProgramTitle</td>
+                    <td style="text-align:center">@cohort.AcademicYear</td>
+                    <td>@Html.ActionLink("Edit", "Index", new { ProgramCohortID = cohort.ProgramCohortID }, new { @class = "btn btn-default btn-xs" })</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @if (Model.Users != null)
+    {
+        <div class="row">
+
+        @using (Html.BeginForm(new {function = CohortFunction.Remove}))
+        {
+            @Html.HiddenFor(model => model.ProgramCohortID)
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <h3>@ViewBag.Cohort: Enrolled Users</h3>
+
+                    <table class="table table-hover">
+                        <tr><th>Candidates</th><th style="text-align:center"><input type="submit" value="Remove" class="btn btn-danger btn-sm" /></th></tr>
+                        @Html.EditorFor(model => model.Users.EnrolledCandidates)
+                        @if (Model.Users.EnrolledCandidates.FirstOrDefault() == null)
+                        {
+                            <tr><td colspan="2">No Candidates Enrolled</td></tr>
+                        }
+                        <tr><th>Faculty</th><th style="text-align:center"></th></tr>
+                        @Html.EditorFor(model => model.Users.EnrolledFaculty)
+                        @if (Model.Users.EnrolledCandidates.FirstOrDefault() == null)
+                        {
+                            <tr><td colspan="2">No Faculty Enrolled</td></tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        }
+        
+        @using (Html.BeginForm(new {function = CohortFunction.Add }))
+        {
+            @Html.HiddenFor(model => model.ProgramCohortID)
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <h3>Non-Enrolled Users</h3>
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Candidates</th>
+                            <th style="text-align:center"><input type="submit" value="Add" class="btn btn-success btn-sm" /></th>
+                        </tr>
+                        @Html.EditorFor(model => model.Users.NonEnrolledCandidates)
+                        <tr>
+                            <th>Faculty</th>
+                            <th style="text-align:center"></th>
+                        </tr>
+                        @Html.EditorFor(model => model.Users.NonEnrolledFaculty)
+                    </table>
+                </div>
+            </div>
+        }
+        </div>
+    }
+    <script src="~/Scripts/Enrollment.js"></script>

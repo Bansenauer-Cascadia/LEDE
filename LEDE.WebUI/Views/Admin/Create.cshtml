@@ -1,0 +1,38 @@
+﻿@using LEDE.Domain.Entities;
+@model CreateModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@Html.ValidationSummary(false)
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Username</label>
+        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>First Name</label>
+        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>University ID</label>
+        @Html.TextBoxFor(x => x.UniversityID, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>User Type</label>
+        @Html.DropDownListFor(x => x.SelectedRole, Model.Roles, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

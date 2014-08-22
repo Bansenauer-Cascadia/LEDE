@@ -1,0 +1,39 @@
+﻿@using LEDE.Domain.Entities
+@model RatingIndexModel
+@{
+    ViewBag.Title = "Feedback";
+    AjaxOptions ajaxopts = new AjaxOptions
+    {
+        UpdateTargetId = "tbody",
+        Url = Url.Action("GetIndexData")
+    };
+}
+
+<h2>Tasks</h2>
+
+@if (Model.UploadVisible)
+{
+    using (Html.BeginForm("Upload", "Rating", new {returnUrl = Request.Url.AbsolutePath}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("VersID", Model.VersID)
+        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, new { onchange = "this.form.submit();", @class = "form-control" })
+
+        <input type="file" name="file" />
+        <input type="submit" value="Submit" class="btn btn-default" />
+    }
+}
+else
+{
+    using (Ajax.BeginForm(ajaxopts))
+    {
+        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, new { onchange = "this.form.submit();", @class = "form-control" })
+    }
+}
+
+<br />
+<table class="table table-striped">
+    <thead><tr><th>Task</th><th>Version</th><th>Document</th><th>Date Modified</th><th>FeedbackDocument</th><th>DateModified</th><th></th><th></th></tr></thead>
+    <tbody id="tbody">
+        @Html.Action("GetIndexData", new { UserID = Model.SelectedUserID })
+    </tbody>
+</table>
