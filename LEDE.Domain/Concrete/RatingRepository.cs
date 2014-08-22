@@ -33,7 +33,7 @@ namespace LEDE.Domain.Concrete
                 {
                     foreach (CoreRating rating in validTaskRatings)
                     {
-                        this.saveTaskRating(rating, VersID);
+                        this.saveTaskRating(rating, VersID, taskRating.FacultyID);
                     }
                 }
             }
@@ -42,22 +42,22 @@ namespace LEDE.Domain.Concrete
             {
                 foreach (CoreRating rating in taskRating.OtherCoreRatings)
                 {
-                    this.saveTaskRating(rating, VersID);
+                    this.saveTaskRating(rating, VersID, taskRating.FacultyID);
                 }
             }
         }
 
-        private void saveTaskRating(CoreRating rating, int VersID)
+        private void saveTaskRating(CoreRating rating, int VersID, int facultyID)
         {
             if (rating.RatingID > 0)
                 updateCoreRating(rating);
             else
-                insertCoreRating(rating, VersID);
+                insertCoreRating(rating, VersID, facultyID);
         }
 
-        private void insertCoreRating(CoreRating rating, int VersID)
+        private void insertCoreRating(CoreRating rating, int VersID, int facultyID)
         {
-            TaskRating taskRating = new TaskRating() {FacultyID = 2, VersID = VersID, ReviewDate = DateTime.Now}; ///ADD Real Faculty ID with LOGIN
+            TaskRating taskRating = new TaskRating() {FacultyID = facultyID, VersID = VersID, ReviewDate = DateTime.Now}; ///ADD Real Faculty ID with LOGIN
             rating.TaskRating = taskRating; rating.CoreTopicID = rating.CoreTopicID == 0 ? rating.CoreTopic.CoreTopicID : rating.CoreTopicID;  
             rating.CoreTopic = null; 
             

@@ -6,10 +6,7 @@ using LEDE.Domain.Abstract;
 using LEDE.Domain.Concrete;
 using LEDE.Domain.Entities;
 using System.Web.Mvc;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
@@ -113,6 +110,7 @@ namespace LEDE.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
                 switch (post.SubmitCommand)
                 {
                     case "Save":
@@ -139,6 +137,7 @@ namespace LEDE.WebUI.Controllers
                 switch (post.SubmitCommand)
                 {
                     case "Save":
+                        post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
                         Ratings.saveTaskRating(post.Rating, post.VersID);
                         model = Ratings.getRatingModel(post.VersID);
                         break;
@@ -169,6 +168,7 @@ namespace LEDE.WebUI.Controllers
                 switch (post.SubmitCommand)
                 {
                     case "Save":
+                        post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
                         Ratings.saveImpactRating(post.Rating, post.VersID);
                         model = Ratings.getRatingModel(post.VersID);
                         break;

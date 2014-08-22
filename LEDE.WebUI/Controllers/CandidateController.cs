@@ -14,7 +14,7 @@ namespace LEDE.WebUI.Controllers
     public class CandidateController : Controller
     {
         private ICandidateRepository db;
-        private IRatingRepository ratings; 
+        private IRatingRepository ratings;       
 
         public CandidateController(ICandidateRepository repo, IRatingRepository scoreRepo)
         {
@@ -22,14 +22,15 @@ namespace LEDE.WebUI.Controllers
             this.ratings = scoreRepo;
         }
 
-        public ActionResult Index(bool? UploadVisible, int? DownloadID, int? DeleteID)
+        public ActionResult Index(bool? UploadVisible, int? DownloadID, int? DeleteID, int? TaskID)
         {            
             if (DownloadID != null)
                 FileManager.DownloadDocument(db.findDocument((int)DownloadID), HttpContext);  
             else if(DeleteID != null)
                 db.DeleteTask((int)DeleteID);
 
-            CandidateIndexModel model = db.getIndexModel(1, null);  ///replace with real userID!!                                                   
+            int UserID = Convert.ToInt32(User.Identity.GetUserId());
+            CandidateIndexModel model = db.getIndexModel(UserID, TaskID);                                                     
             model.UploadVisible = UploadVisible ?? false;
             return View(model);
         }
@@ -37,7 +38,8 @@ namespace LEDE.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(CandidateIndexModel post)
         {
-            CandidateIndexModel model = db.getIndexModel(1, post.TaskID);      ////replace with readl userid
+            int userID = Convert.ToInt32(User.Identity.GetUserId());
+            CandidateIndexModel model = db.getIndexModel(userID, post.TaskID);      
             return View(model); 
         }
 
@@ -48,13 +50,13 @@ namespace LEDE.WebUI.Controllers
             {
                 Document uploadDoc = new Document()
                 {
-                    Container = "usertest",//"user" + User.Identity.GetUserId()    ///replace with real id
+                    Container = "user" + User.Identity.GetUserId(),
                     FileName = file.FileName,
                     FileSize = file.ContentLength.ToString(),
                     UploadDate = DateTime.Now,
                 };
 
-                db.uploadTask(taskID, 1, uploadDoc); //real userid here
+                db.uploadTask(taskID, Convert.ToInt32(User.Identity.GetUserId()), uploadDoc); 
                 FileManager.UploadDocument(uploadDoc, file);
             }           
 
@@ -65,7 +67,7 @@ namespace LEDE.WebUI.Controllers
         {
             RatingViewModel rating = ratings.getRatingModel(VersID); 
             CompleteRating model = rating.Rating;
-            ViewBag.Task = rating.TaskVersion.Task.TaskName + " - Version " + rating.TaskVersion.Version; int foo = model.OtherCoreRatings.Count(); 
+            ViewBag.Task = rating.TaskVersion.Task.TaskName + " - Version " + rating.TaskVersion.Version; 
             return View(model);
         }
     }
