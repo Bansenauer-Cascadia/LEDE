@@ -32,7 +32,7 @@
             <h3>
                 Previously Submitted
             </h3>
-            <input type="file" name="file" class="form-control" />
+            <input type="file" name="file"/>
             <input type="submit" value="Submit" class="btn btn-default" />
         }
     }
@@ -46,6 +46,7 @@
             <th>Feedback</th>
             <th>Date</th>
             <th>Action</th>
+            <th></th>
         </tr>
         @foreach (TaskVersion version in Model.taskVersions)
         {
