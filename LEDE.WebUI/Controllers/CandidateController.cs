@@ -43,18 +43,16 @@ namespace LEDE.WebUI.Controllers
             return View(model); 
         }
 
-        [AllowAnonymous]
         public ActionResult Summary(int ProgramCohortID = 0)
         {
-            int UserID = 1;//Convert.ToInt32(User.Identity.GetUserId());  CHANGE THIS BACK
+            int UserID = Convert.ToInt32(User.Identity.GetUserId());  
             CohortDropDown model =  db.getCohorts(UserID, ProgramCohortID);
             return View(model);
         }
 
-        [AllowAnonymous]
         public PartialViewResult SummaryTable(int ProgramCohortID)
         {
-            int UserID = 1;// Convert.ToInt32(User.Identity.GetUserId());   CHANGE THIS BACK
+            int UserID = Convert.ToInt32(User.Identity.GetUserId());  
             IEnumerable<CandidateSummaryRow> model = db.getSummaryModel(UserID, ProgramCohortID);
             return PartialView(model);
         }
