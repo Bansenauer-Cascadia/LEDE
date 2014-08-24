@@ -1,0 +1,45 @@
+﻿@using LEDE.Domain.Entities
+@model IEnumerable<CandidateSummaryRow>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th id="taskHeader">Task</th>
+            <th id="submissionHeader">Submissions</th>
+        </tr>
+        @foreach (CandidateSummaryRow task in Model)
+        {
+            <tr>
+                <td>
+                    @task.Task.TaskCode: @Html.ActionLink(@task.Task.TaskName, "Index", new { TaskID = task.Task.TaskID })
+                </td>
+                <td>
+                    @foreach (TaskVersion version in task.candidateSubmissions)
+                    {
+                        <div class="versionbox">
+                            <span class="version">V @version.Version:</span>
+                            @if (version.RatingStatus.Trim() == "Complete")
+                            {
+                                int? scoretotal = version.TaskRatings.Sum(r => r.CoreRating.Cscore) +
+                                    @version.TaskRatings.Sum(r => r.CoreRating.Sscore) +
+                                    @version.TaskRatings.Sum(r => r.CoreRating.Pscore);
+                                <span>
+                                    @Html.ActionLink(scoretotal.ToString(), "Score", new { VersID = version.VersID }, new { @class = "score" })
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="score">-</span>
+                            }
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>This cohort doesn't have any tasks registered yet. Please check back later.</p>
+}

@@ -39,19 +39,6 @@ namespace LEDE.Domain.Entities
         }
     }
 
-    public class SelectableUser
-    {
-        public int Id { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public RoleEnum Role { get; set; }
-
-        public bool Selected { get; set; }
-    }
-
     public class AllUsers
     {
         public List<SelectableUser> EnrolledFaculty { get; set; }

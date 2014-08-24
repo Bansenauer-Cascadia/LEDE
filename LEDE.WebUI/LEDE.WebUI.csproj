@@ -163,6 +163,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -187,6 +188,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
+    <Compile Include="Controllers\CohortController.cs" />
     <Compile Include="Controllers\EnrollmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
@@ -216,7 +218,7 @@
     <Content Include="Views\Rating\Rate.cshtml" />
     <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Enrollment\Index.cshtml" />
-    <Content Include="Views\Enrollment\EditorTemplates\SelectableUser.cshtml" />
+    <Content Include="Views\Cohort\EditorTemplates\SelectableUser.cshtml" />
     <Content Include="Views\Rating\EditorTemplates\CoreRating.cshtml" />
     <Content Include="Views\File\Upload.cshtml" />
     <Content Include="Views\Candidate\Index.cshtml" />
@@ -225,6 +227,10 @@
     <Content Include="Views\Rating\GetIndexData.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Cohort\Index.cshtml" />
+    <Content Include="Views\Cohort\CohortUsers.cshtml" />
+    <Content Include="Views\Candidate\Summary.cshtml" />
+    <Content Include="Views\Candidate\SummaryTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

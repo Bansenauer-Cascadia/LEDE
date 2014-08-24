@@ -18,7 +18,7 @@ namespace LEDE.WebUI.Controllers
             this.db = repo;
         }
 
-        public ActionResult Index(int? ProgramCohortID)
+/*        public ActionResult Index(int? ProgramCohortID)
         {
             EnrollmentViewModel model = new EnrollmentViewModel();
             model.Cohorts = db.getCohorts();
@@ -31,7 +31,7 @@ namespace LEDE.WebUI.Controllers
             }
                 
             return View(model);
-        }
+        }*/
 
         [HttpPost]
         public ActionResult Index(EnrollmentViewModel postback, CohortFunction function)

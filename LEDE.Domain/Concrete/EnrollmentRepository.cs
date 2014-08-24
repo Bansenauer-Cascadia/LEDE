@@ -32,9 +32,10 @@ namespace LEDE.Domain.Concrete
         }
 
 
-        public AllUsers getCohortUsers(int ProgramCohortID)
+        public CohortUsers getCohortUsers(int ProgramCohortID)
         {
-            AllUsers users = new AllUsers();
+            CohortUsers users = new CohortUsers();
+            users.ProgramCohortID = ProgramCohortID;
 
             int FacultyRoleID = db.Roles.Single(r => r.Name == "Faculty").Id;
             int CandidateRoleID = db.Roles.Single(r => r.Name == "Candidate").Id;

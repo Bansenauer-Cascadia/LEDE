@@ -1,0 +1,34 @@
+﻿@using LEDE.Domain.Entities
+@model CohortDropDown
+@{
+    ViewBag.Title = "Summary";
+    AjaxOptions opts = new AjaxOptions(){
+        Url = Url.Action("SummaryTable"),
+        UpdateTargetId = "SummaryTarget",
+        LoadingElementId = "loading"
+    };
+}
+@section css {
+    <style>
+        #LoadingTarget {
+            text-align: center;
+        }
+    </style>
+}
+<h2>Summary</h2>
+@using (Ajax.BeginForm(opts))
+{
+    @:Program Cohort:@Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts, 
+    new {@class="form-control" }) <input type="submit" value="Go" class="btn btn-default" />
+
+}
+
+<div id="LoadingTarget">
+    <img id="loading" src="~/Images/ajax-loader.gif" style="display:none;" alt="Loading.."/>
+</div>
+
+<div id="SummaryTarget">
+
+</div>
+
+

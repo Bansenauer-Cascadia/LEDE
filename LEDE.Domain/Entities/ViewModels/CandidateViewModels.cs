@@ -22,4 +22,18 @@ namespace LEDE.Domain.Entities
         public bool UploadVisible { get; set; }
     }
 
+    public class CandidateSummaryRow
+    {
+        public Task Task { get; set; }
+
+        public IEnumerable<TaskVersion> candidateSubmissions { get; set; }
+    }
+
+    public class CohortDropDown
+    {
+        public int ProgramCohortID { get; set; }
+
+        public SelectList UserCohorts { get; set; }
+    }
+
 }

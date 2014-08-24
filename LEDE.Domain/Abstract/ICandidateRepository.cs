@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LEDE.Domain.Entities;
+using System.Web.Mvc;
 
 namespace LEDE.Domain.Abstract
 {
@@ -18,5 +19,9 @@ namespace LEDE.Domain.Abstract
         Document findDocument(int documentID);
 
         void DeleteTask(int documentID);
+
+        IEnumerable<CandidateSummaryRow> getSummaryModel(int UserID, int? ProgramCohortID);
+
+        CohortDropDown getCohorts(int UserID, int ProgramCohortID);
     }
 }

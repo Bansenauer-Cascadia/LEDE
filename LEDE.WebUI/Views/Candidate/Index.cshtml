@@ -31,7 +31,7 @@
             @Html.HiddenFor(x => x.TaskID)            
             <input type="file" name="file"/>
             <input type="submit" value="Submit" class="btn btn-default" />
-            @Html.ActionLink("Cancel", "Index", new {TaskID = Model.TaskID})
+            @Html.ActionLink("Cancel", "Index", new { TaskID = Model.TaskID }, new {@class = "btn btn-default" })
             <h3>
                 Previously Submitted
             </h3>

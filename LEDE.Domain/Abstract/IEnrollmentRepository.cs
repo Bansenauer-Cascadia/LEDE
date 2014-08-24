@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LEDE.Domain.Entities; 
+using LEDE.Domain.Entities;
 
 namespace LEDE.Domain.Abstract
 {
@@ -11,7 +11,7 @@ namespace LEDE.Domain.Abstract
     {
         IEnumerable<ProgramCohort> getCohorts();
 
-        AllUsers getCohortUsers(int ProgramCohortID);
+        CohortUsers getCohortUsers(int ProgramCohortID);
 
         void addCohortUsers(List<int> idsToAdd, int programCohortID);
 

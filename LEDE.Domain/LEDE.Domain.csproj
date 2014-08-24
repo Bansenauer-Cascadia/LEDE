@@ -176,11 +176,12 @@
     <Compile Include="Concrete\RatingRepository.cs" />
     <Compile Include="Concrete\SummaryRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
-    <Compile Include="Entities\CandidateViewModels.cs" />
+    <Compile Include="Entities\ViewModels\CandidateViewModels.cs" />
     <Compile Include="Entities\CohortEnrollment.cs" />
     <Compile Include="Entities\CoreRating.cs" />
     <Compile Include="Entities\CoreTopic.cs" />
     <Compile Include="Entities\Document.cs" />
+    <Compile Include="Entities\ViewModels\CohortViewModels.cs" />
     <Compile Include="Entities\ViewModels\EnrollmentViewModels.cs" />
     <Compile Include="Entities\IdentityModels.cs" />
     <Compile Include="Concrete\AppIdentityDbContext.cs" />
