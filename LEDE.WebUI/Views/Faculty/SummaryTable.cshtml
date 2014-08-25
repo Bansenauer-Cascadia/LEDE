@@ -1,0 +1,35 @@
+﻿@using LEDE.Domain.Entities
+@model FacultySummaryModel
+
+<table class="table">
+    <tr>
+        <th>Candidate</th>
+        @foreach (Task task in Model.CohortTasks)
+        {
+            <th>@task.TaskCode</th>
+        }
+    </tr>
+    @foreach (User candidate in Model.CohortCandidates)
+    {
+        IEnumerable<TaskVersion> candidateVersions = Model.MaxVersions.Where(v => v.UserID == candidate.Id);
+        <tr>
+            <td>@candidate.LastName, @candidate.FirstName</td>
+            @foreach (Task task in Model.CohortTasks)
+            {
+
+                TaskVersion maxVersion = candidateVersions.SingleOrDefault(v=> v.TaskID == task.TaskID);
+                if (maxVersion != null)
+                {
+                    <td class="@maxVersion.RatingStatus">
+                        @Html.ActionLink("V" + maxVersion.Version,"Rate","Rating",new{VersID = maxVersion.VersID}, null)
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }                
+            }
+        </tr>
+    }
+
+</table>

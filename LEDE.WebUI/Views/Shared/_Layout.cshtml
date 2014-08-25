@@ -42,6 +42,7 @@
                     else if (User.IsInRole("Faculty"))
                     {
                         <li>@Html.ActionLink("Feedback","Index","Rating")</li>
+                        <li>@Html.ActionLink("Submissions","Summary","Faculty")</li>
                         //<li>@Html.ActionLink("Totals","Seminar","Summary")</li>
                     }
                     else if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))

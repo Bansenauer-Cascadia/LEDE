@@ -36,4 +36,23 @@ namespace LEDE.Domain.Entities
         public SelectList UserCohorts { get; set; }
     }
 
+    public class FacultySummaryModel
+    {
+        public IEnumerable<Task> CohortTasks { get; set; }
+
+        public IEnumerable<User> CohortCandidates { get; set; }
+
+        public IEnumerable<TaskVersion> MaxVersions { get; set; }
+    }
+
+    public class SummaryTaskVersion
+    {
+        public int Version { get; set; }
+
+        public int TaskID { get; set; }
+
+        public int UserID { get; set; }
+
+        public string Status { get; set; }
+    }
 }

@@ -23,5 +23,7 @@ namespace LEDE.Domain.Abstract
         IEnumerable<CandidateSummaryRow> getSummaryModel(int UserID, int? ProgramCohortID);
 
         CohortDropDown getCohorts(int UserID, int ProgramCohortID);
+
+        FacultySummaryModel getFacultySummary(int ProgramCohortID);
     }
 }

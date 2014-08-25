@@ -190,6 +190,7 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\CohortController.cs" />
     <Compile Include="Controllers\EnrollmentController.cs" />
+    <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
@@ -231,6 +232,8 @@
     <Content Include="Views\Cohort\CohortUsers.cshtml" />
     <Content Include="Views\Candidate\Summary.cshtml" />
     <Content Include="Views\Candidate\SummaryTable.cshtml" />
+    <Content Include="Views\Faculty\Summary.cshtml" />
+    <Content Include="Views\Faculty\SummaryTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

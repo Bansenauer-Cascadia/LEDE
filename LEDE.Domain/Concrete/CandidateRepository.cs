@@ -126,5 +126,29 @@ namespace LEDE.Domain.Concrete
 
             return model;
         }
+
+
+        public FacultySummaryModel getFacultySummary(int ProgramCohortID)
+        {
+            FacultySummaryModel model = new FacultySummaryModel();
+
+            int ProgramID = db.ProgramCohorts.Single(c => c.ProgramCohortID == ProgramCohortID).ProgramID;
+
+            IEnumerable<TaskVersion> maxVersions =
+                from v in db.TaskVersions
+                where v.Task.Seminar.ProgramID == ProgramID && v.User.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
+                group v by new { v.UserID, v.TaskID } into m
+                let maxVersion = m.Max(v => v.Version)
+                select m.FirstOrDefault(v=> v.Version == maxVersion);
+
+            IEnumerable<Task> tasks = db.Tasks.Where(t => t.Seminar.ProgramID == ProgramID);
+
+            model.MaxVersions = maxVersions;
+            model.CohortTasks = tasks;
+            model.CohortCandidates = db.Users.Where(user => user.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
+                && user.Roles.Any(r=> r.RoleId == 1));
+
+            return model;
+        }
     }
 }
