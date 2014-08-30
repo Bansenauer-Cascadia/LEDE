@@ -9,7 +9,7 @@ using LEDE.Domain.Abstract;
 
 namespace LEDE.WebUI.Controllers
 {
-    //[Authorize(Roles = "Faculty")]
+    [Authorize(Roles = "Faculty")]
     public class SummaryController : Controller
     {
         private ISummaryRepository Summary;
