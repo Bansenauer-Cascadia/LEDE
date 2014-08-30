@@ -16,10 +16,12 @@ namespace LEDE.Domain.Entities
 
         public int ProgramCohortID { get; set; }
 
+        [Required]
         public int ProgramID { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display (Name="Academic Year")]
         public string AcademicYear { get; set; }
 
         [Required]

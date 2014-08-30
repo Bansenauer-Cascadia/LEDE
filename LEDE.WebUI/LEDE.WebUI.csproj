@@ -157,6 +157,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EditPanel.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -167,6 +168,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\EditPanel.js" />
     <Content Include="Scripts\Enrollment.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -188,7 +190,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
-    <Compile Include="Controllers\CohortController.cs" />
     <Compile Include="Controllers\EnrollmentController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,8 +219,7 @@
     <Content Include="Views\Summary\Student.cshtml" />
     <Content Include="Views\Rating\Rate.cshtml" />
     <Content Include="Views\Rating\Index.cshtml" />
-    <Content Include="Views\Enrollment\Index.cshtml" />
-    <Content Include="Views\Cohort\EditorTemplates\SelectableUser.cshtml" />
+    <Content Include="Views\Enrollment\EditorTemplates\SelectableUser.cshtml" />
     <Content Include="Views\Rating\EditorTemplates\CoreRating.cshtml" />
     <Content Include="Views\File\Upload.cshtml" />
     <Content Include="Views\Candidate\Index.cshtml" />
@@ -228,12 +228,22 @@
     <Content Include="Views\Rating\GetIndexData.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Cohort\Index.cshtml" />
-    <Content Include="Views\Cohort\CohortUsers.cshtml" />
+    <Content Include="Views\Enrollment\Index.cshtml" />
+    <Content Include="Views\Enrollment\CohortUsers.cshtml" />
     <Content Include="Views\Candidate\Summary.cshtml" />
     <Content Include="Views\Candidate\SummaryTable.cshtml" />
     <Content Include="Views\Faculty\Summary.cshtml" />
     <Content Include="Views\Faculty\SummaryTable.cshtml" />
+    <Content Include="Views\Enrollment\ListPanel.cshtml" />
+    <Content Include="Views\Enrollment\EnrollmentPanel.cshtml" />
+    <Content Include="Views\Enrollment\EditorTemplates\SelectableItem.cshtml" />
+    <Content Include="Views\Enrollment\EditProgram.cshtml" />
+    <Content Include="Views\Enrollment\ChildPanel.cshtml" />
+    <Content Include="Views\Enrollment\createProgramCohort.cshtml" />
+    <Content Include="Views\Enrollment\createProgramSeminar.cshtml" />
+    <Content Include="Views\Enrollment\EditSeminar.cshtml" />
+    <Content Include="Views\Enrollment\createSeminarCoreTopic.cshtml" />
+    <Content Include="Views\Enrollment\createSeminarTask.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

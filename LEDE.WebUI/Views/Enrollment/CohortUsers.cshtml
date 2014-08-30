@@ -1,16 +1,22 @@
 ﻿@using LEDE.Domain.Entities
 @model CohortUsers
-@{AjaxOptions UsersOptions = new AjaxOptions()
+@{AjaxOptions DeleteOptions = new AjaxOptions()
 {
     UpdateTargetId = "CohortDetails",
     LoadingElementId = "loading",
     Url = Url.Action("RemoveCohortUsers")
 };
+  AjaxOptions AddOptions = new AjaxOptions()
+  {
+      UpdateTargetId = "CohortDetails",
+      LoadingElementId = "loading",
+      Url = Url.Action("AddCohortUsers")
+  };
 }
 
 <div class="row">
 
-    @using (Ajax.BeginForm(UsersOptions))
+    @using (Ajax.BeginForm(DeleteOptions))
     {
         @Html.HiddenFor(model => model.ProgramCohortID)
         @Html.Hidden("Command","RemoveUsers")
@@ -42,7 +48,7 @@
         </div>
     }
 
-    @using (Ajax.BeginForm(UsersOptions))
+    @using (Ajax.BeginForm(AddOptions))
     {
         @Html.HiddenFor(model => model.ProgramCohortID)
         @Html.Hidden("Command","AddUsers")

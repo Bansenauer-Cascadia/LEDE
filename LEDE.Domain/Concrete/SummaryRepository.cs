@@ -24,22 +24,38 @@ namespace LEDE.Domain.Concrete
 
         public SeminarSummary getCohortTotals(int cohortID)
         {
-            IEnumerable<User> cohortStudents = db.Users.Where(u => u.CohortEnrollments.FirstOrDefault(e => e.ProgramCohortID == cohortID) != null);
-            List<StudentTotal> cohortTotals = new List<StudentTotal>();
-
-            foreach (User student in cohortStudents)
+            cohortID = 2; 
+            IEnumerable<User> cohortStudents = db.Users.Where(u => u.CohortEnrollments.Any(e => e.ProgramCohortID == cohortID) &&
+                u.Roles.Any(r=> r.RoleId == 1));
+            int ProgramID = db.ProgramCohorts.SingleOrDefault(c=> c.ProgramCohortID == cohortID).ProgramID;
+            
+            var TaskTotals = from cr in db.CoreRatings
+                             where cr.TaskRating.TaskVersion.Task.Seminar.ProgramID == ProgramID
+                             group cr by new { cr.TaskRating.TaskVersion.UserID, cr.TaskRating.TaskVersion.TaskID, cr.CoreTopicID } into g
+                             let maxVersion = g.Max(cr => cr.TaskRating.TaskVersion.Version)
+                             select new { CScore = g.FirstOrDefault(cr => cr.TaskRating.TaskVersion.Version == maxVersion).Cscore, 
+                                          SScore = g.FirstOrDefault(cr => cr.TaskRating.TaskVersion.Version == maxVersion).Sscore, 
+                                          PScore = g.FirstOrDefault(cr => cr.TaskRating.TaskVersion.Version == maxVersion).Pscore, 
+                                          TaskID = g.Key.TaskID,
+                                          CoreTopicID = g.Key.CoreTopicID,
+                                          Candidate = g.FirstOrDefault(cr => cr.TaskRating.TaskVersion.Version == maxVersion).TaskRating.TaskVersion.User
+                             };
+            var UserTotals = from tt in TaskTotals
+                             group tt by tt.Candidate.Id into g
+                             select new StudentTotal()
+                             {
+                                 CTotal = g.Sum(tt => tt.CScore) ?? 0,
+                                 STotal = g.Sum(tt => tt.SScore) ?? 0,
+                                 PTotal = g.Sum(tt => tt.PScore) ?? 0,
+                                 User = g.FirstOrDefault().Candidate
+                             };
+            SeminarSummary model = new SeminarSummary()
             {
-                StudentTotal studentTotals = new StudentTotal()
-                {
-                    User = new User(),
-                    CTotal = 2,
-                    STotal = 3, 
-                    PTotal = 4
-                };
-                cohortTotals.Add(studentTotals);
-            }
+                TotalsList = UserTotals,
+                MaxTotal = UserTotals.Select(u => new {Total = u.CTotal + u.STotal + u.PTotal }).Max(u=> u.Total)
+            };
 
-            return new SeminarSummary(); 
+            return model; 
         }
 
         public StudentSummary getStudentTotals(int Id)
@@ -49,7 +65,7 @@ namespace LEDE.Domain.Concrete
 
         public IEnumerable<ProgramCohort> getCohorts()
         {
-            return db.ProgramCohorts.Include(c => c.Program); 
+            return db.ProgramCohorts; 
         }
     }
 }

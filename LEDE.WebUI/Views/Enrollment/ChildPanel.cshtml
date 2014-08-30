@@ -1,0 +1,49 @@
+﻿@using LEDE.Domain.Entities
+@model ChildViewModel
+
+    @foreach (ListViewModel child in Model.Items)
+    {
+        if (child != null)
+        {
+            <div id="@child.Entity">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <h3>
+                            Enrolled @(child.Entity)s &nbsp;
+                            @Html.ActionLink("Add New", child.createAction,
+                     new { Id = Model.ParentID }, new { @class = "btn btn-default" })
+                        </h3>
+                        <table class="table">
+                            <tr>
+                                <th>@child.Entity</th>
+                                <th></th>
+                            </tr>
+                            @if (!child.Items.Any())
+                            {
+                                <tr>
+                                    <td colspan="2">No Enrolled @(child.Entity)s</td>
+                                </tr>
+                            }
+                            @foreach (ListItem item in child.Items)
+                            {
+                                AjaxOptions deleteOpts = new AjaxOptions()
+                                {
+                                    Url = Url.Action(child.deleteAction, 
+                                    new { Id = item.Id, ParentID = Model.ParentID, delete = child.Entity }),
+                                    UpdateTargetId = child.Entity
+                                };
+                                <tr>
+                                    <td>@Html.ActionLink(item.Name, child.editAction, new { Id = item.Id })</td>
+                                    <td>
+                                        @Ajax.ActionLink("Delete", "Programs", 
+                                        new { DeleteID = item.Id, DeleteEntity = child.Entity, SelectedItemID = Model.ParentID},
+                deleteOpts, new { @class = "btn btn-default" })
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }

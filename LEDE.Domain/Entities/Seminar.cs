@@ -14,15 +14,16 @@ namespace LEDE.Domain.Entities
             CoreTopics = new HashSet<CoreTopic>();
             Raters = new HashSet<Rater>();
             Tasks = new HashSet<Task>();
-            Tasks1 = new HashSet<Task>();
         }
 
         public int SeminarID { get; set; }
 
         [Required]
         [StringLength(250)]
+        [Display(Name="Seminar Title")]
         public string SeminarTitle { get; set; }
 
+        [Required]
         public int ProgramID { get; set; }
 
         public virtual ICollection<CoreTopic> CoreTopics { get; set; }
@@ -32,7 +33,5 @@ namespace LEDE.Domain.Entities
         public virtual ICollection<Rater> Raters { get; set; }
 
         public virtual ICollection<Task> Tasks { get; set; }
-
-        public virtual ICollection<Task> Tasks1 { get; set; }
     }
 }

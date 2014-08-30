@@ -15,10 +15,12 @@ namespace LEDE.Domain.Entities
         }
 
         public int CoreTopicID { get; set; }
-
+        
+        [Display(Name="Core Topic Number")]
         public decimal CoreTopicNum { get; set; }
 
         [Required]
+        [Display(Name="Core Topic Description")]
         public string CoreTopicDesc { get; set; }
 
         public int SeminarID { get; set; }

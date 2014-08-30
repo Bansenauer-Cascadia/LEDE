@@ -32,6 +32,7 @@ namespace LEDE.WebUI.Infrastructure
 
         public void AddBindings()
         {
+            /*
             //////////////////////////
             //Summary Repository Mock 
             
@@ -93,7 +94,8 @@ namespace LEDE.WebUI.Infrastructure
             cohorts.Add(LEDECohort); cohorts.Add(ECSELCohort);
 
             mockSummary.Setup(m => m.getCohorts()).Returns(cohorts); 
-
+            */ 
+            /*
             ////Student View
             //mocking getstudenttotals
             List<CoreTotal> ratingsList1 = new List<CoreTotal>();
@@ -136,35 +138,9 @@ namespace LEDE.WebUI.Infrastructure
             mockSummary.Setup(m => m.getStudentTotals(It.IsAny<int>())).Returns(studentSummary1);            
 
             kernel.Bind<ISummaryRepository>().ToConstant(mockSummary.Object); 
+            */
 
-            /////TaskRating mock
-            Mock<IRatingRepository> mockRatingRepo = new Mock<IRatingRepository>();
-            List<CoreRating> taskCoreRatings = new List<CoreRating>(); 
-            taskCoreRatings.Add(new CoreRating()
-            {CoreTopic = coreTopic1,
-                Cscore = 1,
-                Pscore = 2,
-                Sscore =3,
-                CoreTopicID = 1,
-                RatingID = 1
-            });
-            taskCoreRatings.Add(new CoreRating()
-            {
-                CoreTopic = coreTopic2,
-                Cscore = 3,
-                Pscore = 3,
-                Sscore = 3,
-                CoreTopicID = 2,
-                RatingID = 2
-            }); 
-            CompleteRating taskRating = new CompleteRating()
-            {
-                VersID = 1,
-                FacultyID = 1,
-                TaskCoreRatings = taskCoreRatings
-            };
-
-            //kernel.Bind<IRatingRepository>().ToConstant(mockRatingRepo.Object);
+            kernel.Bind<ISummaryRepository>().To<SummaryRepository>();
             kernel.Bind<ICandidateRepository>().To<CandidateRepository>(); 
             kernel.Bind<IRatingRepository>().To<RatingRepository>();
             kernel.Bind<IEnrollmentRepository>().To<EnrollmentRepository>(); 

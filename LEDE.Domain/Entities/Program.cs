@@ -18,9 +18,11 @@ namespace LEDE.Domain.Entities
         public int ProgramID { get; set; }
 
         [Required]
+        [Display(Name= "Program Title")]
         public string ProgramTitle { get; set; }
 
         [StringLength(50)]
+        [Display(Name= "Program Type")]
         public string ProgramType { get; set; }
 
         public virtual ICollection<ProgramCohort> ProgramCohorts { get; set; }

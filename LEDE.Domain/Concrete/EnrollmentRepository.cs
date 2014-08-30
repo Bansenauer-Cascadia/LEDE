@@ -16,6 +16,13 @@ namespace LEDE.Domain.Concrete
             db = new DbContext(); 
         }
 
+
+        //Methods for the program page
+        public IEnumerable<Program> getPrograms()
+        {
+            return db.Programs;
+        }
+        //end methods for program page
         public IEnumerable<ProgramCohort> getCohorts()
         {
             return db.ProgramCohorts; 
@@ -40,7 +47,8 @@ namespace LEDE.Domain.Concrete
             int FacultyRoleID = db.Roles.Single(r => r.Name == "Faculty").Id;
             int CandidateRoleID = db.Roles.Single(r => r.Name == "Candidate").Id;
 
-            foreach (User user in db.Users.Where(u => u.Roles.FirstOrDefault(r => r.RoleId == CandidateRoleID || r.RoleId == FacultyRoleID) != null).OrderBy(u=> u.LastName))
+            foreach (User user in db.Users.Where(u => u.Roles.FirstOrDefault(r => r.RoleId == CandidateRoleID || r.RoleId == FacultyRoleID) != null).
+                OrderBy(u=> u.LastName))
             {
                 SelectableUser selectableuser = new SelectableUser()
                 {
@@ -69,6 +77,7 @@ namespace LEDE.Domain.Concrete
         }
 
 
+
         public void addCohortUsers(List<int> idsToAdd, int programCohortID)
         {
             foreach (int id in idsToAdd)
@@ -88,5 +97,119 @@ namespace LEDE.Domain.Concrete
             db.SaveChanges(); 
         }
 
+        public IEnumerable<Seminar> getSeminars()
+        {
+            return db.Seminars;
+        }
+
+        public void editProgram(Program program)
+        {
+            Program programToEdit = db.Programs.Find(program.ProgramID);
+            programToEdit.ProgramTitle = program.ProgramTitle;
+            programToEdit.ProgramType = program.ProgramType;
+            programToEdit = program; 
+            db.SaveChanges(); 
+        }
+
+
+        public void createProgramCohort(ProgramCohort cohort)
+        {
+            db.ProgramCohorts.Add(cohort);
+            db.SaveChanges();
+        }
+
+        public void deleteProgramCohort(int programCohortID)
+        {
+            ProgramCohort cohortToRemove = db.ProgramCohorts.Find(programCohortID);
+            db.ProgramCohorts.Remove(cohortToRemove);
+            db.SaveChanges();
+        }
+
+        public void createProgramSeminar(Seminar seminar)
+        {
+            db.Seminars.Add(seminar);
+            db.SaveChanges(); 
+        }
+
+        public void deleteProgramSeminar(int seminarID)
+        {
+            Seminar seminarToRemove = db.Seminars.Find(seminarID);
+            db.Seminars.Remove(seminarToRemove);
+            db.SaveChanges();
+        }
+
+
+        public void deleteSeminarCoreTopic(int coreTopicID)
+        {
+            CoreTopic deleteTopic = db.CoreTopics.Find(coreTopicID);
+            db.CoreTopics.Remove(deleteTopic);
+            db.SaveChanges(); 
+        }
+
+        public void deleteSeminarTask(int taskID)
+        {
+            Task deleteTask = db.Tasks.Find(taskID);
+            db.Tasks.Remove(deleteTask);
+            db.SaveChanges(); 
+        }
+
+
+        public void editSeminar(Seminar seminar)
+        {
+            Seminar editSeminar = db.Seminars.Find(seminar.SeminarID);
+            editSeminar.SeminarTitle = seminar.SeminarTitle;
+            db.SaveChanges(); 
+        }
+
+
+        public IEnumerable<CoreTopic> getCoreTopics()
+        {
+            return db.CoreTopics; 
+        }
+
+        public IEnumerable<Task> getTasks()
+        {
+            return db.Tasks; 
+        }
+
+
+        public void createSeminarCoreTopic(CoreTopic coretopic)
+        {
+            db.CoreTopics.Add(coretopic);
+            db.SaveChanges(); 
+        }
+
+        public void createSeminarTask(Task task)
+        {
+            db.Tasks.Add(task);
+            db.SaveChanges(); 
+        }
+
+        public IEnumerable<TaskType> getTaskTypes()
+        {
+            return db.TaskTypes; 
+        }
+
+
+        public void editSeminarTask(Task task)
+        {
+            Task editTask = db.Tasks.Find(task.TaskID);
+            editTask.TaskTypeID = task.TaskTypeID;
+            editTask.TaskCode = task.TaskCode;
+            editTask.TaskName = task.TaskName;
+
+            db.SaveChanges(); 
+        }
+
+        public void editSeminarCoretopic(CoreTopic coretopic)
+        {
+            CoreTopic editTopic = db.CoreTopics.Find(coretopic.CoreTopicID);
+            editTopic.ModifyDate = coretopic.ModifyDate;
+            editTopic.CoreTopicNum = coretopic.CoreTopicNum;
+            editTopic.CoreTopicDesc = coretopic.CoreTopicDesc;
+            editTopic.Status = coretopic.Status;
+
+            db.SaveChanges(); 
+        }
     }
 }

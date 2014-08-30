@@ -90,14 +90,10 @@ namespace LEDE.Domain.Concrete
                 .IsUnicode(false);
 
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.ProgramCohorts)
-                .WithRequired(e => e.Program)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.ProgramCohorts);
 
             modelBuilder.Entity<Program>()
-                .HasMany(e => e.Seminars)
-                .WithRequired(e => e.Program)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.Seminars);
 
             modelBuilder.Entity<ProgramCohort>()
                 .Property(e => e.AcademicYear)
@@ -129,12 +125,6 @@ namespace LEDE.Domain.Concrete
             modelBuilder.Entity<Seminar>()
                 .HasMany(e => e.Tasks)
                 .WithRequired(e => e.Seminar)
-                .HasForeignKey(e => e.SeminarID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Seminar>()
-                .HasMany(e => e.Tasks1)
-                .WithRequired(e => e.Seminar1)
                 .HasForeignKey(e => e.SeminarID)
                 .WillCascadeOnDelete(false);
 

@@ -21,6 +21,7 @@ namespace LEDE.WebUI.Controllers
             this.Calculator = calc; 
         }
 
+        [AllowAnonymous]
         public ActionResult Seminar(SeminarSummary summary)
         {
             //get dropdown sorted

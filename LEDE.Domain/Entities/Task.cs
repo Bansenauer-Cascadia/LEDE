@@ -18,19 +18,20 @@ namespace LEDE.Domain.Entities
 
         [Required]
         [StringLength(10)]
+        [Display(Name="Task Code")]
         public string TaskCode { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name="Task Name")]
         public string TaskName { get; set; }
 
         public int SeminarID { get; set; }
 
+        [Display(Name="Task Type")]
         public int? TaskTypeID { get; set; }
 
         public virtual Seminar Seminar { get; set; }
-
-        public virtual Seminar Seminar1 { get; set; }
 
         public virtual TaskType TaskType { get; set; }
 

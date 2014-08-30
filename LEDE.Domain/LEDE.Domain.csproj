@@ -218,6 +218,34 @@
     <Compile Include="Migrations\201408110545335_document2.Designer.cs">
       <DependentUpon>201408110545335_document2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408270305527_seminaridnullable.cs" />
+    <Compile Include="Migrations\201408270305527_seminaridnullable.Designer.cs">
+      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408270310523_seminarnullable.cs" />
+    <Compile Include="Migrations\201408270310523_seminarnullable.Designer.cs">
+      <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408270604316_re-sync.cs" />
+    <Compile Include="Migrations\201408270604316_re-sync.Designer.cs">
+      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282117191_staging.cs" />
+    <Compile Include="Migrations\201408282117191_staging.Designer.cs">
+      <DependentUpon>201408282117191_staging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282119179_stagin.cs" />
+    <Compile Include="Migrations\201408282119179_stagin.Designer.cs">
+      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282124151_undo stupid changes.cs" />
+    <Compile Include="Migrations\201408282124151_undo stupid changes.Designer.cs">
+      <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408300102338_8-29-2014.cs" />
+    <Compile Include="Migrations\201408300102338_8-29-2014.Designer.cs">
+      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -233,6 +261,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408110545335_document2.resx">
       <DependentUpon>201408110545335_document2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270305527_seminaridnullable.resx">
+      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270310523_seminarnullable.resx">
+      <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270604316_re-sync.resx">
+      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282117191_staging.resx">
+      <DependentUpon>201408282117191_staging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282119179_stagin.resx">
+      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282124151_undo stupid changes.resx">
+      <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408300102338_8-29-2014.resx">
+      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

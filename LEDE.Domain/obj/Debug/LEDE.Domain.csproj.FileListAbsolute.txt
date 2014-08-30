@@ -188,3 +188,10 @@ C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migra
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.csproj.GenerateResource.Cache
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.dll
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.pdb
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.seminaridnullable.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.seminarnullable.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.resync.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.staging.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.stagin.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.undostupidchanges.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations._8292014.resources

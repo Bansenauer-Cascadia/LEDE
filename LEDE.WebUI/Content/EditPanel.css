@@ -1,0 +1,14 @@
+﻿body {
+}
+
+.hidden {
+    display:none;
+}
+
+.selected {
+    background-color: #F9F9F9;
+}
+
+.selected .labelcol {
+    font-size:200%;
+}

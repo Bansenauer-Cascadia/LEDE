@@ -1,0 +1,110 @@
+﻿@using LEDE.Domain.Entities;
+@model ParentViewModel
+@{
+    ViewBag.Title = Model.Entity + "s";
+
+    bool collapseMenu;
+    if (Model.SelectedItemID > 0)
+    { collapseMenu = true; }
+    else
+    { collapseMenu = false; }
+
+    string headerClass = "";
+    if (collapseMenu)
+    {
+        headerClass = "hidden";
+    }
+}
+@section css{
+    <link href="~/Content/EditPanel.css" type="text/css" rel="stylesheet" />
+}
+<div class="col md-12">
+    <div class="panel panel-default" style="margin-top: 20px;">
+        <h2>Edit a @Model.Entity</h2>
+        <table class="table">
+            <tr class="@headerClass">
+                <th>@Model.Entity</th>
+                <th colspan="2" id="actions">Actions</th>
+            </tr>
+            @foreach (ListItem item in Model.Items)
+            {
+                string rowClass = ""; string colClass = "";
+                if (collapseMenu)
+                {
+                    if (item.Id == Model.SelectedItemID)
+                    {
+                        rowClass = "selected";
+                    }
+                    else
+                    {
+                        rowClass = "hidden";
+                    }
+                }
+                <tr class="@rowClass">
+                    <td class="labelcol">@Html.ActionLink(item.Name, Model.editAction, new { Id = item.Id })</td>
+                    <td>
+                        @{string enrollDisplay = "";}
+                        @if (rowClass == "selected")
+                        {
+                            @Html.ActionLink("Expand", Model.Entity + "s", null, new { @class = "btn btn-default", id = "cancelEdit" })
+                            enrollDisplay = "display: none;";
+                        }
+
+                        @Ajax.ActionLink("Enroll Items", Model.Entity + "s", new { SelectedItemID = item.Id },
+                new AjaxOptions
+                {
+                    Url = Url.Action(Model.Entity + "Items", new { ParentID = item.Id }),
+                    UpdateTargetId = "EditChildren"
+                }, new { @class = "edit", style = enrollDisplay })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row" id="EditChildren">
+    @if (Model.SelectedItemID > 0)
+    {
+        @Html.Action(Model.Entity + "Items", new { ParentID = Model.SelectedItemID })
+    }
+</div>
+
+@section script {
+    <script type="text/javascript">
+        $(function () {
+            $('.edit').on('click', function () {
+                selectedrow = $(this).parent().parent();
+                selectedrow.attr('class', 'selected');
+                selectedrow.siblings('.selected').attr('class', '');
+                selectedrow.siblings(':not(.first)').hide().slideUp();
+
+                var $cancelEdit = $('<button id="cancelEdit" class="btn btn-default">Expand</button>');
+                $(this).after($cancelEdit);
+                $(this).css('display', 'none');
+                $('.labelcol').css('font-size', '200%');
+
+                $('#cancelEdit').on('click', function () {
+                    selectedrow = $(this).parent().parent();
+                    selectedrow.siblings(':not(.first)').toggle();
+                    selectedrow.removeClass('selected');
+                    $(this).siblings().css('display', 'inline');
+                    $('.labelcol').css('font-size', '100%');
+                    $('#EditChildren').empty();
+                    $(this).remove();
+                });
+            });
+
+            $('#cancelEdit').on('click', function (e) {
+                e.preventDefault();
+                selectedrow = $(this).parent().parent();
+                selectedrow.siblings().removeClass('hidden');
+                selectedrow.removeClass('selected');
+                $(this).siblings().css('display', 'inline');
+                $('.labelcol').css('font-size', '100%');
+                $('#EditChildren').empty();
+                $(this).remove();
+            });
+        });
+    </script>
+}
+

@@ -1,81 +1,56 @@
 ﻿@using LEDE.Domain.Entities;
-@model EnrollmentViewModel
+@model IEnumerable<ProgramCohort>
 @{
     ViewBag.Title = "Index";
+    AjaxOptions CohortOptions = new AjaxOptions()
+    {
+        UpdateTargetId = "CohortDetails",
+        LoadingElementId = "loading",
+        Url = Url.Action("CohortUsers")
+    };
 }
-    <h2>Edit Cohort Enrollments</h2>
+@section css{
+<link rel="stylesheet" href="~/Content/EditPanel.css" type="text/css" />
+    <style>
+        
+    </style>
 
-    <div class="panel panel-default">
-        <h3>Program Cohorts</h3>
-        <table class="table table-condensed" id="CohortTable">
-            <tr>
-                <th>Program</th>
-                <th style="text-align:center">Academic Year</th>
-                <th></th>
-            </tr>
-            @foreach (ProgramCohort cohort in Model.Cohorts)
+}
+<h2>Cohort Enrollment</h2>
+
+<div class="panel panel-default">
+    <h3>Program Cohorts</h3>
+    <table class="table table-condensed" id="CohortTable">
+        <tr class="first">
+            <th width="33%">Program</th>
+            <th width="33%" style="text-align:center">Academic Year</th>
+            <th width="33%"></th>
+        </tr>
+        @foreach (ProgramCohort cohort in Model)
+        {
+            using (Ajax.BeginForm(CohortOptions))
             {
+                @Html.Hidden("ProgramCohortID",cohort.ProgramCohortID)
                 <tr>
                     <td>@cohort.Program.ProgramTitle</td>
                     <td style="text-align:center">@cohort.AcademicYear</td>
-                    <td>@Html.ActionLink("Edit", "Index", new { ProgramCohortID = cohort.ProgramCohortID }, new { @class = "btn btn-default btn-xs" })</td>
+                    <td><input type="submit" value="Edit" class="btn btn-sm edit" /></td>
                 </tr>
             }
-        </table>
-    </div>
-
-    @if (Model.Users != null)
+        }
+    </table>
+</div>
+<div id="loading" style="display:none; margin-left:auto;margin-right:auto;text-align:center">
+    <img src="~/Images/ajax-loader.gif" alt="Loading..." />
+</div>
+<div id="CohortDetails">
+    @{int ProgramCohortID = Convert.ToInt32(ViewBag.ProgramCohortID);}
+    @if (ProgramCohortID > 0)
     {
-        <div class="row">
-
-        @using (Html.BeginForm(new {function = CohortFunction.Remove}))
-        {
-            @Html.HiddenFor(model => model.ProgramCohortID)
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <h3>@ViewBag.Cohort: Enrolled Users</h3>
-
-                    <table class="table table-hover">
-                        <tr><th>Candidates</th><th style="text-align:center"><input type="submit" value="Remove" class="btn btn-danger btn-sm" /></th></tr>
-                        @Html.EditorFor(model => model.Users.EnrolledCandidates)
-                        @if (Model.Users.EnrolledCandidates.FirstOrDefault() == null)
-                        {
-                            <tr><td colspan="2">No Candidates Enrolled</td></tr>
-                        }
-                        <tr><th>Faculty</th><th style="text-align:center"></th></tr>
-                        @Html.EditorFor(model => model.Users.EnrolledFaculty)
-                        @if (Model.Users.EnrolledCandidates.FirstOrDefault() == null)
-                        {
-                            <tr><td colspan="2">No Faculty Enrolled</td></tr>
-                        }
-
-                    </table>
-                </div>
-            </div>
-        }
-        
-        @using (Html.BeginForm(new {function = CohortFunction.Add }))
-        {
-            @Html.HiddenFor(model => model.ProgramCohortID)
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <h3>Non-Enrolled Users</h3>
-
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Candidates</th>
-                            <th style="text-align:center"><input type="submit" value="Add" class="btn btn-success btn-sm" /></th>
-                        </tr>
-                        @Html.EditorFor(model => model.Users.NonEnrolledCandidates)
-                        <tr>
-                            <th>Faculty</th>
-                            <th style="text-align:center"></th>
-                        </tr>
-                        @Html.EditorFor(model => model.Users.NonEnrolledFaculty)
-                    </table>
-                </div>
-            </div>
-        }
-        </div>
+        @Html.Action("CohortUsers", new { ProgramCohortID = ProgramCohortID})
     }
-    <script src="~/Scripts/Enrollment.js"></script>
+</div>
+
+@section script{
+    <script src="~/Scripts/EditPanel.js"></script>
+}
