@@ -4,23 +4,43 @@
     ViewBag.Title = "Student";
 }
 
-<h2>Student</h2>
-
-<div class="progress">
-    <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
-    <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
-    <div class="progress-bar progress-bar-danger" style="width: 33.3%">Personal</div>
+<h2>@Model.User.LastName, @Model.User.FirstName - Rating Summary</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
+            <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
+            <div class="progress-bar progress-bar" style="width: 33.3%">Personal</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="progress">
+            <div class="progress-bar progress-bar-danger" style="width:33.3%">1s</div>
+            <div class="progress-bar progress-bar-warning" style="width: 33.3%">2s</div>
+            <div class="progress-bar progress-bar-success" style="width: 33.3%">3s</div>
+        </div>
+    </div>
 </div>
 
 @foreach (CoreTotal totals in Model.RatingsList)
 {
-    @totals.CoreTopic.CoreTopicNum@:-@totals.CoreTopic.CoreTopicDesc
-    <div class="progress">
-        <div class="progress-bar progress-bar-success" style="width: @totals.CPercentage%">@totals.CTotal</div>
-        <div class="progress-bar progress-bar-warning" style="width: @totals.SPercentage%">@totals.STotal</div>
-        <div class="progress-bar progress-bar-danger" style="width: @totals.PPercentage%">@totals.PTotal</div>
+    <h5>@(totals.CoreTopic.CoreTopicNum): @totals.CoreTopic.CoreTopicDesc</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: @totals.CPercentage%">@totals.CTotal</div>
+                <div class="progress-bar progress-bar-warning" style="width: @totals.SPercentage%">@totals.STotal</div>
+                <div class="progress-bar progress-bar" style="width: @totals.PPercentage%">@totals.PTotal</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: @totals.OnePercentage%">@totals.OneCount</div>
+                <div class="progress-bar progress-bar-warning" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
+                <div class="progress-bar progress-bar-success" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
+            </div>
+        </div>
     </div>
 }
-
 
 

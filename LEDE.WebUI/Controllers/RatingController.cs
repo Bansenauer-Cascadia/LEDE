@@ -108,6 +108,10 @@ namespace LEDE.WebUI.Controllers
         [HttpPost]
         public ActionResult Task(RatingViewModel post)
         {
+            if (Request.IsAjaxRequest())
+            {
+                ///this should prove usefulll!
+            }
             if (ModelState.IsValid)
             {
                 post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 

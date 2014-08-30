@@ -246,6 +246,14 @@
     <Compile Include="Migrations\201408300102338_8-29-2014.Designer.cs">
       <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408302007530_testforseminarid.cs" />
+    <Compile Include="Migrations\201408302007530_testforseminarid.Designer.cs">
+      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408302207272_8-30-14.cs" />
+    <Compile Include="Migrations\201408302207272_8-30-14.Designer.cs">
+      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -282,6 +290,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408300102338_8-29-2014.resx">
       <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408302007530_testforseminarid.resx">
+      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408302207272_8-30-14.resx">
+      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

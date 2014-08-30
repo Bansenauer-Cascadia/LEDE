@@ -244,6 +244,7 @@
     <Content Include="Views\Enrollment\EditSeminar.cshtml" />
     <Content Include="Views\Enrollment\createSeminarCoreTopic.cshtml" />
     <Content Include="Views\Enrollment\createSeminarTask.cshtml" />
+    <Content Include="Views\Summary\Unformatted.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

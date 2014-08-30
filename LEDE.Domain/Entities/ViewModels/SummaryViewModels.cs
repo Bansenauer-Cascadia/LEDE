@@ -15,21 +15,26 @@ namespace LEDE.Domain.Entities
         public int MaxTotal { get; set; }
 
         public IEnumerable<SelectListItem> ProgramCohorts { get; set; }
-        public int SelectedCohortID { get; set; } 
-    }
-
-    public class StudentSummary
-    {
-        public IEnumerable<CoreTotal> RatingsList { get; set; }
-
-        public User User { get; set; }
-
-        public int MaxTotal { get; set; }
+        public int SelectedCohortID { get; set; }
     }
 
     public class StudentTotal : RatingTotal
     {
         public User User { get; set; }
+    }
+    /// <summary>
+    /// ///////////////////
+    /// </summary>
+
+    public class StudentSummary
+    {
+        public List<CoreTotal> RatingsList { get; set; }
+
+        public User User { get; set; }
+
+        public int MaxTotal { get; set; }
+
+        public int MaxCount { get; set; }
     }
 
     public class CoreTotal : RatingTotal
@@ -47,5 +52,14 @@ namespace LEDE.Domain.Entities
 
         public int PTotal { get; set; }
         public double PPercentage { get; set; }
+
+        public int OneCount { get; set; }
+        public double OnePercentage { get; set; }
+
+        public int TwoCount { get; set; }
+        public double TwoPercentage { get; set; }
+
+        public int ThreeCount { get; set; }
+        public double ThreePercentage { get; set; }
     }
 }

@@ -11,7 +11,8 @@
             <div class="col-md-4">
                 @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
                 {
-                    @:Version @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
+                    @:Version @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
+                    new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
     }
             </div>
         </div>

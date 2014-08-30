@@ -1,0 +1,37 @@
+﻿@using LEDE.Domain.Entities
+@model StudentSummary
+@{
+    ViewBag.Title = "Student | Unformatted";
+}
+
+<h2>@Model.User.LastName, @Model.User.FirstName - Rating Summary (Unformatted)</h2>
+
+@foreach (CoreTotal total in Model.RatingsList)
+{
+    <div class="coretopic">
+        @(total.CoreTopic.CoreTopicNum): @total.CoreTopic.CoreTopicDesc
+        <div class="knowledge">
+            <div class="c">
+                <span class="total">@total.CTotal</span><span class="percentage">@total.CPercentage</span>
+            </div>
+            <div class="s">
+                <span class="total">@total.STotal</span><span class="percentage">@total.SPercentage</span>
+            </div>
+            <div class="p">
+                <span class="total">@total.PTotal</span><span class="percentage">@total.PPercentage</span>
+            </div>
+        </div>
+        <div class="score">
+            <div class="one">
+                <span class="total">@total.OneCount</span><span class="percentage">@total.OnePercentage</span>
+            </div>
+            <div class="two">
+                <span class="total">@total.TwoCount</span><span class="percentage">@total.TwoPercentage</span>
+            </div>
+            <div class="three">
+                <span class="total">@total.ThreeCount</span><span class="percentage">@total.ThreePercentage</span>
+            </div>
+        </div>
+    </div>
+}
+

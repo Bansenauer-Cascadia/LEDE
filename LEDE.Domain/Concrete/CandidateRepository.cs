@@ -112,7 +112,7 @@ namespace LEDE.Domain.Concrete
             CohortDropDown model = new CohortDropDown();
 
             IEnumerable<CohortEnrollment> userEnrollments = db.CohortEnrollments.Where(e => e.UserID == UserID);
-            if (userEnrollments == null)
+            if (!userEnrollments.Any())
                 model.ProgramCohortID = 0;
             else
             {
@@ -147,6 +147,7 @@ namespace LEDE.Domain.Concrete
             model.CohortTasks = tasks;
             model.CohortCandidates = db.Users.Where(user => user.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
                 && user.Roles.Any(r=> r.RoleId == 1));
+            model.ProgramCohortID = ProgramCohortID; 
 
             return model;
         }

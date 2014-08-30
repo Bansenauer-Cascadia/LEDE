@@ -13,7 +13,8 @@
     {
         IEnumerable<TaskVersion> candidateVersions = Model.MaxVersions.Where(v => v.UserID == candidate.Id);
         <tr>
-            <td>@candidate.LastName, @candidate.FirstName</td>
+            <td>@Html.ActionLink(candidate.LastName + ", " + candidate.FirstName, "Student", "Summary", 
+                new {UserID = candidate.Id, ProgramCohortID = Model.ProgramCohortID}, null)</td>
             @foreach (Task task in Model.CohortTasks)
             {
 

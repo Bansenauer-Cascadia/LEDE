@@ -43,6 +43,8 @@ namespace LEDE.Domain.Entities
         public IEnumerable<User> CohortCandidates { get; set; }
 
         public IEnumerable<TaskVersion> MaxVersions { get; set; }
+
+        public int ProgramCohortID { get; set; }
     }
 
     public class SummaryTaskVersion
