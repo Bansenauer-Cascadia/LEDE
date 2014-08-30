@@ -22,7 +22,13 @@
     </div>
 </div>
 
-@foreach (CoreTotal totals in Model.RatingsList)
+@if (Model.MaxCount == 0)
+{
+    <p>No ratings have been submitted for this student yet.</p>
+}
+else
+{
+    foreach (CoreTotal totals in Model.RatingsList)
 {
     <h5>@(totals.CoreTopic.CoreTopicNum): @totals.CoreTopic.CoreTopicDesc</h5>
     <div class="row">
@@ -41,6 +47,8 @@
             </div>
         </div>
     </div>
+}
+
 }
 
 

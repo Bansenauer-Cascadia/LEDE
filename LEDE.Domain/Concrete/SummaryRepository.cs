@@ -59,12 +59,14 @@ namespace LEDE.Domain.Concrete
                                  CoreTopic = g.Key
                              };
 
+            var CombinedTotals = UserTotals.Select(u => new { Total = u.CTotal + u.STotal + u.PTotal });
+            var CombinedCounts = UserTotals.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount }); 
             StudentSummary model = new StudentSummary()
             {
                 RatingsList = UserTotals.ToList(),
                 User = db.Users.Find(userID),
-                MaxTotal = UserTotals.Select(u => new { Total = u.CTotal + u.STotal + u.PTotal }).Max(u => u.Total),
-                MaxCount = UserTotals.Select(u => new {Count = u.OneCount + u.TwoCount + u.ThreeCount }).Max(u=> u.Count)
+                MaxTotal = CombinedTotals.Any()? CombinedTotals.Max(t=> t.Total) : 0,
+                MaxCount = CombinedCounts.Any()? CombinedCounts.Max(c=> c.Count) : 0
             };
 
             return model;  
