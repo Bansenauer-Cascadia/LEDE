@@ -8,7 +8,7 @@ using LEDE.Domain.Abstract;
 
 namespace LEDE.WebUI.Controllers
 {
-    
+    [Authorize(Roles="ECSEL Admin, Super Admin, LEDE Admin")]
     public class EnrollmentController : Controller
     {
         private IEnrollmentRepository db;
@@ -265,10 +265,15 @@ namespace LEDE.WebUI.Controllers
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-        public ActionResult Index(int Id = 0)
+        public ActionResult Index(string Command, CohortUsers users = null, int ProgramCohortID = 0)
         {
+            if (Command == "AddUsers")
+                db.addCohortUsers(users.getIdsToAdd(), users.ProgramCohortID);
+            else if (Command == "RemoveUsers")
+                db.removeCohortUsers(users.getIdsToRemove(), users.ProgramCohortID);
+
             IEnumerable<ProgramCohort> model = db.getCohorts();
-            ViewBag.ProgramCohortID = Id;
+            ViewBag.ProgramCohortID = ProgramCohortID;
 
             return View(model);
         }

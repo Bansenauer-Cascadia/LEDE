@@ -11,15 +11,10 @@
 }
 @section css{
 <link rel="stylesheet" href="~/Content/EditPanel.css" type="text/css" />
-    <style>
-        
-    </style>
-
 }
-<h2>Cohort Enrollment</h2>
 
-<div class="panel panel-default">
-    <h3>Program Cohorts</h3>
+<div class="panel panel-default" style="margin-top:20px;">
+    <h2>Cohort Enrollment</h2>
     <table class="table table-condensed" id="CohortTable">
         <tr class="first">
             <th width="33%">Program</th>
@@ -32,7 +27,7 @@
             {
                 @Html.Hidden("ProgramCohortID",cohort.ProgramCohortID)
                 <tr>
-                    <td>@cohort.Program.ProgramTitle</td>
+                    <td class="first">@cohort.Program.ProgramTitle</td>
                     <td style="text-align:center">@cohort.AcademicYear</td>
                     <td><input type="submit" value="Edit" class="btn btn-sm edit" /></td>
                 </tr>

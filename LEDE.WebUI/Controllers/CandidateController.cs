@@ -72,9 +72,9 @@ namespace LEDE.WebUI.Controllers
 
                 db.uploadTask(taskID, Convert.ToInt32(User.Identity.GetUserId()), uploadDoc); 
                 FileManager.UploadDocument(uploadDoc, file);
-            }           
+            }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {TaskID = taskID });
         }
 
         public ActionResult Score(int VersID)

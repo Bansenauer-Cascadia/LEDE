@@ -4,6 +4,7 @@
         selectedrow.attr('class', 'selected');
         selectedrow.siblings('.selected').attr('class', '');
         selectedrow.siblings(':not(.first)').hide().slideUp();
+        $(this).parent().siblings().css('font-size', '200%');
 
         var $cancelEdit = $('<button id="cancelEdit" class="btn btn-sm">Change</button>');
         $(this).after($cancelEdit);
@@ -14,6 +15,9 @@
             selectedrow.siblings(':not(.first)').toggle();
             $(this).siblings().css('display', 'inline');
             $(this).remove();
+            selectedrow.children().css('font-size', '100%');
+            selectedrow.removeClass('selected');
+            $('#CohortDetails').empty(); 
         });
     });
 });

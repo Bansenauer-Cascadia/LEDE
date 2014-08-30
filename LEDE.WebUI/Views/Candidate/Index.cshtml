@@ -23,7 +23,7 @@
             <h3>
                 Previously Submitted
                 &nbsp;&nbsp;
-                @Html.ActionLink("Upload New", "Index", new { UploadVisible = true }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Upload New", "Index", new { UploadVisible = true, TaskID = Model.TaskID }, new { @class = "btn btn-default" })
             </h3>
         }
         else
@@ -72,7 +72,7 @@
                 }
                 else
                 {
-                     <td>@Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID }, new { @class = "btn btn-default btn-sm" })</td>                    
+                     <td>@Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID }, new { @class = "btn btn-default btn-sm" })</td>                    
                 }
                 <td></td>
             </tr>
