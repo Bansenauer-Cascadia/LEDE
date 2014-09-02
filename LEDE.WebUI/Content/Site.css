@@ -1,14 +1,125 @@
-﻿body {
-    padding-top: 50px;
+﻿/*Cascading Style Sheet for ECSEL Portal UI*/
+/*Created for use in conjunction with bootstrap.css*/
+
+/*
+*   CONTENTS:
+*   01.00 BASICS
+*       01.01 TYPEFACE
+*       01.02 PAGE BODY
+*       01.03 LINKS
+*       01.04 LISTS
+*       01.05 TABLES
+*       01.06 FORMS
+*		01.07 BUTTONS
+*   02.00 HEADER
+*   03.00 NAVIGATION
+*   04.00 MAIN CONTENT
+*   05.00 FOOTER TAG
+*   06.00 LOG IN AND ACCOUNTS
+*   07.00 RESPONSIVE
+*/
+
+/* 01.00 BASICS
+*****************************/
+
+
+/* 01.01 TYPEFACE
+*****************************/
+
+/* 01.02 PAGE BODY
+*****************************/
+/* Move down content if using fixed navbar */
+body {
+    padding-top: 100px;
     padding-bottom: 20px;
+    margin:0 auto;
+    /*background:#D2D1D1;*/
 }
 
-/* Set padding to keep content from hitting the edges */
+/*Temporary effect to add a bar of color*/
+/*nav.navbar{
+	border-top:40px #f8f4b2 solid;
+	background:linear-gradient(#d2d1d1,#222 90%);
+	color:#FFF;
+}
+
+nav.navbar a.navbar-brand, nav.navbar > div > div > ul > li > a{
+	color:#FFF;
+}*/
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
+/* 01.03 LINKS
+*****************************/
+a, a:visited{
+	color:#005638;
+}
+
+a:hover, a:active{
+	color:#A18B3A;
+	text-decoration:none;
+}
+
+/* 01.04 LISTS
+*****************************/
+
+/* 01.05 TABLES
+*****************************/
+table{
+	margin-top:20px;
+}
+
+/*Gradient effect to add dimension to table header row*/
+table th{
+	background-color:#005638;
+	background:linear-gradient(#008457, #005638 80%);
+	color:#FFF;
+}
+
+.table > tbody > tr > td{
+	border-top:none;
+	vertical-align:middle;
+}
+
+/*Add alternating coloration for table rows*/
+table tr:nth-of-type(even){
+    background-color:#F8F4B2;
+}
+
+table > tbody > tr > td > .btn{
+	width:100%;
+}
+
+#SummaryTable tbody > tr > td.Pending > a{
+	border:solid maroon thin;
+	border-radius:7px;
+	padding:3px;
+	background:linear-gradient(to bottom right, red, #FFF 10%, red 50%);
+	color:#FFF;
+}
+
+#SummaryTable tbody > tr > td.Pending > a:hover{
+	background:linear-gradient(to bottom right, red, maroon 10%, red 50%, #FFF);
+}
+
+#SummaryTable tbody > tr > td.Complete > a{
+}
+
+#SummaryTable tbody > tr > td.Complete > a:hover{
+}
+
+/*Add indicator for "Rate Now" buttons in task feedback table for Faculty*/
+/*table > tbody > tr > td > a.btn[]{
+}*/
+
+
+/* 01.06 FORMS
+*****************************/
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -16,5 +127,29 @@ textarea {
     max-width: 280px;
 }
 
+/* 01.07 BUTTONS
+*****************************/
+.btn:hover{
+	background-color:#A18B3A;
+	background:linear-gradient(#F8F4B2, #A18B3A 50%);
+	color:#FFF;
+}
 
+/* 02.00 HEADER
+*****************************/
+
+/* 03.00 NAVIGATION
+*****************************/
+
+/* 04.00 MAIN CONTENT
+*****************************/
+
+/* 05.00 FOOTER
+*****************************/
+
+/* 06.00 LOG-IN AND ACCOUNTS
+*****************************/
+
+/* 07.00 RESPONSIVE
+*****************************/
 
