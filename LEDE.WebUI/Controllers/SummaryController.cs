@@ -44,9 +44,9 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Unformatted()
+        public ActionResult Unformatted(int ProgramCohortID = 1, int UserID = 1)
         {
-            StudentSummary model = Summary.getStudentTotals(1, 1);
+            StudentSummary model = Summary.getStudentTotals(ProgramCohortID, UserID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
         }
