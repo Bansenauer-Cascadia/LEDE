@@ -18,13 +18,13 @@
 <h2>Summary</h2>
 @using (Html.BeginForm())
 {
-    @Html.DropDownListFor(model => model.ProgramCohortID, Model.ProgramCohorts, new {@class ="form-control" })
+    Html.DropDownListFor(model => model.ProgramCohorts, Model.ProgramCohortID, new { @class = "form-control" });
 
 }
 @using (Ajax.BeginForm(CandidateOpts))
 {
     Html.HiddenFor(model => model.ProgramCohortID);
-    Html.DropDownListFor(model => model.UserID, Model.Candidates, new { @class = "form-control" });
+    Html.DropDownListFor(model => model.Candidates, Model.UserID, new { @class = "form-control" });
     <input type="submit" value="Go" class="btn btn-default"/>
 }
 
