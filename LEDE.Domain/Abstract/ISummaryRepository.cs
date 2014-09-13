@@ -16,5 +16,9 @@ namespace LEDE.Domain.Abstract
         StudentSummary getStudentTotals(int cohortID, int userID);
 
         SpreadsheetModel getSpreadsheetTable(int ProgramCohortID, int UserID); 
+
+        SummaryModel getSummaryCohorts(int UserID);
+
+        void getSummaryCandidates(SummaryModel model); 
     }
 }

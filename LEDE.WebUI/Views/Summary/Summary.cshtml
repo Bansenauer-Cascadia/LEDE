@@ -1,28 +1,33 @@
 ﻿@using LEDE.Domain.Entities
-@model SpreadsheetModel
+@model SummaryModel
+@section css {
+    <style>
+        .cscore, .sscore, .pscore {
+            display:block;
+        }
+    </style>
+}
 @{
-    ViewBag.Title = "Summary";
-}
-
-<h2>Summary Foo!</h2>
-<table>
-    <thead>
-        <tr>
-@foreach(Task task in Model.CohortTasks){
-    <th>@task.TaskCode</th>
-}
-            </tr>
-        </thead>
-
-    @foreach(SpreadsheetRow row in Model.TableBody.Rows)
+    AjaxOptions CandidateOpts = new AjaxOptions()
     {
-        <tr>
-            @foreach (CoreTopicScore score in row.Scores)
-            {
-                <td>
-                    C:@score.Cscore <br /> S:@score.Sscore, <br />P:@score.Pscore
-                </td>
-            }
-        </tr>
-    }
-</table>
+        Url = Url.Action("SummarySpreadSheet"),
+        UpdateTargetId = "spreadsheet",
+        LoadingElementId = "ajaxspinner"
+    };
+}
+<h2>Summary</h2>
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(model => model.ProgramCohortID, Model.ProgramCohorts, new {@class ="form-control" })
+
+}
+@using (Ajax.BeginForm(CandidateOpts))
+{
+    Html.HiddenFor(model => model.ProgramCohortID);
+    Html.DropDownListFor(model => model.UserID, Model.Candidates, new { @class = "form-control" });
+    <input type="submit" value="Go" class="btn btn-default"/>
+}
+
+<div id="spreadsheet">
+    <img id="ajaxspinner" src="~/Images/ajax-loader.gif" style="display:none;" />
+</div>

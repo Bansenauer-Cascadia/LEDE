@@ -1,0 +1,28 @@
+﻿@using LEDE.Domain.Entities
+@model SpreadsheetModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (Task task in Model.CohortTasks)
+            {
+                <th>@task.TaskCode</th>
+            }
+        </tr>
+    </thead>
+
+    @foreach (SpreadsheetRow row in Model.TableBody.Rows)
+    {
+        <tr>
+            <td>@row.CoreTopic</td>
+            @foreach (CoreTopicScore score in row.Scores)
+            {
+                <td>
+                    <span class="cscore">C: @score.Cscore</span> <span class="sscore">S: @score.Sscore</span>
+                    <span class="pscore">P: @score.Pscore</span>
+                </td>
+            }
+        </tr>
+    }
+</table>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using LEDE.Domain.Entities;
 using LEDE.Domain.Concrete;
 using LEDE.Domain.Abstract;
+using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
@@ -44,17 +45,23 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Unformatted(int ProgramCohortID = 1, int UserID = 1)
+        public ActionResult Summary(SummaryModel post)
         {
-            StudentSummary model = db.getStudentTotals(ProgramCohortID, UserID);
-            Calculator.CalculateStudentPercentages(model);
-            return View(model);
+            SummaryModel model;
+            if (post.ProgramCohortID == null)
+                model = db.getSummaryCohorts(Convert.ToInt32(User.Identity.GetUserId()));
+            else
+                model = post;
+
+            db.getSummaryCandidates(model); 
+
+            return View(model); 
         }
 
-        public ActionResult Summary(int ProgramCohortID =1, int UserID =1)
+        public PartialViewResult SummarySpreadsheet(int ProgramCohortID, int UserID)
         {
             SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID); 
-            return View(model); 
+            return PartialView(model); 
         }
     }
 }

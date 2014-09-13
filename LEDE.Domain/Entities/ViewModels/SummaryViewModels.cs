@@ -60,13 +60,20 @@ namespace LEDE.Domain.Entities
         public double ThreePercentage { get; set; }
     }
 
+    public class SummaryModel
+    {
+        public int ProgramCohortID { get; set; }
+        public IEnumerable<SelectListItem> ProgramCohorts { get; set; }
+
+        public int UserID { get; set; }
+        public IEnumerable<SelectListItem> Candidates { get; set; }
+    }
+
     public class SpreadsheetModel
     {
         public SpreadsheetTable TableBody { get; set; }
 
         public IEnumerable<Task> CohortTasks { get; set; }
-
-        public IEnumerable<CoreTopic> CoreTopics { get; set; }
     }
 
     public class SpreadsheetTable
@@ -78,5 +85,7 @@ namespace LEDE.Domain.Entities
     public class SpreadsheetRow
     {
         public List<CoreTopicScore> Scores { get; set; }
+
+        public string CoreTopic { get; set; }
     }
 }
