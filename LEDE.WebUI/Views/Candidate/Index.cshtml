@@ -66,7 +66,7 @@
                     <td>-</td>
                     <td>-</td>
                 }
-                @if (version.RatingStatus.Contains("Complete"))
+                @if (version.RatingStatus.Contains("Complete") || version.FeedbackDoc != null)
                 {
                      <td>@Html.ActionLink("View Score", "Score", new { VersID = version.VersID }, new { @class = "btn btn-default btn-sm" })</td>
                 }
