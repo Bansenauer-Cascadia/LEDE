@@ -251,6 +251,7 @@
     <Content Include="Views\Summary\Unformatted.cshtml" />
     <Content Include="Views\Rating\Upload.cshtml" />
     <Content Include="Views\Summary\Summary.cshtml" />
+    <Content Include="Views\Summary\SummarySpreadsheet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

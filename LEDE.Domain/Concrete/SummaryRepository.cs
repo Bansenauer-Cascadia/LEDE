@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Web;
 using LEDE.Domain.Abstract;
 using LEDE.Domain.Entities;
+using System.Web.Mvc; 
 
 namespace LEDE.Domain.Concrete
 {
@@ -88,15 +89,16 @@ namespace LEDE.Domain.Concrete
                     Rows = new List<SpreadsheetRow>()
                 },
                 CohortTasks = db.Tasks.Where(t=> t.Seminar.ProgramID == programID),
-                CoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID)
             };
+            IEnumerable<CoreTopic> CoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID);
             IEnumerable<CoreTopicScore> userScores = db.Database.SqlQuery<CoreTopicScore>(
                 "SELECT * FROM coretopicscores WHERE userid = 1 AND programcohortid = 1"); 
 
-            foreach(CoreTopic topic in model.CoreTopics) 
+            foreach(CoreTopic topic in CoreTopics) 
             {
                 IEnumerable<CoreTopicScore> topicScores = userScores.Where(s=> s.CoreTopicID == topic.CoreTopicID); 
-                SpreadsheetRow row = new SpreadsheetRow() { Scores = new List<CoreTopicScore>() };
+                SpreadsheetRow row = new SpreadsheetRow() { Scores = new List<CoreTopicScore>(), CoreTopic = topic.CoreTopicNum + " " +
+                topic.CoreTopicDesc};
 
                 foreach(Task task in model.CohortTasks)
                 {
@@ -110,6 +112,28 @@ namespace LEDE.Domain.Concrete
             }
 
             return model; 
+        }
+
+
+        public SummaryModel getSummaryCohorts(int UserID)
+        {
+            var userCohorts = db.CohortEnrollments.Where(e => e.UserID == UserID).Select(e =>
+                    new SelectListItem(){Value = e.ProgramCohortID.ToString(), Text = e.ProgramCohort.Program.ProgramTitle 
+                        + " " + e.ProgramCohort.AcademicYear });            
+            SummaryModel model = new SummaryModel()
+            {
+                ProgramCohorts = userCohorts,
+                ProgramCohortID = Convert.ToInt32(userCohorts.First().Value) 
+            };
+
+            return model; 
+        }
+
+        public void getSummaryCandidates(SummaryModel model)
+        {
+            var candidates = db.CohortEnrollments.Where(e => e.ProgramCohortID == model.ProgramCohortID).Select(e =>
+                new SelectListItem() { Value = e.UserID.ToString(), Text = e.User.LastName + ", " +e.User.FirstName}).OrderBy(c=> c.Text);
+            model.Candidates = candidates;
         }
     }
 }
