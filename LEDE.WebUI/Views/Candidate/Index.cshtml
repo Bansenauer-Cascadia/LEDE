@@ -66,13 +66,18 @@
                     <td>-</td>
                     <td>-</td>
                 }
-                @if (version.RatingStatus.Contains("Complete") || version.FeedbackDoc != null)
+                @if (version.RatingStatus.Contains("Complete"))
                 {
                      <td>@Html.ActionLink("View Score", "Score", new { VersID = version.VersID }, new { @class = "btn btn-default btn-sm" })</td>
                 }
+                else if(version.FeedbackDoc != null)
+                {
+                    <td>-</td>
+                }
                 else
                 {
-                     <td>@Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID }, new { @class = "btn btn-default btn-sm" })</td>                    
+                      <td>@Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID }, 
+                      new { @class = "btn btn-default btn-sm" })</td>                    
                 }
                 <td></td>
             </tr>
