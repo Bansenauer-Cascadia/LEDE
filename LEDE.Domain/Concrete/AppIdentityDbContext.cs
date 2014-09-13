@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LEDE.Domain.Entities;
+using System.Linq; 
 
 namespace LEDE.Domain.Concrete
 {
@@ -34,6 +35,14 @@ namespace LEDE.Domain.Concrete
         public virtual DbSet<TaskRating> TaskRatings { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
         public virtual DbSet<TaskVersion> TaskVersions { get; set; }
+
+        public IQueryable<CohortEnrollment> CandidateEnrollments
+        {
+            get
+            {
+                return CohortEnrollments.Where(e => e.User.Roles.FirstOrDefault(r => r.RoleId == 1) != null);
+            }
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

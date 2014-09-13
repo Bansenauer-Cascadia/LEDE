@@ -48,7 +48,7 @@ namespace LEDE.WebUI.Controllers
         public ActionResult Summary(SummaryModel post)
         {
             SummaryModel model;
-            if (post.ProgramCohortID == null)
+            if (post.ProgramCohortID == 0)
                 model = db.getSummaryCohorts(Convert.ToInt32(User.Identity.GetUserId()));
             else
                 model = post;

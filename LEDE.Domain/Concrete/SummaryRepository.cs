@@ -92,7 +92,7 @@ namespace LEDE.Domain.Concrete
             };
             IEnumerable<CoreTopic> CoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID);
             IEnumerable<CoreTopicScore> userScores = db.Database.SqlQuery<CoreTopicScore>(
-                "SELECT * FROM coretopicscores WHERE userid = 1 AND programcohortid = 1"); 
+                "SELECT * FROM coretopicscores WHERE userid = @p0 AND programcohortid = @p1", new object[] {UserID, ProgramCohortID}); 
 
             foreach(CoreTopic topic in CoreTopics) 
             {
@@ -118,12 +118,12 @@ namespace LEDE.Domain.Concrete
         public SummaryModel getSummaryCohorts(int UserID)
         {
             var userCohorts = db.CohortEnrollments.Where(e => e.UserID == UserID).Select(e =>
-                    new SelectListItem(){Value = e.ProgramCohortID.ToString(), Text = e.ProgramCohort.Program.ProgramTitle 
-                        + " " + e.ProgramCohort.AcademicYear });            
+                    new {Value = e.ProgramCohortID, Text = e.ProgramCohort.Program.ProgramTitle 
+                        + " " + e.ProgramCohort.AcademicYear }); 
             SummaryModel model = new SummaryModel()
             {
-                ProgramCohorts = userCohorts,
-                ProgramCohortID = Convert.ToInt32(userCohorts.First().Value) 
+                ProgramCohorts = new SelectList(userCohorts, "Value", "Text"),
+                ProgramCohortID = userCohorts.First().Value
             };
 
             return model; 
@@ -131,9 +131,9 @@ namespace LEDE.Domain.Concrete
 
         public void getSummaryCandidates(SummaryModel model)
         {
-            var candidates = db.CohortEnrollments.Where(e => e.ProgramCohortID == model.ProgramCohortID).Select(e =>
-                new SelectListItem() { Value = e.UserID.ToString(), Text = e.User.LastName + ", " +e.User.FirstName}).OrderBy(c=> c.Text);
-            model.Candidates = candidates;
+            var candidates = db.CandidateEnrollments.Where(e => e.ProgramCohortID == model.ProgramCohortID).Select(e =>
+                new { Value = e.UserID, Text = e.User.LastName + ", " +e.User.FirstName}).OrderBy(c=> c.Text);
+            model.Candidates = new SelectList(candidates, "Value", "Text");
         }
     }
 }

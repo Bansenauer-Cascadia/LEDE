@@ -3,8 +3,28 @@
 @section css {
     <style>
         .cscore, .sscore, .pscore {
-            display:block;
+            display: block;
         }
+
+        .inlinedrop {
+            display: inline;
+            float: left;
+        }
+
+        #ajaxspinner {
+            display: none;
+        }
+        .ajaximage{
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+            padding-top: 10px;
+        }
+        .dropcol {
+            padding-left:10px;
+            margin-left:8px;
+        }
+
     </style>
 }
 @{
@@ -16,18 +36,28 @@
     };
 }
 <h2>Summary</h2>
-@using (Html.BeginForm())
-{
-    Html.DropDownListFor(model => model.ProgramCohorts, Model.ProgramCohortID, new { @class = "form-control" });
+<div class="row">
+    <div class="col-md-3 dropcol">
+        Program Cohort
+        @using (Html.BeginForm())
+        {
+            @Html.DropDownListFor(model => model.ProgramCohortID, Model.ProgramCohorts, new { @class = "form-control" });
 
-}
-@using (Ajax.BeginForm(CandidateOpts))
-{
-    Html.HiddenFor(model => model.ProgramCohortID);
-    Html.DropDownListFor(model => model.Candidates, Model.UserID, new { @class = "form-control" });
-    <input type="submit" value="Go" class="btn btn-default"/>
-}
-
-<div id="spreadsheet">
-    <img id="ajaxspinner" src="~/Images/ajax-loader.gif" style="display:none;" />
+        }
+    </div>
+    @using (Ajax.BeginForm(CandidateOpts))
+    {
+        <div class="col-md-3 droplabel">
+            Candidate
+            @Html.HiddenFor(model => model.ProgramCohortID)
+            @Html.DropDownListFor(model => model.UserID, Model.Candidates, new { @class = "form-control inlinedrop" })
+        </div>
+        <div class="col-md-1">
+            <br /><input type="submit" value="Go" class="btn btn-default dropgo" />
+        </div>
+    }
 </div>
+
+<div class="ajaximage"><img id="ajaxspinner" src="~/Images/ajax-loader.gif" /></div>
+
+<div id="spreadsheet"></div>

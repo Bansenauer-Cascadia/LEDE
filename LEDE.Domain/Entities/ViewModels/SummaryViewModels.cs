@@ -63,10 +63,10 @@ namespace LEDE.Domain.Entities
     public class SummaryModel
     {
         public int ProgramCohortID { get; set; }
-        public IEnumerable<SelectListItem> ProgramCohorts { get; set; }
+        public SelectList ProgramCohorts { get; set; }
 
         public int UserID { get; set; }
-        public IEnumerable<SelectListItem> Candidates { get; set; }
+        public SelectList Candidates { get; set; }
     }
 
     public class SpreadsheetModel
