@@ -18,6 +18,8 @@ namespace LEDE.Domain.Abstract
 
         Document findDocument(int documentID);
 
+        Document findDocumentByVersID(int VersID);
+
         void saveFeedback(Document feedbackDoc, int versID);
 
         void deleteTaskRating(int ratingID);

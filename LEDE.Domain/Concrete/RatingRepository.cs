@@ -253,5 +253,11 @@ namespace LEDE.Domain.Concrete
             }
             db.SaveChanges(); 
         }
+
+
+        public Document findDocumentByVersID(int VersID)
+        {
+            return db.TaskVersions.Find(VersID).Document; 
+        }
     }
 }

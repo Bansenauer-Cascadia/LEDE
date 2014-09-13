@@ -42,17 +42,17 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Download(int DocumentID, int UserID)
-        {
-            Document downloadDoc = Ratings.findDocument(DocumentID);
-
+        public ActionResult Download(int DocumentID)
+        {            
+            Document downloadDoc = Ratings.findDocument((int)DocumentID);            
             FileManager.DownloadDocument(downloadDoc, HttpContext);             
 
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult Upload(int VersID, int SelectedUserID, string User, string TaskName, int Version)
+        public PartialViewResult Upload(int VersID, int SelectedUserID, string User, string TaskName, int Version, string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl; 
             ViewBag.Version = Version;
             ViewBag.SelectedUserID = SelectedUserID; 
             ViewBag.User = User;
@@ -61,7 +61,7 @@ namespace LEDE.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file, int SelectedUserID, int VersID)
+        public ActionResult Upload(HttpPostedFileBase file, int SelectedUserID, int VersID, string returnUrl)
         {
             
             if (file != null && file.ContentLength > 0)
@@ -77,8 +77,10 @@ namespace LEDE.WebUI.Controllers
                 Ratings.saveFeedback(feedbackUpload, VersID);
                 FileManager.UploadDocument(feedbackUpload, file); 
             }
-
-            return RedirectToAction("Index");
+            if(returnUrl != null)
+                return Redirect("~" + returnUrl);
+            else
+                return RedirectToAction("Index", new {returnUrl});
         }
 
         public ActionResult Rate(int VersID)

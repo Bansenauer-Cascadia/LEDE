@@ -8,16 +8,8 @@
         Url = Url.Action("GetIndexData")
     };
 }
-@section script {
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.upload').magnificPopup({
-                type: 'ajax',
-                closeOnBgClick: false,
-                closeOnContentClick: false
-            });
-        });
-    </script>
+@section script{
+<script src="~/Scripts/UploadPopup.js"></script>
 }
 
 @section css{

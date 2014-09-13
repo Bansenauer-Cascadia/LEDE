@@ -3,7 +3,8 @@
 <div class="white-popup" style="position: relative; background: #FFF; padding: 20px; width: auto; max-width: 750px; margin: 20px auto;">
     <h3>Upload Feedback</h3>
     <h4>@ViewBag.User - @ViewBag.TaskName (V@(ViewBag.Version))</h4>
-    @using (Html.BeginForm("Upload", "Rating", new {SelectedUserID = 1, VersID = Model }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Upload", "Rating", new {SelectedUserID = 1, VersID = Model, returnUrl = ViewBag.ReturnUrl}, 
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="file" style="display:inline;"/>
         <input type="submit" value="Submit" style="display:inline;"/>

@@ -7,13 +7,13 @@
     <tr>
         <td>@version.Task.TaskCode: @version.Task.TaskName</td>
         <td> @version.Version</td>
-        <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID, UserID = version.UserID })</td>
+        <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID})</td>
         <td>@version.Document.UploadDate</td>
         @{string feedbackText;}
         @if (version.FeedbackDoc != null)
         {
             feedbackText = "Upload New Feedback";
-            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID, UserID = version.UserID })</td>
+            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID})</td>
             <td>@version.FeedbackDoc.UploadDate</td>
         }
         else

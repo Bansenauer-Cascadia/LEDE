@@ -3,17 +3,30 @@
 @{
     ViewBag.Title = "Rate a Task";
 }
+@section script {
+    <script src="~/Scripts/UploadPopup.js"></script>
+}
     <div class="jumbotron">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <h2>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName<br />@Model.TaskVersion.Task.TaskName</h2>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
                 {
                     @:Version @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
                     new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
     }
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Download Document", "Download", new { DocumentID = Model.TaskVersion.DocumentID }, 
+                new {@class="btn btn-default" })
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Upload Feedback", "Upload", new {VersID = Model.TaskVersion.VersID, SelectedUserID = 
+           Model.TaskVersion.UserID, User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
+           TaskName = Model.TaskVersion.Task.TaskName, Version = Model.TaskVersion.Version, returnUrl = Request.Url.PathAndQuery}, 
+           new {@class="btn btn-default upload" })
             </div>
         </div>
     </div>
