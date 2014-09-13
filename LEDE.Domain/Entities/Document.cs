@@ -9,10 +9,6 @@ namespace LEDE.Domain.Entities
     [Table("Document")]
     public partial class Document
     {
-        public Document()
-        {
-            TaskVersions = new HashSet<TaskVersion>();
-        }
 
         public int DocumentID { get; set; }
 
@@ -33,7 +29,5 @@ namespace LEDE.Domain.Entities
 
         [Column(TypeName = "smalldatetime")]
         public DateTime UploadDate { get; set; }
-
-        public virtual ICollection<TaskVersion> TaskVersions { get; set; }
     }
 }

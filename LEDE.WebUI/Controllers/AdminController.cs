@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles="ECSEL Admin, LEDE Admin, Super Admin")]
+    //[Authorize(Roles="ECSEL Admin, LEDE Admin, Super Admin")]
     public class AdminController : Controller
     {
         private IUserRepository users;
@@ -54,7 +54,7 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
             User user = await UserManager.FindByIdAsync(id);

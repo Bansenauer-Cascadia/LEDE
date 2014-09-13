@@ -8,31 +8,32 @@
         Url = Url.Action("GetIndexData")
     };
 }
+@section script {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.upload').magnificPopup({
+                type: 'ajax',
+                closeOnBgClick: false,
+                closeOnContentClick: false
+            });
+        });
+    </script>
+}
+
+@section css{
+}
 
 <h2>Tasks</h2>
 
-@if (Model.UploadVisible)
-{
-    using (Html.BeginForm("Upload", "Rating", new {returnUrl = Request.Url.AbsolutePath}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Ajax.BeginForm(ajaxopts))
     {
-        @Html.Hidden("VersID", Model.VersID)
-        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, new { onchange = "this.form.submit();", @class = "form-control" })
-
-        <input type="file" name="file" />
-        <input type="submit" value="Submit" class="btn btn-default" />
+        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, 
+        new { onchange = "this.form.submit();", @class = "form-control" })
     }
-}
-else
-{
-    using (Ajax.BeginForm(ajaxopts))
-    {
-        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, new { onchange = "this.form.submit();", @class = "form-control" })
-    }
-}
 
 <br />
 <table class="table table-striped">
-    <thead><tr><th>Task</th><th>Version</th><th>Document</th><th>Date Modified</th><th>FeedbackDocument</th><th>DateModified</th><th></th><th></th></tr></thead>
+    <thead><tr><th>Task</th><th>Version</th><th>Document</th><th>Date Modified</th><th>Feedback Document</th><th>Date Modified</th><th></th><th></th></tr></thead>
     <tbody id="tbody">
         @Html.Action("GetIndexData", new { UserID = Model.SelectedUserID })
     </tbody>

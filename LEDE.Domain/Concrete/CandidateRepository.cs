@@ -77,7 +77,7 @@ namespace LEDE.Domain.Concrete
         public void DeleteTask(int documentID)
         {
             Document deleteDoc = db.Documents.Find(documentID);
-            TaskVersion deleteVersion = deleteDoc.TaskVersions.FirstOrDefault();
+            TaskVersion deleteVersion = db.TaskVersions.FirstOrDefault(v => v.DocumentID == documentID);
 
             db.TaskVersions.Remove(deleteVersion);
             db.Documents.Remove(deleteDoc);

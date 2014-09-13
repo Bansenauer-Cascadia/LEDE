@@ -254,6 +254,26 @@
     <Compile Include="Migrations\201408302207272_8-30-14.Designer.cs">
       <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409130126319_feedbackdocid.cs" />
+    <Compile Include="Migrations\201409130126319_feedbackdocid.Designer.cs">
+      <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130131527_feedbackdocid2.cs" />
+    <Compile Include="Migrations\201409130131527_feedbackdocid2.Designer.cs">
+      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130134381_feedbackdocid3.cs" />
+    <Compile Include="Migrations\201409130134381_feedbackdocid3.Designer.cs">
+      <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130145453_feedbackdocid4.cs" />
+    <Compile Include="Migrations\201409130145453_feedbackdocid4.Designer.cs">
+      <DependentUpon>201409130145453_feedbackdocid4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130153378_ugh.cs" />
+    <Compile Include="Migrations\201409130153378_ugh.Designer.cs">
+      <DependentUpon>201409130153378_ugh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -296,6 +316,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408302207272_8-30-14.resx">
       <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130126319_feedbackdocid.resx">
+      <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130131527_feedbackdocid2.resx">
+      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130134381_feedbackdocid3.resx">
+      <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130145453_feedbackdocid4.resx">
+      <DependentUpon>201409130145453_feedbackdocid4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130153378_ugh.resx">
+      <DependentUpon>201409130153378_ugh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

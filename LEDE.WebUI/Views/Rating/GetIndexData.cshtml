@@ -9,19 +9,22 @@
         <td> @version.Version</td>
         <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID, UserID = version.UserID })</td>
         <td>@version.Document.UploadDate</td>
-
+        @{string feedbackText;}
         @if (version.FeedbackDoc != null)
         {
-            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.DocumentID, UserID = version.UserID })</td>
+            feedbackText = "Upload New Feedback";
+            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID, UserID = version.UserID })</td>
             <td>@version.FeedbackDoc.UploadDate</td>
-            <td>@Html.ActionLink("Upload New Feedback", "Index", new { UploadVisible = true, VersID = version.VersID }, new { @class = "btn btn-default" })</td>
         }
         else
         {
+            feedbackText = "Upload Feedback";
             <td>-</td>
-            <td>-</td>
-            <td>@Html.ActionLink("Upload Feedback", "Index", new { UploadVisible = true, VersID = version.VersID }, new { @class = "btn btn-default" })</td>
+            <td>-</td>            
         }
+        <td>@Html.ActionLink(feedbackText, "Upload", new { VersID = version.VersID, User = version.User.FirstName + " " + 
+               version.User.LastName, TaskName = version.Task.TaskName, SelectedUserID = version.UserID, Version = version.Version}, new { @class = 
+               "btn btn-default upload" })</td>
         <td>
             @if (version.TaskRatings.FirstOrDefault() == null)
             {

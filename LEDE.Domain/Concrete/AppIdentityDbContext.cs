@@ -75,12 +75,6 @@ namespace LEDE.Domain.Concrete
                 .Property(e => e.FileSize)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Document>()
-                .HasMany(e => e.TaskVersions)
-                .WithRequired(e => e.Document)
-                .HasForeignKey(e => e.DocumentID)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Program>()
                 .Property(e => e.ProgramTitle)
                 .IsUnicode(false);

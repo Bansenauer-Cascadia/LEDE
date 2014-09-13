@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - ECSEL</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/magnific-popup.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <style>
         container {padding-top: 10px;}
@@ -43,13 +44,13 @@
                     {
                         <li>@Html.ActionLink("Feedback","Index","Rating")</li>
                         <li>@Html.ActionLink("Submissions","Summary","Faculty")</li>
-                        <li>@Html.ActionLink("Unformatted", "Summary", "Unformatted")</li>
+                        <li>@Html.ActionLink("Unformatted", "Unformatted", "Summary")</li>
                         //<li>@Html.ActionLink("Totals","Seminar","Summary")</li>
                     }
                     else if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Enrollment<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     @Html.ActionLink("Prorams", "Programs", "Enrollment")
@@ -77,6 +78,7 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
     @if (IsSectionDefined("script"))
     {
         @RenderSection("script")

@@ -18,7 +18,7 @@
                     @foreach (TaskVersion version in task.candidateSubmissions)
                     {
                         <div class="versionbox">
-                            <span class="version">V @version.Version:</span>
+                            <span class="version">V@(version.Version):</span>
                             @if (version.RatingStatus.Trim() == "Complete")
                             {
                                 int? scoretotal = version.TaskRatings.Sum(r => r.CoreRating.Cscore) +

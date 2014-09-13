@@ -31,8 +31,10 @@ namespace LEDE.Domain.Entities
 
         public int? FeedbackDocID { get; set; }
 
+        [ForeignKey("DocumentID")]
         public virtual Document Document { get; set; }
 
+        [ForeignKey("FeedbackDocID")]
         public virtual Document FeedbackDoc { get; set; }
 
         public virtual InternReflection InternReflection { get; set; }

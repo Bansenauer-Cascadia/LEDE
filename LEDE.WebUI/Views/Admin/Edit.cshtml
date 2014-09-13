@@ -1,13 +1,18 @@
 ﻿@using LEDE.Domain.Entities
 @model EditModel
-    @{
+@{
     ViewBag.Title = "Edit";
-    }
-
-    <h2>Edit User</h2>
-
-    @using (Html.BeginForm())
-    {
+}
+@section css {
+    <style>
+        .btn {
+            
+        }
+    </style>
+}
+<h2>Edit User</h2>
+@using (Html.BeginForm())
+{
     @Html.HiddenFor(x => x.User.Id)
     <div class="form-group">
         <label>Username</label>
@@ -31,4 +36,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
     @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
-    }
+}
+@Html.ActionLink("Delete", "Delete", new { id = Model.User.Id }, new { @class = "btn btn-default" })

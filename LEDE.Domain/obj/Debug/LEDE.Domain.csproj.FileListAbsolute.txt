@@ -197,3 +197,8 @@ C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migra
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations._8292014.resources
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.testforseminarid.resources
 C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations._83014.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.feedbackdocid.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.feedbackdocid2.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.feedbackdocid3.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.feedbackdocid4.resources
+C:\Users\jonny\Documents\GitHub\UWB_LEDE\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.ugh.resources

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles="Faculty")]
+    //[Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
         private LEDE.Domain.Abstract.IRatingRepository Ratings;        
@@ -51,7 +51,17 @@ namespace LEDE.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Upload(HttpPostedFileBase file, int SelectedUserID, int VersID, string returnUrl)
+        public PartialViewResult Upload(int VersID, int SelectedUserID, string User, string TaskName, int Version)
+        {
+            ViewBag.Version = Version;
+            ViewBag.SelectedUserID = SelectedUserID; 
+            ViewBag.User = User;
+            ViewBag.TaskName = TaskName; 
+            return PartialView(VersID);
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file, int SelectedUserID, int VersID)
         {
             
             if (file != null && file.ContentLength > 0)
