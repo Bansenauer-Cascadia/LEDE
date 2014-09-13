@@ -1,0 +1,28 @@
+﻿@using LEDE.Domain.Entities
+@model SpreadsheetModel
+@{
+    ViewBag.Title = "Summary";
+}
+
+<h2>Summary Foo!</h2>
+<table>
+    <thead>
+        <tr>
+@foreach(Task task in Model.CohortTasks){
+    <th>@task.TaskCode</th>
+}
+            </tr>
+        </thead>
+
+    @foreach(SpreadsheetRow row in Model.TableBody.Rows)
+    {
+        <tr>
+            @foreach (CoreTopicScore score in row.Scores)
+            {
+                <td>
+                    C:@score.Cscore <br /> S:@score.Sscore, <br />P:@score.Pscore
+                </td>
+            }
+        </tr>
+    }
+</table>

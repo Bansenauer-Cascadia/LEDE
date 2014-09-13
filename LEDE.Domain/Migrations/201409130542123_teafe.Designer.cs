@@ -7,13 +7,13 @@ namespace LEDE.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class feedbackdocid4 : IMigrationMetadata
+    public sealed partial class teafe : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(feedbackdocid4));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(teafe));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409130145453_feedbackdocid4"; }
+            get { return "201409130542123_teafe"; }
         }
         
         string IMigrationMetadata.Source

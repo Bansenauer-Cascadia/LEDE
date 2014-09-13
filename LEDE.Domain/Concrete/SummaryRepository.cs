@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity; 
+using System.Data.Entity;
 using System.Web;
 using LEDE.Domain.Abstract;
-using LEDE.Domain.Entities; 
+using LEDE.Domain.Entities;
 
 namespace LEDE.Domain.Concrete
 {
@@ -14,17 +14,17 @@ namespace LEDE.Domain.Concrete
 
         public SummaryRepository(DbContext context)
         {
-            this.db = context; 
+            this.db = context;
         }
 
         public SummaryRepository()
         {
-            this.db = new DbContext(); 
+            this.db = new DbContext();
         }
 
         public SeminarSummary getCohortTotals(int cohortID, int userID)
         {
-            return null; 
+            return null;
         }
 
         public StudentSummary getStudentTotals(int cohortID, int userID)
@@ -53,28 +53,63 @@ namespace LEDE.Domain.Concrete
                                  CTotal = g.Sum(tt => tt.CScore) ?? 0,
                                  STotal = g.Sum(tt => tt.SScore) ?? 0,
                                  PTotal = g.Sum(tt => tt.PScore) ?? 0,
-                                 OneCount = g.Count(tt=> tt.CScore == 1) + g.Count(tt=> tt.SScore == 1) + g.Count(tt=> tt.PScore == 1),
+                                 OneCount = g.Count(tt => tt.CScore == 1) + g.Count(tt => tt.SScore == 1) + g.Count(tt => tt.PScore == 1),
                                  TwoCount = g.Count(tt => tt.CScore == 2) + g.Count(tt => tt.SScore == 2) + g.Count(tt => tt.PScore == 2),
                                  ThreeCount = g.Count(tt => tt.CScore == 3) + g.Count(tt => tt.SScore == 3) + g.Count(tt => tt.PScore == 3),
                                  CoreTopic = g.Key
                              };
 
             var CombinedTotals = UserTotals.Select(u => new { Total = u.CTotal + u.STotal + u.PTotal });
-            var CombinedCounts = UserTotals.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount }); 
+            var CombinedCounts = UserTotals.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
             StudentSummary model = new StudentSummary()
             {
                 RatingsList = UserTotals.ToList(),
                 User = db.Users.Find(userID),
-                MaxTotal = CombinedTotals.Any()? CombinedTotals.Max(t=> t.Total) : 0,
-                MaxCount = CombinedCounts.Any()? CombinedCounts.Max(c=> c.Count) : 0
+                MaxTotal = CombinedTotals.Any() ? CombinedTotals.Max(t => t.Total) : 0,
+                MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0
             };
 
-            return model;  
+            return model;
         }
 
         public IEnumerable<ProgramCohort> getCohorts()
         {
-            return db.ProgramCohorts; 
+            return db.ProgramCohorts;
+        }
+
+
+        public SpreadsheetModel getSpreadsheetTable(int ProgramCohortID, int UserID)
+        {
+            int programID = db.ProgramCohorts.Find(ProgramCohortID).ProgramID;
+            SpreadsheetModel model = new SpreadsheetModel()
+            {
+                TableBody = new SpreadsheetTable()
+                {
+                    Rows = new List<SpreadsheetRow>()
+                },
+                CohortTasks = db.Tasks.Where(t=> t.Seminar.ProgramID == programID),
+                CoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID)
+            };
+            IEnumerable<CoreTopicScore> userScores = db.Database.SqlQuery<CoreTopicScore>(
+                "SELECT * FROM coretopicscores WHERE userid = 1 AND programcohortid = 1"); 
+
+            foreach(CoreTopic topic in model.CoreTopics) 
+            {
+                IEnumerable<CoreTopicScore> topicScores = userScores.Where(s=> s.CoreTopicID == topic.CoreTopicID); 
+                SpreadsheetRow row = new SpreadsheetRow() { Scores = new List<CoreTopicScore>() };
+
+                foreach(Task task in model.CohortTasks)
+                {
+                    CoreTopicScore score = topicScores.FirstOrDefault(s => s.TaskID == task.TaskID);
+                    if (score != null)
+                        row.Scores.Add(score);
+                    else
+                        row.Scores.Add(new CoreTopicScore()); 
+                }
+                model.TableBody.Rows.Add(row); 
+            }
+
+            return model; 
         }
     }
 }

@@ -9,15 +9,15 @@ using LEDE.Domain.Abstract;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles = "Faculty")]
+    //[Authorize(Roles = "Faculty")]
     public class SummaryController : Controller
     {
-        private ISummaryRepository Summary;
+        private ISummaryRepository db;
         private IPercentageCalculator Calculator;
 
         public SummaryController(ISummaryRepository repo, IPercentageCalculator calc)
         {
-            this.Summary = repo;
+            this.db = repo;
             this.Calculator = calc;
         }
 
@@ -25,11 +25,11 @@ namespace LEDE.WebUI.Controllers
         public ActionResult Seminar(SeminarSummary summary)
         {
             //get dropdown sorted
-            SelectList programCohorts = new SelectList(Summary.getCohorts(), "ProgramCohortID", "Program.ProgramTitle");
+            SelectList programCohorts = new SelectList(db.getCohorts(), "ProgramCohortID", "Program.ProgramTitle");
             int selectedCohortID = summary.SelectedCohortID == 0 ? Convert.ToInt32(programCohorts.First().Value) : summary.SelectedCohortID;
 
             //initialize page model 
-            SeminarSummary model = Summary.getCohortTotals(1, 1);
+            SeminarSummary model = db.getCohortTotals(1, 1);
             model.SelectedCohortID = selectedCohortID;
             Calculator.CalculateSeminarPercentages(model);
             model.ProgramCohorts = programCohorts;
@@ -39,16 +39,22 @@ namespace LEDE.WebUI.Controllers
 
         public ActionResult Student(int UserID, int ProgramCohortID)
         {            
-            StudentSummary model = Summary.getStudentTotals(ProgramCohortID, UserID);
+            StudentSummary model = db.getStudentTotals(ProgramCohortID, UserID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
         }
 
         public ActionResult Unformatted(int ProgramCohortID = 1, int UserID = 1)
         {
-            StudentSummary model = Summary.getStudentTotals(ProgramCohortID, UserID);
+            StudentSummary model = db.getStudentTotals(ProgramCohortID, UserID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
+        }
+
+        public ActionResult Summary(int ProgramCohortID =1, int UserID =1)
+        {
+            SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID); 
+            return View(model); 
         }
     }
 }

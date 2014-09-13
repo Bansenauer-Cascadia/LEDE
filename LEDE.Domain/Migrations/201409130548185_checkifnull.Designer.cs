@@ -7,13 +7,13 @@ namespace LEDE.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class ugh : IMigrationMetadata
+    public sealed partial class checkifnull : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ugh));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(checkifnull));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409130153378_ugh"; }
+            get { return "201409130548185_checkifnull"; }
         }
         
         string IMigrationMetadata.Source

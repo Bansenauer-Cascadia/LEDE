@@ -13,6 +13,8 @@ namespace LEDE.Domain.Abstract
 
         IEnumerable<ProgramCohort> getCohorts();
 
-        StudentSummary getStudentTotals(int cohortID, int userID); 
+        StudentSummary getStudentTotals(int cohortID, int userID);
+
+        SpreadsheetModel getSpreadsheetTable(int ProgramCohortID, int UserID); 
     }
 }

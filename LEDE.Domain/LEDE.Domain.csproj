@@ -176,6 +176,9 @@
     <Compile Include="Concrete\RatingRepository.cs" />
     <Compile Include="Concrete\SummaryRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
+    <Compile Include="Entities\CoreTaskRating.cs" />
+    <Compile Include="Entities\CoreTaskVersion.cs" />
+    <Compile Include="Entities\CoreTopicScore.cs" />
     <Compile Include="Entities\ViewModels\CandidateViewModels.cs" />
     <Compile Include="Entities\CohortEnrollment.cs" />
     <Compile Include="Entities\CoreRating.cs" />
@@ -202,6 +205,8 @@
     <Compile Include="Entities\TaskType.cs" />
     <Compile Include="Entities\TaskVersion.cs" />
     <Compile Include="Entities\ViewModels\AdminViewModels.cs" />
+    <Compile Include="Entities\ImpactTaskRating.cs" />
+    <Compile Include="Entities\MaxVersID.cs" />
     <Compile Include="Migrations\201408070238393_intialize.cs" />
     <Compile Include="Migrations\201408070238393_intialize.Designer.cs">
       <DependentUpon>201408070238393_intialize.cs</DependentUpon>
@@ -266,16 +271,18 @@
     <Compile Include="Migrations\201409130134381_feedbackdocid3.Designer.cs">
       <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409130145453_feedbackdocid4.cs" />
-    <Compile Include="Migrations\201409130145453_feedbackdocid4.Designer.cs">
-      <DependentUpon>201409130145453_feedbackdocid4.cs</DependentUpon>
+    <Compile Include="Migrations\201409130542123_teafe.cs" />
+    <Compile Include="Migrations\201409130542123_teafe.Designer.cs">
+      <DependentUpon>201409130542123_teafe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409130153378_ugh.cs" />
-    <Compile Include="Migrations\201409130153378_ugh.Designer.cs">
-      <DependentUpon>201409130153378_ugh.cs</DependentUpon>
+    <Compile Include="Migrations\201409130548185_checkifnull.cs" />
+    <Compile Include="Migrations\201409130548185_checkifnull.Designer.cs">
+      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\TaskSeminarCoreTopic.cs" />
+    <Compile Include="Entities\TaskVersionMax.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201408070238393_intialize.resx">
@@ -326,11 +333,11 @@
     <EmbeddedResource Include="Migrations\201409130134381_feedbackdocid3.resx">
       <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409130145453_feedbackdocid4.resx">
-      <DependentUpon>201409130145453_feedbackdocid4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409130542123_teafe.resx">
+      <DependentUpon>201409130542123_teafe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409130153378_ugh.resx">
-      <DependentUpon>201409130153378_ugh.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201409130548185_checkifnull.resx">
+      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,9 +22,6 @@ namespace LEDE.Domain.Entities
     {
         public User User { get; set; }
     }
-    /// <summary>
-    /// ///////////////////
-    /// </summary>
 
     public class StudentSummary
     {
@@ -61,5 +58,25 @@ namespace LEDE.Domain.Entities
 
         public int ThreeCount { get; set; }
         public double ThreePercentage { get; set; }
+    }
+
+    public class SpreadsheetModel
+    {
+        public SpreadsheetTable TableBody { get; set; }
+
+        public IEnumerable<Task> CohortTasks { get; set; }
+
+        public IEnumerable<CoreTopic> CoreTopics { get; set; }
+    }
+
+    public class SpreadsheetTable
+    {
+        public List<SpreadsheetRow> Rows { get; set; }
+
+    }
+
+    public class SpreadsheetRow
+    {
+        public List<CoreTopicScore> Scores { get; set; }
     }
 }
