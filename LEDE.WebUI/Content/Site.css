@@ -1,5 +1,11 @@
-﻿/*Cascading Style Sheet for ECSEL Portal UI*/
-/*Created for use in conjunction with bootstrap.css*/
+﻿/*Cascading Style Sheet for ECSEL/LEDE Portal UI.
+Created for use in conjunction with Bootstrap. 
+Color palette uses ECSEL colors. Additional style sheet will be needed for LEDE colors.
+See style guide for more information.
+
+***IMPORTANT!!***
+When implementing style sheets, make sure Site is called AFTER bootstrap.
+*/
 
 /*
 *   CONTENTS:
@@ -57,7 +63,8 @@ nav.navbar a.navbar-brand, nav.navbar > div > div > ul > li > a{
 /* 01.03 LINKS
 *****************************/
 a, a:visited{
-	color:#005638;
+	color:#428bca;
+	/*color:#005638;*/
 }
 
 a:hover, a:active{
@@ -72,6 +79,7 @@ a:hover, a:active{
 *****************************/
 table{
 	margin-top:20px;
+	border-bottom:solid thin #D2D1D1;
 }
 
 /*Gradient effect to add dimension to table header row*/
@@ -95,22 +103,42 @@ table > tbody > tr > td > .btn{
 	width:100%;
 }
 
-#SummaryTable tbody > tr > td.Pending > a{
-	border:solid maroon thin;
-	border-radius:7px;
+#SummaryTable tbody > tr > td.Pending > a, #SummaryTable tbody > tr > td.Complete > a{
 	padding:3px;
-	background:linear-gradient(to bottom right, red, #FFF 10%, red 50%);
+	border-radius:7px;
+	text-decoration:none;
+}
+
+#SummaryTable tbody > tr > td.Pending > a{
+	border:solid salmon thin;
+	border-radius:7px;
+	background:linear-gradient(to bottom right, salmon, #FFF 10%, salmon 50%);
 	color:#FFF;
 }
 
 #SummaryTable tbody > tr > td.Pending > a:hover{
 	background:linear-gradient(to bottom right, red, maroon 10%, red 50%, #FFF);
+	border-color:maroon;
+	text-decoration:none;
 }
 
 #SummaryTable tbody > tr > td.Complete > a{
+	background-color:#FFF;
 }
 
 #SummaryTable tbody > tr > td.Complete > a:hover{
+	
+}
+
+#spreadsheet{
+	overflow-x: visible;
+	font-size:.85em;
+}
+
+#spreadsheet tbody > tr > td > span{
+	display:inline-block;
+	/*Figure out how to make the #s lineup*/
+	/*Larger pixel size for table? Visible overflow-x?*/
 }
 
 /*Add indicator for "Rate Now" buttons in task feedback table for Faculty*/
@@ -132,6 +160,14 @@ textarea {
 .btn:hover{
 	background-color:#A18B3A;
 	background:linear-gradient(#F8F4B2, #A18B3A 50%);
+	color:#FFF;
+	border-color:#A18B3A;
+}
+
+/*Highlight "Save" buttons*/
+input[value=Save]{
+	background-color:#428bca;
+	border-color: #357ebd;
 	color:#FFF;
 }
 
