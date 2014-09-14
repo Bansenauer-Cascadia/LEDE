@@ -117,9 +117,9 @@ namespace LEDE.Domain.Concrete
 
         public SummaryModel getSummaryCohorts(int UserID, int? SelectedCohortID)
         {
-            var userCohorts = db.CohortEnrollments.Where(e => e.UserID == UserID).Select(e =>
-                    new {Value = e.ProgramCohortID, Text = e.ProgramCohort.Program.ProgramTitle 
-                        + " " + e.ProgramCohort.AcademicYear }); 
+            var userCohorts = db.ProgramCohorts.Select(e =>
+                    new {Value = e.ProgramCohortID, Text = e.Program.ProgramTitle 
+                        + " " + e.AcademicYear }); 
             SummaryModel model = new SummaryModel()
             {
                 ProgramCohorts = new SelectList(userCohorts, "Value", "Text", SelectedCohortID ?? userCohorts.First().Value),

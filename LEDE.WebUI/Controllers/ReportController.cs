@@ -11,12 +11,12 @@ using Microsoft.AspNet.Identity;
 namespace LEDE.WebUI.Controllers
 {
     //[Authorize(Roles = "Faculty")]
-    public class SummaryController : Controller
+    public class ReportController : Controller
     {
         private ISummaryRepository db;
         private IPercentageCalculator Calculator;
 
-        public SummaryController(ISummaryRepository repo, IPercentageCalculator calc)
+        public ReportController(ISummaryRepository repo, IPercentageCalculator calc)
         {
             this.db = repo;
             this.Calculator = calc;

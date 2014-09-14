@@ -12,7 +12,7 @@
         @{string feedbackText;}
         @if (version.FeedbackDoc != null)
         {
-            feedbackText = "Upload New Feedback";
+            feedbackText = "Replace Feedback";
             <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID})</td>
             <td>@version.FeedbackDoc.UploadDate</td>
         }

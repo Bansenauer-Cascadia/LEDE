@@ -168,9 +168,10 @@ namespace LEDE.Domain.Concrete
 
         private SelectList getCoreDrop(int VersID)
         {
+            int programID = db.TaskVersions.Find(VersID).Task.Seminar.ProgramID;
             IEnumerable<CoreTopic> ratedtopics = db.CoreRatings.Where(r => r.TaskRating.VersID == VersID).Select(r => r.CoreTopic);
             int seminarID = db.TaskVersions.Find(VersID).Task.Seminar.SeminarID;
-            var coretopics = db.CoreTopics.Where(c => c.Seminar.SeminarID != seminarID).Except(ratedtopics).
+            var coretopics = db.CoreTopics.Where(c => c.Seminar.SeminarID != seminarID && c.Seminar.ProgramID == programID).Except(ratedtopics).
                 Select(c => new { Name = c.CoreTopicNum + ": " + c.CoreTopicDesc, c.CoreTopicID });
             return new SelectList(coretopics, "CoreTopicID", "Name");
         }
@@ -211,14 +212,36 @@ namespace LEDE.Domain.Concrete
         public void EditReflection(int versID, double numHrs)
         {
             InternReflection reflection = db.InternReflections.Find(versID);
-            reflection.NumHrs = numHrs;
+            if (reflection == null)
+            {
+                reflection = new InternReflection()
+                {
+                    NumHrs = numHrs,
+                    VersID = versID
+                };
+                db.InternReflections.Add(reflection);
+            }
+            else
+                reflection.NumHrs = numHrs;
+
             db.SaveChanges();
         }
 
         public void EditReading(int versID, int numEntries)
         {
             ReadingLogEntry log = db.ReadingLogEntries.Find(versID);
-            log.NumEntries = numEntries;
+            if (log == null)
+            {
+                log = new ReadingLogEntry()
+                {
+                    NumEntries = numEntries,
+                    VersID = versID
+                };
+                db.ReadingLogEntries.Add(log);
+            }
+            else
+                log.NumEntries = numEntries;
+
             db.SaveChanges(); 
         }
 

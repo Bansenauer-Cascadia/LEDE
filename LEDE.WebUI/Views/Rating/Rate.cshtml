@@ -6,6 +6,13 @@
 @section script {
     <script src="~/Scripts/UploadPopup.js"></script>
 }
+@section css{
+    <style>
+        h3 {
+            display:inline;
+        }
+    </style>
+}
     <div class="jumbotron">
         <div class="row">
             <div class="col-md-6">
@@ -23,7 +30,14 @@
                 new {@class="btn btn-default" })
             </div>
             <div class="col-md-2">
-                @Html.ActionLink("Upload Feedback", "Upload", new {VersID = Model.TaskVersion.VersID, SelectedUserID = 
+                @{
+                    string feedbackText;
+                    if (Model.TaskVersion.FeedbackDocID != null){
+                        feedbackText = "Replace Feedback";}
+                    else { 
+                        feedbackText = "Upload Feedback";}
+                }                    
+                @Html.ActionLink(feedbackText, "Upload", new {VersID = Model.TaskVersion.VersID, SelectedUserID = 
            Model.TaskVersion.UserID, User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
            TaskName = Model.TaskVersion.Task.TaskName, Version = Model.TaskVersion.Version, returnUrl = Request.Url.PathAndQuery}, 
            new {@class="btn btn-default upload" })
@@ -37,10 +51,11 @@
     @using (Html.BeginForm("Reflection", "Rating", new {VersID = Model.VersID }, FormMethod.Post))
     {
         @Html.ValidationSummary()
+        @Html.Hidden("TaskVersion.RatingStatus","Complete") //just here to make modelstate valid for server input validation. not great but oh well 
 
         if (Model.TaskVersion.Task.TaskTypeID == 2)
         {
-            <table class="table table-hover">
+            <table class="table table-hover">                  
                 <tr>
                     <th>Number of Entries</th>
                     <th></th>
@@ -55,7 +70,7 @@
         {
             <table class="table table-striped">
                 <tr>
-                    <th>Number of Entries</th>
+                    <th>Number of Hours</th>
                     <th></th>
                 </tr>
                 <tr>
@@ -69,8 +84,11 @@
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(x => x.VersID)
-        <h3>Seminar Core Topic Ratings &nbsp;&nbsp;<input type="submit" name="SubmitCommand" value="Save" class="btn btn-default" /></h3>
-        <table class="table table-striped" title="Task Core Ratings">
+        <h3>Seminar Core Topic Ratings &nbsp;&nbsp;</h3>
+        if (Model.Rating.TaskCoreRatings.Any())
+        {
+            <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default" />
+            <table class="table table-striped" title="Task Core Ratings">
             <tr>
                 <th>
                     Core Topic
@@ -88,6 +106,11 @@
             </tr>
             @Html.EditorFor(model => model.Rating.TaskCoreRatings)
         </table>
+        }
+        else
+        {
+            @:<p>No Core Topics For This Seminar</p>
+        }
     }
 
     @using (Html.BeginForm("Other", "Rating", new { panel = postingPanel.Other }, FormMethod.Post))

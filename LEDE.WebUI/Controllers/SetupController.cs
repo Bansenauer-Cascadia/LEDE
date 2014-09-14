@@ -9,11 +9,11 @@ using LEDE.Domain.Abstract;
 namespace LEDE.WebUI.Controllers
 {
     [Authorize(Roles="ECSEL Admin, Super Admin, LEDE Admin")]
-    public class EnrollmentController : Controller
+    public class SetupController : Controller
     {
         private IEnrollmentRepository db;
 
-        public EnrollmentController(IEnrollmentRepository repo)
+        public SetupController(IEnrollmentRepository repo)
         {
             this.db = repo;
         }

@@ -194,12 +194,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
-    <Compile Include="Controllers\EnrollmentController.cs" />
+    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
-    <Compile Include="Controllers\SummaryController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,11 +219,11 @@
     <Content Include="Views\RoleAdmin\Index.cshtml" />
     <Content Include="Views\RoleAdmin\Create.cshtml" />
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
-    <Content Include="Views\Summary\Seminar.cshtml" />
-    <Content Include="Views\Summary\Student.cshtml" />
+    <Content Include="Views\Report\Seminar.cshtml" />
+    <Content Include="Views\Report\Student.cshtml" />
     <Content Include="Views\Rating\Rate.cshtml" />
     <Content Include="Views\Rating\Index.cshtml" />
-    <Content Include="Views\Enrollment\EditorTemplates\SelectableUser.cshtml" />
+    <Content Include="Views\Setup\EditorTemplates\SelectableUser.cshtml" />
     <Content Include="Views\Rating\EditorTemplates\CoreRating.cshtml" />
     <Content Include="Views\File\Upload.cshtml" />
     <Content Include="Views\Candidate\Index.cshtml" />
@@ -232,25 +232,25 @@
     <Content Include="Views\Rating\GetIndexData.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Enrollment\Index.cshtml" />
-    <Content Include="Views\Enrollment\CohortUsers.cshtml" />
+    <Content Include="Views\Setup\Index.cshtml" />
+    <Content Include="Views\Setup\CohortUsers.cshtml" />
     <Content Include="Views\Candidate\Summary.cshtml" />
     <Content Include="Views\Candidate\SummaryTable.cshtml" />
     <Content Include="Views\Faculty\Summary.cshtml" />
     <Content Include="Views\Faculty\SummaryTable.cshtml" />
-    <Content Include="Views\Enrollment\ListPanel.cshtml" />
-    <Content Include="Views\Enrollment\EnrollmentPanel.cshtml" />
-    <Content Include="Views\Enrollment\EditorTemplates\SelectableItem.cshtml" />
-    <Content Include="Views\Enrollment\EditProgram.cshtml" />
-    <Content Include="Views\Enrollment\ChildPanel.cshtml" />
-    <Content Include="Views\Enrollment\createProgramCohort.cshtml" />
-    <Content Include="Views\Enrollment\createProgramSeminar.cshtml" />
-    <Content Include="Views\Enrollment\EditSeminar.cshtml" />
-    <Content Include="Views\Enrollment\createSeminarCoreTopic.cshtml" />
-    <Content Include="Views\Enrollment\createSeminarTask.cshtml" />
+    <Content Include="Views\Setup\ListPanel.cshtml" />
+    <Content Include="Views\Setup\EnrollmentPanel.cshtml" />
+    <Content Include="Views\Setup\EditorTemplates\SelectableItem.cshtml" />
+    <Content Include="Views\Setup\EditProgram.cshtml" />
+    <Content Include="Views\Setup\ChildPanel.cshtml" />
+    <Content Include="Views\Setup\createProgramCohort.cshtml" />
+    <Content Include="Views\Setup\createProgramSeminar.cshtml" />
+    <Content Include="Views\Setup\EditSeminar.cshtml" />
+    <Content Include="Views\Setup\createSeminarCoreTopic.cshtml" />
+    <Content Include="Views\Setup\createSeminarTask.cshtml" />
     <Content Include="Views\Rating\Upload.cshtml" />
-    <Content Include="Views\Summary\Summary.cshtml" />
-    <Content Include="Views\Summary\SummarySpreadsheet.cshtml" />
+    <Content Include="Views\Report\Summary.cshtml" />
+    <Content Include="Views\Report\SummarySpreadsheet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
