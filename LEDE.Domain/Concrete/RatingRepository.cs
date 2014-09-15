@@ -178,24 +178,21 @@ namespace LEDE.Domain.Concrete
 
         private CompleteRating getTaskRating(int versID)
         {
-            List<CoreRating> taskRatings = new List<CoreRating>();
-            List<CoreRating> otherRatings = new List<CoreRating>();
             int seminarID = db.TaskVersions.Find(versID).Task.SeminarID;
+            List<CoreRating> taskRatings = new List<CoreRating>();
+            List<CoreRating> otherRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
+                Where(r => r.TaskRating.VersID == versID && r.TaskRating.TaskVersion.Task.SeminarID != seminarID)
+                .OrderBy(r=> r.CoreTopic.CoreTopicNum).ToList();
+            IEnumerable<CoreRating> existingTaskRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
+                Where(r => r.TaskRating.VersID == versID && r.TaskRating.TaskVersion.Task.SeminarID == seminarID);
 
-            foreach (CoreRating rating in db.CoreRatings.Include(r=> r.TaskRating).Include(r=> r.CoreTopic).Where(r => r.TaskRating.VersID == versID))
+            foreach (CoreTopic topic in db.CoreTopics.Where(c => c.SeminarID == seminarID).OrderBy(c=> c.CoreTopicNum))
             {
-                if (rating.CoreTopic.SeminarID == seminarID)
-                    taskRatings.Add(rating);
-                else
-                {
-                    otherRatings.Add(rating);
-                }
-            }
-
-            foreach (CoreTopic topic in db.CoreTopics.Where(c => c.SeminarID == seminarID))
-            {
-                if (taskRatings.FirstOrDefault(c => c.CoreTopicID == topic.CoreTopicID) == null)
+                CoreRating existingTopicRating = existingTaskRatings.FirstOrDefault(c => c.CoreTopicID == topic.CoreTopicID);
+                if (existingTopicRating == null)
                     taskRatings.Add(new CoreRating { RatingID = -1, CoreTopic = topic });
+                else
+                    taskRatings.Add(existingTopicRating); 
             }
 
             CompleteRating taskRating = new CompleteRating()
