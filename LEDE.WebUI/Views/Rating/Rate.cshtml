@@ -5,11 +5,49 @@
 }
 @section script {
     <script src="~/Scripts/UploadPopup.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            function validate(value) {
+                var valid = true;
+                var valueint = parseInt(value);
+                if (isNaN(valueint) && value.trim() != "") {
+                    return "Please Enter an Integer Score"; 
+                }
+                    if (valueint < 0 || valueint > 3) {
+                        return "Please Enter an Integer Score Between 0 and 3";
+                    }
+                    else {
+                        return "Valid";
+                    }
+                
+            }
+            $('.othersubmit').click(function (e) {
+                var isvalid = true;
+                $('#othervalidation').empty();
+                var list = "<ul>";
+                $('.other').each(function () {
+                    var validscore = validate(this.value);
+                    if (validscore != "Valid") {
+                        isvalid = false;
+                        list += "<li>" + validscore + "</li>";
+                    }
+                });
+                list += "</ul>"
+                if (!isvalid) {
+                    e.preventDefault();
+                    $('#othervalidation').append(list);
+                }
+            });
+        });
+    </script>
 }
 @section css{
     <style>
         h3 {
             display:inline;
+        }
+        #othervalidation{
+            color:red;
         }
     </style>
 }
@@ -113,7 +151,7 @@
         }
     }
 
-    @using (Html.BeginForm("Other", "Rating", new { panel = postingPanel.Other }, FormMethod.Post))
+    @using (Html.BeginForm("Other", "Rating", new { panel = postingPanel.Other }, FormMethod.Post, new {id = "otherform" }))
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(x => x.VersID)
@@ -128,6 +166,8 @@
                 }
             }
         </h3>
+        
+        <div id="othervalidation"></div>
 
         <table class="table table-striped">
 
@@ -158,17 +198,17 @@
                         @Html.DropDownList("Rating.OtherCoreRatings[" + index + "].CoreTopicID", Model.CoreDrop, new { @class = "form-control" })
                     </td>
                     <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control" })
+                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control other"})
                     </td>
                     <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control" })
+                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control other" })
                     </td>
                     <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control" })
+                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control other" })
                     </td>
                     <td>
                         <input type="submit" name="SubmitCommand" value="Cancel" class="btn btn-default" />
-                        <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default" />
+                        <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default othersubmit" />
                     </td>
                 </tr>
 

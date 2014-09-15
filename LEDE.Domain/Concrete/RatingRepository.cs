@@ -33,7 +33,7 @@ namespace LEDE.Domain.Concrete
                 {
                     foreach (CoreRating rating in validTaskRatings)
                     {
-                        this.saveTaskRating(rating, VersID, taskRating.FacultyID);
+                        this._saveTaskRating(rating, VersID, taskRating.FacultyID);
                     }
                 }
             }
@@ -42,12 +42,12 @@ namespace LEDE.Domain.Concrete
             {
                 foreach (CoreRating rating in taskRating.OtherCoreRatings)
                 {
-                    this.saveTaskRating(rating, VersID, taskRating.FacultyID);
+                    this._saveTaskRating(rating, VersID, taskRating.FacultyID);
                 }
             }
         }
 
-        private void saveTaskRating(CoreRating rating, int VersID, int facultyID)
+        private void _saveTaskRating(CoreRating rating, int VersID, int facultyID)
         {
             if (rating.RatingID > 0)
                 updateCoreRating(rating);
@@ -181,10 +181,10 @@ namespace LEDE.Domain.Concrete
             int seminarID = db.TaskVersions.Find(versID).Task.SeminarID;
             List<CoreRating> taskRatings = new List<CoreRating>();
             List<CoreRating> otherRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
-                Where(r => r.TaskRating.VersID == versID && r.TaskRating.TaskVersion.Task.SeminarID != seminarID)
+                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID != seminarID)
                 .OrderBy(r=> r.CoreTopic.CoreTopicNum).ToList();
             IEnumerable<CoreRating> existingTaskRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
-                Where(r => r.TaskRating.VersID == versID && r.TaskRating.TaskVersion.Task.SeminarID == seminarID);
+                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID == seminarID);
 
             foreach (CoreTopic topic in db.CoreTopics.Where(c => c.SeminarID == seminarID).OrderBy(c=> c.CoreTopicNum))
             {

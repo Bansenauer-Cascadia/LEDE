@@ -23,7 +23,8 @@
     <td>
         @if (Model.TaskRating != null)
         {
-            @Html.ActionLink("Clear", "Clear", new { VersID = Model.TaskRating == null ? 0 : Model.TaskRating.VersID, RatingID = Model.RatingID }, new { @class = "btn btn-default btn-xs" })
+            @Html.ActionLink("Clear", "Clear", new { VersID = Model.TaskRating == null ? 0 : Model.TaskRating.VersID, RatingID = Model.RatingID }, 
+            new { @class = "btn btn-default btn-xs" })
         }
     </td>
 </tr>

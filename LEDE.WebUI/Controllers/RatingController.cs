@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
-    //[Authorize(Roles="Faculty")]
+    [Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
         private LEDE.Domain.Abstract.IRatingRepository Ratings;        
