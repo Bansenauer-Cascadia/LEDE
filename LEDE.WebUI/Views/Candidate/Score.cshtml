@@ -11,34 +11,42 @@
 </div>
 
 <h3>Task Core Ratings</h3>
-<table class="table table-striped">
-    <tr>
-        <th>Core Topic</th>
-        <th>Conceptual</th>
-        <th>Strategic</th>
-        <th>Personal</th>
-    </tr>
-    @foreach (CoreRating rating in Model.TaskCoreRatings)
-    {
+@if (Model.TaskCoreRatings.Any())
+{
+    <table class="table table-striped">
         <tr>
-            <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
-            <td>@rating.Cscore</td>
-            <td>@rating.Sscore</td>
-            <td>@rating.Pscore</td>
+            <th>Core Topic</th>
+            <th>Conceptual</th>
+            <th>Strategic</th>
+            <th>Personal</th>
         </tr>
-    }
-</table>
+        @foreach (CoreRating rating in Model.TaskCoreRatings)
+        {
+            <tr>
+                <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
+                <td>@rating.Cscore</td>
+                <td>@rating.Sscore</td>
+                <td>@rating.Pscore</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    @<p>This Task Has No Associated Core Topics</p>
+}
+
 @if (Model.OtherCoreRatings.Count() > 0)
 {
     <h3>Other Core Ratings</h3>
     <table class="table table-striped">
         <tr>
-            <td>
+            <th>
                 Core Topic
-            </td>
-            <td>Conceptual</td>
-            <td>Strategic</td>
-            <td>Personal</td>
+            </th>
+            <th>Conceptual</th>
+            <th>Strategic</th>
+            <th>Personal</th>
         </tr>
         @foreach (CoreRating rating in Model.OtherCoreRatings)
         {
@@ -63,13 +71,15 @@
             <th></th>
         </tr>
         <tr>
+        <td>
             @Model.ImpactRating.Sscore
-        </tr>
-        <tr>
+        </td>
+        <td>
             @Model.ImpactRating.Pscore
-        </tr>
-        <tr>
+        </td>
+        <td>
             @Model.ImpactRating.Lscore
+        </td>
         </tr>
     </table>
 }

@@ -268,6 +268,7 @@ namespace LEDE.Domain.Concrete
                     Lscore = impactRating.ImpactRating.Lscore,
                     TaskRating = rating
                 };
+                db.TaskVersions.Find(VersID).RatingStatus = "Complete"; 
                 db.TaskRatings.Add(rating);
                 db.ImpactTypeRatings.Add(impact);
             }
