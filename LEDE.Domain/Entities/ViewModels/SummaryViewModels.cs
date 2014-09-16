@@ -14,6 +14,8 @@ namespace LEDE.Domain.Entities
 
         public int MaxTotal { get; set; }
 
+        public int MaxCount { get; set; }
+
         public IEnumerable<SelectListItem> ProgramCohorts { get; set; }
         public int SelectedCohortID { get; set; }
     }

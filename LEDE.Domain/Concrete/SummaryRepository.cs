@@ -23,33 +23,42 @@ namespace LEDE.Domain.Concrete
             this.db = new DbContext();
         }
 
-        public SeminarSummary getCohortTotals(int cohortID, int userID)
+        public SeminarSummary getCohortTotals(int cohortID)
         {
-            return null;
+            SeminarSummary model = new SeminarSummary()
+            {
+                TotalsList = db.Database.SqlQuery<RatingQuery>("facultycohortview @p0", new object[]{cohortID}).ToList()
+            };
+
+            var CombinedTotals = model.TotalsList.Select(u => new { Total = u.CScore + u.PScore + u.SScore });
+            var CombinedCounts = model.TotalsList.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
+
+            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total) ?? 0) : 0;
+            model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0; 
+
+            return model; 
         }
 
         public StudentSummary getStudentTotals(int cohortID, int userID)
         {
-            IEnumerable<RatingQuery> UserTotals = db.Database.SqlQuery<RatingQuery>("facultyview @p0", new object[]{cohortID}).
-                Where(ut=> ut.UserID == userID); 
-
-            var CombinedTotals = UserTotals.Select(u => new { Total = u.CScore + u.PScore + u.SScore });
-
-            var CombinedCounts = UserTotals.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
-
             StudentSummary model = new StudentSummary()
             {
-                RatingsList = UserTotals.ToList(),
-                MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total) ?? 0) : 0,
-                MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0
-            };
+                RatingsList = db.Database.SqlQuery<RatingQuery>("facultyview @p0", new object[]{cohortID})
+                .Where(ut=> ut.UserID == userID).ToList() 
+            };           
+
+            var CombinedTotals = model.RatingsList.Select(u => new { Total = u.CScore + u.PScore + u.SScore });
+            var CombinedCounts = model.RatingsList.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
+            
+            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total) ?? 0) : 0;
+            model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0;
 
             return model;
         }
 
-        public IEnumerable<ProgramCohort> getCohorts()
+        public IEnumerable<ProgramCohort> getCohorts(int FacultyID)
         {
-            return db.ProgramCohorts;
+            return db.CohortEnrollments.Where(e=> e.UserID == FacultyID).Select(e=> e.ProgramCohort);
         }
 
 

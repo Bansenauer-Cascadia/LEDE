@@ -24,12 +24,13 @@ namespace LEDE.WebUI.Controllers
 
         public ActionResult Seminar(SeminarSummary summary)
         {
+            int FacultyID = Convert.ToInt32(User.Identity.GetUserId());
             //get dropdown sorted
-            SelectList programCohorts = new SelectList(db.getCohorts(), "ProgramCohortID", "Program.ProgramTitle");
+            SelectList programCohorts = new SelectList(db.getCohorts(FacultyID), "ProgramCohortID", "Program.ProgramTitle");
             int selectedCohortID = summary.SelectedCohortID == 0 ? Convert.ToInt32(programCohorts.First().Value) : summary.SelectedCohortID;
 
             //initialize page model 
-            SeminarSummary model = db.getCohortTotals(1, 1);
+            SeminarSummary model = db.getCohortTotals(selectedCohortID);
             model.SelectedCohortID = selectedCohortID;
             Calculator.CalculateSeminarPercentages(model);
             model.ProgramCohorts = programCohorts;
