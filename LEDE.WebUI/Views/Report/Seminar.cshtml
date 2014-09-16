@@ -8,26 +8,51 @@
 
 <h2>Core Ratings Summary</h2>
 
-<div class="progress">
-    <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
-    <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
-    <div class="progress-bar progress-bar-danger" style="width: 33.3%">Personal</div>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Total Score by Knowledge Type</h3>
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
+            <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
+            <div class="progress-bar progress-bar" style="width: 33.3%">Personal</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Score Distribution by Rating</h3>
+        <div class="progress">
+            <div class="progress-bar progress-bar-danger" style="width:33.3%">1s</div>
+            <div class="progress-bar progress-bar-warning" style="width: 33.3%">2s</div>
+            <div class="progress-bar progress-bar-success" style="width: 33.3%">3s</div>
+        </div>
+    </div>
 </div>
 
 <br />
 @using (Html.BeginForm("Seminar", "Summary", new {SelectedCohortID = Model.SelectedCohortID }))
 {
-    <h3>Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange="this.form.submit();" })</h3>
+    <h3>Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange="this.form.submit();" })
+    </h3>
 }
 
-@foreach (StudentTotal totals in Model.TotalsList)
+@foreach (RatingQuery totals in Model.TotalsList)
 {
-    @Html.ActionLink(totals.User.LastName + ", " + totals.User.FirstName, "Student", new { id = totals.User.Id })
+    @Html.ActionLink(totals.UserName, "Student", new { UserID = totals.UserID, ProgramCohortID = Model.SelectedCohortID })
     
-    <div class="progress">
-        <div class="progress-bar progress-bar-success" style="width: @totals.CPercentage%">@totals.CTotal</div>
-        <div class="progress-bar progress-bar-warning" style="width: @totals.SPercentage%">@totals.STotal</div>
-        <div class="progress-bar progress-bar-danger" style="width: @totals.PPercentage%">@totals.PTotal</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="progress">
+                <div class="progress-bar c" style="width: @totals.CPercentage%">@totals.CScore</div>
+                <div class="progress-bar s" style="width: @totals.SPercentage%">@totals.SScore</div>
+                <div class="progress-bar progress-bar" style="width: @totals.PPercentage%">@totals.PScore</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: @totals.OnePercentage%">@totals.OneCount</div>
+                <div class="progress-bar progress-bar-warning" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
+                <div class="progress-bar progress-bar-success" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
+            </div>
+        </div>
     </div>
 
 }

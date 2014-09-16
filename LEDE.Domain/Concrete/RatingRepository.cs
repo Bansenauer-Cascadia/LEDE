@@ -76,10 +76,11 @@ namespace LEDE.Domain.Concrete
             db.SaveChanges(); 
         }
 
-        public IEnumerable<TaskVersion> getTaskVersions(int userID)
+        public IEnumerable<TaskVersion> getTaskVersions(int userID, int ProgramCohortID)
         {
-            IEnumerable<TaskVersion> taskVersions = db.TaskVersions.Where(v => v.UserID == userID)
-                            .ToList();
+            int ProgramID = db.ProgramCohorts.Find(ProgramCohortID).ProgramID;
+            IEnumerable<TaskVersion> taskVersions = db.TaskVersions.Where(v => v.UserID == userID && v.Task.Seminar.ProgramID == ProgramID)
+                            .OrderByDescending(v => v.Version).OrderByDescending(v => v.Task.TaskCode).ToList();
             return taskVersions;
         }
 
@@ -107,6 +108,7 @@ namespace LEDE.Domain.Concrete
             var candidates = getCandidates(ProgramCohortID ?? Convert.ToInt32(cohorts.First().Value));
             model.Cohorts = new SelectList(cohorts, "Value", "Text", ProgramCohortID);
             model.Candidates = new SelectList(candidates, "Id", "Name", userID);
+            model.SelectedCohortID = Convert.ToInt32(cohorts.First().Value);
             if(model.Candidates.FirstOrDefault() != null)
                 model.SelectedUserID = userID ?? Convert.ToInt32(model.Candidates.FirstOrDefault().Value);
 

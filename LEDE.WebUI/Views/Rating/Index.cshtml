@@ -31,25 +31,34 @@
         }
     </style>
 }
+<div class="row page-header">
+    <div class="col-md-3">
+       <h2>Tasks</h2>
+    </div>
+    <div class="col-md-3">
+        @using (Html.BeginForm())
+        {
+            @Html.DropDownListFor(x => x.SelectedCohortID, Model.Cohorts,
+        new { @class = "form-control", onchange = "this.form.submit()" })
+        }
+    </div>
+    <div class="col-md-5">
+        @using (Ajax.BeginForm(ajaxopts))
+        {
+            @Html.Hidden("ProgramCohortID", Model.SelectedCohortID)
+            @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates,
+            new { @class = "form-control", style="display:inline;"})
+            <input type="submit" class="btn btn-default" value="Go" />
+        }
 
-<h2>Tasks</h2>
-    @using (Html.BeginForm())
-    {
-        @:Program Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.Cohorts,
-        new {@class = "form-control", onchange = "this.form.submit()" })
-    }
-    @using (Ajax.BeginForm(ajaxopts))
-    {
-        @:Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, 
-        new { @class = "form-control" })
-        <input type="submit" value="Go"/>
-    }
-
+    </div>
+</div>
+    
 <br />
 <table class="table table-striped">
     <thead><tr><th>Task</th><th>Version</th><th>Document</th><th>Date Modified</th><th>Feedback Document</th><th>Date Modified</th><th></th><th></th></tr></thead>
     <tbody id="tbody">
-        @Html.Action("GetIndexData", new { SelectedUserID = Model.SelectedUserID })
+        @Html.Action("GetIndexData", new { SelectedUserID = Model.SelectedUserID, ProgramCohortID = Model.SelectedCohortID })
     </tbody>
 </table>
 <div class="spinnerplaceholder"><img id="ajaxspinner" src="~/Images/ajax-loader.gif" /></div>

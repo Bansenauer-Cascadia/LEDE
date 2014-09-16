@@ -8,7 +8,7 @@ namespace LEDE.Domain.Entities
 {
     public class SeminarSummary
     {
-        public IEnumerable<StudentTotal> TotalsList { get; set; }
+        public IEnumerable<RatingQuery> TotalsList { get; set; }
 
         public ProgramCohort Cohort { get; set; }
 
@@ -25,9 +25,7 @@ namespace LEDE.Domain.Entities
 
     public class StudentSummary
     {
-        public List<CoreTotal> RatingsList { get; set; }
-
-        public User User { get; set; }
+        public List<RatingQuery> RatingsList { get; set; }
 
         public int MaxTotal { get; set; }
 
@@ -49,6 +47,35 @@ namespace LEDE.Domain.Entities
 
         public int PTotal { get; set; }
         public double PPercentage { get; set; }
+
+        public int OneCount { get; set; }
+        public double OnePercentage { get; set; }
+
+        public int TwoCount { get; set; }
+        public double TwoPercentage { get; set; }
+
+        public int ThreeCount { get; set; }
+        public double ThreePercentage { get; set; }
+    }
+
+    public class RatingQuery 
+    {
+        public decimal CoreTopicNum { get; set; }
+
+        public string CoreTopicDesc { get; set; }
+
+        public int UserID { get; set; }
+
+        public string UserName { get; set; }
+
+        public int? CScore { get; set; }
+        public double CPercentage { get; set; }
+
+        public int? PScore { get; set; }
+        public double PPercentage { get; set; }
+
+        public int? SScore { get;set; }
+        public double SPercentage { get; set; }
 
         public int OneCount { get; set; }
         public double OnePercentage { get; set; }

@@ -13,11 +13,11 @@ namespace LEDE.Domain.Concrete
         {
             double max = summary.MaxTotal; 
 
-            foreach (StudentTotal total in summary.TotalsList)
+            foreach (RatingQuery total in summary.TotalsList)
             {
-                total.CPercentage = 100 * total.CTotal / max;
-                total.SPercentage = 100 * total.STotal / max;
-                total.PPercentage = 100 * total.PTotal / max; 
+                total.CPercentage = 100 * (total.CScore ?? 0) / max;
+                total.SPercentage = 100 * (total.SScore ?? 0) / max;
+                total.PPercentage = 100 * (total.PScore ?? 0) / max; 
             }
         }
 
@@ -26,11 +26,11 @@ namespace LEDE.Domain.Concrete
             double maxTotal = summary.MaxTotal;
             double maxCount = summary.MaxCount;
 
-            foreach (CoreTotal total in summary.RatingsList)
+            foreach (RatingQuery total in summary.RatingsList)
             {
-                total.CPercentage = 100 * total.CTotal / maxTotal;
-                total.SPercentage = 100 * total.STotal / maxTotal;
-                total.PPercentage = 100 * total.PTotal / maxTotal;
+                total.CPercentage = 100 * (total.CScore ?? 0)/ maxTotal;
+                total.SPercentage = 100 * (total.SScore ?? 0)/ maxTotal;
+                total.PPercentage = 100 * (total.PScore ?? 0)/ maxTotal;
 
                 total.OnePercentage = 100 * total.OneCount / maxCount;
                 total.TwoPercentage = 100 * total.TwoCount / maxCount;

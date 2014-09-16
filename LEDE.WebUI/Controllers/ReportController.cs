@@ -22,7 +22,6 @@ namespace LEDE.WebUI.Controllers
             this.Calculator = calc;
         }
 
-        [AllowAnonymous]
         public ActionResult Seminar(SeminarSummary summary)
         {
             //get dropdown sorted
@@ -38,7 +37,7 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Student(int UserID, int ProgramCohortID)
+        public ActionResult Student(int UserID = 1, int ProgramCohortID = 2)
         {            
             StudentSummary model = db.getStudentTotals(ProgramCohortID, UserID);
             Calculator.CalculateStudentPercentages(model);

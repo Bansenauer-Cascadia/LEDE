@@ -30,6 +30,6 @@ namespace LEDE.Domain.Abstract
 
         void EditReading(int versID, int numEntries);
 
-        IEnumerable<TaskVersion> getTaskVersions(int userID);
+        IEnumerable<TaskVersion> getTaskVersions(int userID, int ProgramCohortID);
     }
 }

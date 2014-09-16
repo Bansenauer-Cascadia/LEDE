@@ -20,9 +20,9 @@ namespace LEDE.WebUI.Controllers
             this.Ratings = repo;
         }
 
-        public PartialViewResult GetIndexData(int SelectedUserID)
+        public PartialViewResult GetIndexData(int SelectedUserID, int ProgramCohortID)
         {
-            return PartialView(Ratings.getTaskVersions(SelectedUserID)); 
+            return PartialView(Ratings.getTaskVersions(SelectedUserID, ProgramCohortID)); 
         }
 
         public ActionResult Index(bool? UploadVisible, int? VersID, int? userID, int? ProgramCohortID)
