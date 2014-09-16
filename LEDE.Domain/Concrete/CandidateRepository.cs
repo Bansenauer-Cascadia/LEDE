@@ -22,25 +22,30 @@ namespace LEDE.Domain.Concrete
             return db.TaskVersions.Where(v => v.UserID == UserID && v.TaskID == TaskID);
         }
 
-        private SelectList getTaskDrop()
+        private IEnumerable<SelectListItem> getTaskDrop(int ProgramCohortID)
         {
-            return new SelectList(db.Tasks.Select(t => new { Name = t.TaskCode + t.TaskName, t.TaskID }), "TaskID", "Name");
+            int programID = db.ProgramCohorts.Find(ProgramCohortID).ProgramID; 
+            return new SelectList(db.Tasks.Where(t=> t.Seminar.ProgramID == programID).Select(t => new 
+            { Name = t.TaskCode + t.TaskName, t.TaskID }), "TaskID", "Name");
         }
 
-        public CandidateIndexModel getIndexModel(int UserID, int? TaskID)
+        private IEnumerable<SelectListItem> getCohortDrop(int UserID)
+        {
+            return db.CohortEnrollments.Where(e => e.UserID == UserID).Select(e => new SelectListItem()
+            {
+                Value = e.ProgramCohortID.ToString(),
+                Text = e.ProgramCohort.Program.ProgramTitle + " " + e.ProgramCohort.AcademicYear
+            }).OrderBy(e => e.Text); 
+        }
+
+        public CandidateIndexModel getIndexModel(int UserID, int? ProgramCohortID, int? TaskID)
         {
             CandidateIndexModel model = new CandidateIndexModel() { };
-            model.Tasks = getTaskDrop();
+            model.Cohorts = new SelectList(getCohortDrop(UserID), "Value", "Text", ProgramCohortID);
+            model.ProgramCohortID = ProgramCohortID ?? Convert.ToInt32(model.Cohorts.First().Value);
+            model.Tasks = getTaskDrop(model.ProgramCohortID);
 
-            if (TaskID == null)
-            {
-                if (model.Tasks.FirstOrDefault() != null)
-                    model.TaskID = Convert.ToInt32(model.Tasks.FirstOrDefault().Value);
-                else
-                    model.TaskID = 0;
-            }
-            else
-                model.TaskID = (int)TaskID;
+            model.TaskID = TaskID ?? Convert.ToInt32(model.Tasks.First().Value); 
 
             model.taskVersions = getTaskVersions(UserID, model.TaskID);
 

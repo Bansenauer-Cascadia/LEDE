@@ -15,9 +15,13 @@ namespace LEDE.Domain.Entities
         }
         public IEnumerable<TaskVersion> taskVersions { get; set; }
 
-        public SelectList Tasks { get; set; }
+        public IEnumerable<SelectListItem> Tasks { get; set; }
 
         public int TaskID { get; set; }
+
+        public IEnumerable<SelectListItem> Cohorts { get; set; }
+
+        public int ProgramCohortID { get; set; }
 
         public bool UploadVisible { get; set; }
     }

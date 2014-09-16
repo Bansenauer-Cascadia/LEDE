@@ -22,7 +22,7 @@ namespace LEDE.WebUI.Controllers
             this.ratings = scoreRepo;
         }
 
-        public ActionResult Index(bool? UploadVisible, int? DownloadID, int? DeleteID, int? TaskID)
+        public ActionResult Index(bool? UploadVisible, int? DownloadID, int? DeleteID, int? TaskID, int? ProgramCohortID)
         {            
             if (DownloadID != null)
                 FileManager.DownloadDocument(db.findDocument((int)DownloadID), HttpContext);  
@@ -30,7 +30,7 @@ namespace LEDE.WebUI.Controllers
                 db.DeleteTask((int)DeleteID);
 
             int UserID = Convert.ToInt32(User.Identity.GetUserId());
-            CandidateIndexModel model = db.getIndexModel(UserID, TaskID);                                                     
+            CandidateIndexModel model = db.getIndexModel(UserID, ProgramCohortID, TaskID);                                                     
             model.UploadVisible = UploadVisible ?? false;
             return View(model);
         }
@@ -39,7 +39,7 @@ namespace LEDE.WebUI.Controllers
         public ActionResult Index(CandidateIndexModel post)
         {
             int userID = Convert.ToInt32(User.Identity.GetUserId());
-            CandidateIndexModel model = db.getIndexModel(userID, post.TaskID);      
+            CandidateIndexModel model = db.getIndexModel(userID, post.ProgramCohortID, post.TaskID);      
             return View(model); 
         }
 

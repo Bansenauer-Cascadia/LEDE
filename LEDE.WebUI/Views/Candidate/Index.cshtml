@@ -7,9 +7,17 @@
         <div class="col-md-3">
             <h2>Choose a Task</h2>
         </div>
-        <div class="col md-8">
+        <div class="col-md-4">
             @using (Html.BeginForm())
             {
+                <h3>@Html.DropDownListFor(x => x.ProgramCohortID, Model.Cohorts, new { onchange = "this.form.submit();", @class = "form-control" })</h3>
+
+            } 
+        </div>
+        <div class="col md-4">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(model=> model.ProgramCohortID)
                 <h3>@Html.DropDownListFor(x => x.TaskID, Model.Tasks, new { onchange = "this.form.submit();", @class = "form-control" })</h3>
 
             }
@@ -49,37 +57,46 @@
             <th>Action</th>
             <th></th>
         </tr>
-        @foreach (TaskVersion version in Model.taskVersions)
+        @if (Model.taskVersions.Any())
         {
-            <tr>
-                <td>@version.Task.TaskCode @version.Task.TaskName</td>
-                <td>@version.Version</td>
-                <td>@Html.ActionLink(version.Document.FileName, "Index", new { DownloadID = version.DocumentID })</td>
-                <td>@version.Document.UploadDate</td>
-                @if (version.FeedbackDoc != null)
-                {
-                    <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Index", new { DownloadID = version.FeedbackDocID })</td>
-                    <td>@version.FeedbackDoc.UploadDate</td>
-                }
-                else
-                {
-                    <td>-</td>
-                    <td>-</td>
-                }
-                @if (version.RatingStatus.Contains("Complete"))
-                {
-                     <td>@Html.ActionLink("View Score", "Score", new { VersID = version.VersID }, new { @class = "btn btn-default btn-sm" })</td>
-                }
-                else if(version.FeedbackDocID != null)
-                {
-                    <td>-</td>
-                }
-                else
-                {
-                      <td>@Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID }, 
-                      new { @class = "btn btn-default btn-sm" })</td>                    
-                }
-                <td></td>
-            </tr>
+            foreach (TaskVersion version in Model.taskVersions)
+            {
+                <tr>
+                    <td>@version.Task.TaskCode @version.Task.TaskName</td>
+                    <td>@version.Version</td>
+                    <td>@Html.ActionLink(version.Document.FileName, "Index", new { DownloadID = version.DocumentID })</td>
+                    <td>@version.Document.UploadDate</td>
+                    @if (version.FeedbackDoc != null)
+                    {
+                        <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Index", new { DownloadID = version.FeedbackDocID })</td>
+                        <td>@version.FeedbackDoc.UploadDate</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                        <td>-</td>
+                    }
+                    @if (version.RatingStatus.Contains("Complete"))
+                    {
+                        <td>@Html.ActionLink("View Score", "Score", new { VersID = version.VersID }, new { @class = "btn btn-default btn-sm" })</td>
+                    }
+                    else if (version.FeedbackDocID != null)
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID },
+                      new { @class = "btn btn-default btn-sm" })
+                    </td>
+                    }
+                    <td></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="8">No Assignments Have Been Submitted For This Task.</td></tr>
         }
     </table>

@@ -12,7 +12,7 @@ namespace LEDE.Domain.Abstract
     {
         IEnumerable<TaskVersion> getTaskVersions(int UserID, int TaskID);
 
-        CandidateIndexModel getIndexModel(int UserID, int? TaskID);
+        CandidateIndexModel getIndexModel(int UserID, int? ProgramCohortID, int? TaskID);
 
         void uploadTask(int taskID, int userID, Document uploadDoc);
 
