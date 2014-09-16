@@ -5,28 +5,52 @@
     AjaxOptions ajaxopts = new AjaxOptions
     {
         UpdateTargetId = "tbody",
-        Url = Url.Action("GetIndexData")
+        Url = Url.Action("GetIndexData"),
+        LoadingElementId = "ajaxspinner"
     };
 }
 @section script{
 <script src="~/Scripts/UploadPopup.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input:submit').click(function () {
+                $('#tbody').empty(); 
+            });
+        });
+    </script>
 }
 
 @section css{
+    <style>
+        .spinnerplaceholder {
+            text-align:center;
+            margin-left:auto; margin-right:auto;
+        }
+        #ajaxspinner {
+            display:none;
+        }
+    </style>
 }
 
 <h2>Tasks</h2>
-
+    @using (Html.BeginForm())
+    {
+        @:Program Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.Cohorts,
+        new {@class = "form-control", onchange = "this.form.submit()" })
+    }
     @using (Ajax.BeginForm(ajaxopts))
     {
-        @:Select a Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, 
-        new { onchange = "this.form.submit();", @class = "form-control" })
+        @:Candidate: @Html.DropDownListFor(x => x.SelectedUserID, Model.Candidates, 
+        new { @class = "form-control" })
+        <input type="submit" value="Go"/>
     }
 
 <br />
 <table class="table table-striped">
     <thead><tr><th>Task</th><th>Version</th><th>Document</th><th>Date Modified</th><th>Feedback Document</th><th>Date Modified</th><th></th><th></th></tr></thead>
     <tbody id="tbody">
-        @Html.Action("GetIndexData", new { UserID = Model.SelectedUserID })
+        @Html.Action("GetIndexData", new { SelectedUserID = Model.SelectedUserID })
     </tbody>
 </table>
+<div class="spinnerplaceholder"><img id="ajaxspinner" src="~/Images/ajax-loader.gif" /></div>
+

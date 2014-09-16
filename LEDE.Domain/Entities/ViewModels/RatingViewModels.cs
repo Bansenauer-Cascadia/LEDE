@@ -42,6 +42,10 @@ namespace LEDE.Domain.Entities
     {            
         public IEnumerable<SelectListItem> Candidates { get; set; }
 
+        public IEnumerable<SelectListItem> Cohorts { get; set; }
+
+        public int SelectedCohortID { get; set; }
+
         public int SelectedUserID { get; set; }
 
         public bool UploadVisible { get; set; }
@@ -67,6 +71,8 @@ namespace LEDE.Domain.Entities
         public string Command { get; set; }
 
         public int? SelectedUserID { get; set; }
+
+        public int? SelectedCohortID { get; set; }
     }
 
     public class CandidateDrop

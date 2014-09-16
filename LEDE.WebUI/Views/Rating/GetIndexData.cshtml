@@ -1,30 +1,44 @@
 ﻿@using LEDE.Domain.Entities;
 @model IEnumerable<TaskVersion>
 
-@foreach (TaskVersion version in Model)
+@if (Model.Any())
 {
-    @Html.Hidden("VersID", version.VersID)
-    <tr>
-        <td>@version.Task.TaskCode: @version.Task.TaskName</td>
-        <td> @version.Version</td>
-        <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID})</td>
-        <td>@version.Document.UploadDate</td>
-        @{string feedbackText;}
-        @if (version.FeedbackDoc != null)
-        {
-            feedbackText = "Replace Feedback";
-            <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID})</td>
-            <td>@version.FeedbackDoc.UploadDate</td>
-        }
-        else
-        {
-            feedbackText = "Upload Feedback";
-            <td>-</td>
-            <td>-</td>            
-        }
-        <td>@Html.ActionLink(feedbackText, "Upload", new { VersID = version.VersID, User = version.User.FirstName + " " + 
-               version.User.LastName, TaskName = version.Task.TaskName, SelectedUserID = version.UserID, Version = version.Version}, new { @class = 
-               "btn btn-default upload" })</td>
+    foreach (TaskVersion version in Model)
+    {
+        @Html.Hidden("VersID", version.VersID)
+        <tr>
+            <td>@version.Task.TaskCode: @version.Task.TaskName</td>
+            <td> @version.Version</td>
+            <td>@Html.ActionLink(version.Document.FileName, "Download", new { DocumentID = version.DocumentID })</td>
+            <td>@version.Document.UploadDate</td>
+            @{string feedbackText;}
+            @if (version.FeedbackDoc != null)
+            {
+                feedbackText = "Replace Feedback";
+                <td>@Html.ActionLink(version.FeedbackDoc.FileName, "Download", new { DocumentID = version.FeedbackDocID })</td>
+                <td>@version.FeedbackDoc.UploadDate</td>
+            }
+            else
+            {
+                feedbackText = "Upload Feedback";
+                <td>-</td>
+                <td>-</td>
+            }
+            <td>
+                @Html.ActionLink(feedbackText, "Upload", new
+       {
+           VersID = version.VersID,
+           User = version.User.FirstName + " " +
+               version.User.LastName,
+           TaskName = version.Task.TaskName,
+           SelectedUserID = version.UserID,
+           Version = version.Version
+       }, new
+       {
+           @class =
+               "btn btn-default upload"
+       })
+        </td>
         <td>
             @if (version.TaskRatings.FirstOrDefault() == null)
             {
@@ -36,6 +50,16 @@
             }
         </td>
     </tr>
+    }
 }
+else
+{
+    <tr>
+        <td colspan="6">
+            This Candidate Hasn't Submitted Any Assigments Yet. 
+        </td>
+    </tr>
+}
+
 
 

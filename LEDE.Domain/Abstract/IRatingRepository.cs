@@ -14,7 +14,7 @@ namespace LEDE.Domain.Abstract
 
         void saveImpactRating(CompleteRating impactRating, int VersID); 
 
-        RatingIndexModel getIndexModel(int? userID);
+        RatingIndexModel getIndexModel(int FacultyID, int? ProgramCohortID, int? userID);
 
         Document findDocument(int documentID);
 

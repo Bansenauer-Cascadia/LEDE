@@ -13,21 +13,22 @@ namespace LEDE.WebUI.Controllers
     [Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
-        private LEDE.Domain.Abstract.IRatingRepository Ratings;        
+        private LEDE.Domain.Abstract.IRatingRepository Ratings; 
 
         public RatingController(LEDE.Domain.Abstract.IRatingRepository repo)
         {
             this.Ratings = repo;
         }
 
-        public PartialViewResult GetIndexData(int UserID)
+        public PartialViewResult GetIndexData(int SelectedUserID)
         {
-            return PartialView(Ratings.getTaskVersions(UserID)); 
+            return PartialView(Ratings.getTaskVersions(SelectedUserID)); 
         }
 
-        public ActionResult Index(bool? UploadVisible, int? VersID, int? userID)
+        public ActionResult Index(bool? UploadVisible, int? VersID, int? userID, int? ProgramCohortID)
         {
-            RatingIndexModel model = Ratings.getIndexModel(userID);
+            int FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
+            RatingIndexModel model = Ratings.getIndexModel(FacultyID, ProgramCohortID, userID);
             model.UploadVisible = UploadVisible ?? false;
             model.VersID = VersID;
 
@@ -37,7 +38,8 @@ namespace LEDE.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(RatingIndexPost post)
         {
-            RatingIndexModel model = Ratings.getIndexModel(post.SelectedUserID);
+            int FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
+            RatingIndexModel model = Ratings.getIndexModel(FacultyID, post.SelectedCohortID, post.SelectedUserID);
 
             return View(model);
         }

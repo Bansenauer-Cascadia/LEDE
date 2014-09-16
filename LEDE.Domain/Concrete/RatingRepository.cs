@@ -76,14 +76,6 @@ namespace LEDE.Domain.Concrete
             db.SaveChanges(); 
         }
 
-        private IEnumerable<CandidateDrop> getCandidates()
-        {
-            int roleID = db.Roles.FirstOrDefault(r => r.Name == "Candidate").Id;
-            return db.Users.Where(u => u.Roles.FirstOrDefault(r => r.RoleId == roleID) != null).
-                Select(u => new CandidateDrop() {Id = u.Id, Name = u.LastName + ", " + u.FirstName });
-        }
-
-
         public IEnumerable<TaskVersion> getTaskVersions(int userID)
         {
             IEnumerable<TaskVersion> taskVersions = db.TaskVersions.Where(v => v.UserID == userID)
@@ -91,10 +83,29 @@ namespace LEDE.Domain.Concrete
             return taskVersions;
         }
 
-        RatingIndexModel IRatingRepository.getIndexModel(int? userID)
+        private IEnumerable<CandidateDrop> getCandidates(int ProgramCohortID)
+        {
+            int roleID = db.Roles.FirstOrDefault(r => r.Name == "Candidate").Id;
+            return db.CohortEnrollments.Where(e => e.ProgramCohortID == ProgramCohortID && e.User.Roles.Any(r => r.RoleId == roleID)).Select
+                (e => new CandidateDrop() { Id = e.UserID, Name = e.User.LastName + ", " + e.User.FirstName }).OrderBy(e=> e.Name); 
+        }
+
+        private IEnumerable<SelectListItem> getCohorts(int userID)
+        {
+            return db.CohortEnrollments.Where(e => e.UserID == userID).OrderBy(e=> e.ProgramCohort.AcademicYear).
+                OrderBy(e=> e.ProgramCohort.Program.ProgramTitle).Select(e => new SelectListItem()
+            {
+                Text = e.ProgramCohort.Program.ProgramTitle + " " + e.ProgramCohort.AcademicYear,
+                Value = e.ProgramCohortID.ToString() 
+            });
+        }
+
+        RatingIndexModel IRatingRepository.getIndexModel(int FacultyID, int? ProgramCohortID, int? userID)
         {
             RatingIndexModel model = new RatingIndexModel();
-            var candidates = getCandidates();
+            var cohorts = getCohorts(FacultyID); 
+            var candidates = getCandidates(ProgramCohortID ?? Convert.ToInt32(cohorts.First().Value));
+            model.Cohorts = new SelectList(cohorts, "Value", "Text", ProgramCohortID);
             model.Candidates = new SelectList(candidates, "Id", "Name", userID);
             if(model.Candidates.FirstOrDefault() != null)
                 model.SelectedUserID = userID ?? Convert.ToInt32(model.Candidates.FirstOrDefault().Value);
