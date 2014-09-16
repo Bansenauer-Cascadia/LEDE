@@ -176,6 +176,12 @@ input[value=Save]{
 
 /* 03.00 NAVIGATION
 *****************************/
+/*Allow normal li text in nav bar mimics appearance of links*/
+.nav > li > span.navbartext{
+	color:#777;
+	display:block;
+	padding:15px;
+}
 
 /* 04.00 MAIN CONTENT
 *****************************/
