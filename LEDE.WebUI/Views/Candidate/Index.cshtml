@@ -31,15 +31,18 @@
             <h3>
                 Previously Submitted
                 &nbsp;&nbsp;
-                @Html.ActionLink("Upload New", "Index", new { UploadVisible = true, TaskID = Model.TaskID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Upload New", "Index", new { UploadVisible = true, TaskID = Model.TaskID, ProgramCohortID = Model.ProgramCohortID }, 
+                new { @class = "btn btn-default" })
             </h3>
         }
         else
         {
-            @Html.HiddenFor(x => x.TaskID)            
+            @Html.HiddenFor(x => x.TaskID)  
+            @Html.HiddenFor(x=> x.ProgramCohortID)          
             <input type="file" name="file"/>
             <input type="submit" value="Submit" class="btn btn-default" />
-            @Html.ActionLink("Cancel", "Index", new { TaskID = Model.TaskID }, new {@class = "btn btn-default" })
+            @Html.ActionLink("Cancel", "Index", new { TaskID = Model.TaskID, ProgramCohortID = Model.ProgramCohortID }, 
+            new {@class = "btn btn-default" })
             <h3>
                 Previously Submitted
             </h3>
@@ -87,7 +90,8 @@
                     else
                     {
                         <td>
-                            @Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID },
+                            @Html.ActionLink("Delete", "Index", new { DeleteID = version.DocumentID, TaskID = Model.TaskID, 
+                           ProgramCohortID = Model.ProgramCohortID },
                       new { @class = "btn btn-default btn-sm" })
                     </td>
                     }

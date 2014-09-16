@@ -58,7 +58,7 @@ namespace LEDE.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file, int taskID)
+        public ActionResult Upload(HttpPostedFileBase file, int taskID, int ProgramCohortID)
         {
             if (file != null && file.ContentLength > 0)
             {
@@ -74,7 +74,7 @@ namespace LEDE.WebUI.Controllers
                 FileManager.UploadDocument(uploadDoc, file);
             }
 
-            return RedirectToAction("Index", new {TaskID = taskID });
+            return RedirectToAction("Index", new {TaskID = taskID, ProgramCohortID = ProgramCohortID });
         }
 
         public ActionResult Score(int VersID)
