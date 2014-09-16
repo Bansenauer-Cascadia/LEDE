@@ -38,9 +38,11 @@ namespace LEDE.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Student(int UserID = 1, int ProgramCohortID = 2)
-        {            
-            StudentSummary model = db.getStudentTotals(ProgramCohortID, UserID);
+        public ActionResult Student(int? UserID, int? ProgramCohortID)
+        {
+            int userID = UserID ?? Convert.ToInt32(User.Identity.GetUserId());
+            int programCohortID = ProgramCohortID ?? db.getStudentCohortID(userID); 
+            StudentSummary model = db.getStudentTotals(programCohortID, userID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
         }

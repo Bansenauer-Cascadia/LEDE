@@ -118,5 +118,11 @@ namespace LEDE.Domain.Concrete
                 new { Value = e.UserID, Text = e.User.LastName + ", " +e.User.FirstName}).OrderBy(c=> c.Text);
             model.Candidates = new SelectList(candidates, "Value", "Text");
         }
+
+
+        public int getStudentCohortID(int UserID)
+        {
+            return db.CohortEnrollments.FirstOrDefault(e => e.UserID == UserID).ProgramCohortID; 
+        }
     }
 }

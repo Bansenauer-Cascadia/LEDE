@@ -20,5 +20,7 @@ namespace LEDE.Domain.Abstract
         SummaryModel getSummaryCohorts(int UserID, int? SelectedCohortID);
 
         void getSummaryCandidates(SummaryModel model); 
+
+        int getStudentCohortID(int UserID)
     }
 }
