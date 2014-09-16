@@ -28,7 +28,7 @@
 </div>
 
 <br />
-@using (Html.BeginForm("Seminar", "Summary", new {SelectedCohortID = Model.SelectedCohortID }))
+@using (Html.BeginForm("Seminar", "Report", new {SelectedCohortID = Model.SelectedCohortID }))
 {
     <h3>Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange="this.form.submit();" })
     </h3>
