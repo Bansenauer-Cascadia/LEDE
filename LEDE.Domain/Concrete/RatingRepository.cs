@@ -232,14 +232,15 @@ namespace LEDE.Domain.Concrete
 
         public void saveImpactRating(CompleteRating impactRating, int VersID)
         {
-            if (impactRating.ImpactRating.RatingID > 0)
+            ImpactTypeRating impactrating = impactRating.ImpactRating; 
+            if (impactrating.RatingID > 0)
             {
                 ImpactTypeRating impact = db.ImpactTypeRatings.Find(impactRating.ImpactRating.RatingID);
                 impact.Sscore = impactRating.ImpactRating.Sscore;
                 impact.Pscore = impactRating.ImpactRating.Pscore;
                 impact.Lscore = impactRating.ImpactRating.Lscore;
             }
-            else
+            else //if(impactrating.Sscore != null || impactrating.Pscore != null || impactrating.Lscore != null)
             {
                 TaskRating rating = new TaskRating()
                 {
