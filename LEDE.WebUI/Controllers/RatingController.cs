@@ -189,8 +189,10 @@ namespace LEDE.WebUI.Controllers
 
         public PartialViewResult Clear(int VersID, int RatingID, string Type)
         {
-            if(VersID > 0)
+            if (VersID > 0 && (Type == "Task" || Type == "Other"))
                 db.deleteTaskRating(RatingID);
+            else if (VersID > 0 && Type == "Impact")
+                db.deleteImpactRating(RatingID);
             switch (Type)
             {
                 case "Task":
@@ -198,7 +200,7 @@ namespace LEDE.WebUI.Controllers
                 case "Other":
                     return PartialView("Other", db.getOtherRatings(VersID));
                 case "Impact":
-                    break;
+                    return PartialView("Impact", db.getImpactRatings(VersID));
                 case "Default":
                     break;
             }

@@ -24,6 +24,8 @@ namespace LEDE.Domain.Abstract
 
         void deleteTaskRating(int ratingID);
 
+        void deleteImpactRating(int ratingID);
+
         RatingViewModel getRatingModel(int versID);
 
         void EditReflection(int versID, double numHrs);
