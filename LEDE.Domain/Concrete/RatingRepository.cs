@@ -351,7 +351,6 @@ namespace LEDE.Domain.Concrete
         public void saveCompleteRating(RatingViewModel model)
         {
             saveTaskRating(model.Rating, model.VersID);
-            saveImpactRating(model.Rating, model.VersID);
             if (model.TaskVersion.ReadingLogEntry != null) EditReading(model.VersID, model.TaskVersion.ReadingLogEntry.NumEntries);
             else if (model.TaskVersion.InternReflection != null) EditReflection(model.VersID, model.TaskVersion.InternReflection.NumHrs);
             db.TaskVersions.Find(model.VersID).RatingStatus = "Complete";

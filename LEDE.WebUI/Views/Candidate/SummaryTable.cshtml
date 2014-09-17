@@ -22,13 +22,21 @@
                             @if (version.RatingStatus.Trim() == "Complete")
                             {
                                 var taskCoreRatings = version.TaskRatings.Where(r => r.CoreRating != null);
+                                var taskRatings = version.TaskRatings;
                                 int scoretotal = 0;
-                                if (taskCoreRatings.Any())
+                                try
                                 {
-                                    scoretotal = (taskCoreRatings.Sum(r => r.CoreRating.Cscore) ?? 0) +
-                                    (version.TaskRatings.Sum(r => r.CoreRating.Sscore) ?? 0) +
-                                    (version.TaskRatings.Sum(r => r.CoreRating.Pscore) ?? 0);
-                                }                                
+                                    if (taskCoreRatings.Any())
+                                    {
+                                        scoretotal = (taskCoreRatings.Sum(r => r.CoreRating.Cscore) ?? 0) +
+                                        (version.TaskRatings.Sum(r => r.CoreRating.Sscore) ?? 0) +
+                                        (version.TaskRatings.Sum(r => r.CoreRating.Pscore) ?? 0);
+                                    } 
+                                }
+                                catch
+                                {
+                                    scoretotal = 0;
+                                }                                                               
                                 <span>
                                     @Html.ActionLink(scoretotal.ToString(), "Score", new { VersID = version.VersID }, new { @class = "score" })
                                 </span>
