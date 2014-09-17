@@ -3,8 +3,6 @@
 
 <h3>Seminar Core Topic Ratings</h3>
 @Html.HiddenFor(x => x.VersID)
-@if (Model.Rating.TaskCoreRatings.Any())
-{
     <table class="table" title="Task Core Ratings">
         <tr>
             <th>
@@ -22,9 +20,10 @@
             <th></th>
         </tr>
         @Html.EditorFor(model => model.Rating.TaskCoreRatings)
+        @if (!Model.Rating.TaskCoreRatings.Any())
+        {
+            <tr>
+                <td colspan="5">No Core Topics For This Seminar</td>
+            </tr>
+        }
     </table>
-}
-else
-{
-    @:<p>No Core Topics For This Seminar</p>
-}
