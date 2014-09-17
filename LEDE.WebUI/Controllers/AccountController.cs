@@ -30,7 +30,7 @@ namespace LEDE.WebUI.Controllers
             if (HttpContext.User.IsInRole("Candidate"))
                 return RedirectToAction("Index", "Candidate");
             else if (HttpContext.User.IsInRole("Faculty"))
-                return RedirectToAction("Index", "Rating");
+                return RedirectToAction("Summary", "Faculty");
             else if (HttpContext.User.IsInRole("ECSEL Admin") || HttpContext.User.IsInRole("LEDE Admin")
                      || HttpContext.User.IsInRole("Super Admin"))
                 return RedirectToAction("Index", "Admin");
