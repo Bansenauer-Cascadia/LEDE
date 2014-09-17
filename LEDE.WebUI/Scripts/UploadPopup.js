@@ -4,4 +4,6 @@
         closeOnBgClick: false,
         closeOnContentClick: false
     });
+    $(document).on('click', '#filesubmit', function (e) {
+    });
 });
