@@ -19,7 +19,10 @@ When implementing style sheets, make sure Site is called AFTER bootstrap.
 *		01.07 BUTTONS
 *   02.00 HEADER
 *   03.00 NAVIGATION
-*   04.00 MAIN CONTENT
+*   04.00 MAIN CONTENT		
+*		04.01 RATING SUMMARY BY CORE TOPIC (BARS)
+*		04.10 ADMIN - REPORT SUMMARY SPREADSHEET
+*		04.20 FACULTY - CANDIDATE SUBMISSIONS TABLE
 *   05.00 FOOTER TAG
 *   06.00 LOG IN AND ACCOUNTS
 *   07.00 RESPONSIVE
@@ -103,44 +106,6 @@ table > tbody > tr > td > .btn{
 	width:100%;
 }
 
-#SummaryTable tbody > tr > td.Pending > a, #SummaryTable tbody > tr > td.Complete > a{
-	padding:3px;
-	border-radius:7px;
-	text-decoration:none;
-}
-
-#SummaryTable tbody > tr > td.Pending > a{
-	border:solid salmon thin;
-	border-radius:7px;
-	background:linear-gradient(to bottom right, salmon, #FFF 10%, salmon 50%);
-	color:#FFF;
-}
-
-#SummaryTable tbody > tr > td.Pending > a:hover{
-	background:linear-gradient(to bottom right, red, maroon 10%, red 50%, #FFF);
-	border-color:maroon;
-	text-decoration:none;
-}
-
-#SummaryTable tbody > tr > td.Complete > a{
-	background-color:#FFF;
-}
-
-#SummaryTable tbody > tr > td.Complete > a:hover{
-	
-}
-
-#spreadsheet{
-	overflow-x: visible;
-	font-size:.85em;
-}
-
-#spreadsheet tbody > tr > td > span{
-	display:inline-block;
-	/*Figure out how to make the #s lineup*/
-	/*Larger pixel size for table? Visible overflow-x?*/
-}
-
 /*Add indicator for "Rate Now" buttons in task feedback table for Faculty*/
 /*table > tbody > tr > td > a.btn[]{
 }*/
@@ -185,6 +150,86 @@ input[value=Save]{
 
 /* 04.00 MAIN CONTENT
 *****************************/
+
+/* 04.01 RATING SUMMARY BY CORE TOPIC (BARS)
+*****************************/
+/*Empty progress bar*/
+.progress{
+	background-color:#DFDDE8;
+}
+
+/*Conceptual Score*/
+.bar-kt-c{
+	background-color:#5cb85c;
+}
+
+/*Strategic Score*/
+.bar-kt-s{
+	background-color:#f0ad4e;
+}
+
+/*Personal Score*/
+.bar-kt-p{
+	background-color:#428bca;
+}
+
+/*Score distribution: 1's*/
+.bar-sd-1{
+	background-color:#412177;
+}
+
+/*Score distribution: 2's*/
+.bar-sd-2{
+	background-color:#C79900;
+}
+
+/*Score distribution: 3's*/
+.bar-sd-3{
+	background-color:#008457;
+}
+
+/* 04.10 ADMIN - REPORT SUMMARY SPREADSHEET
+*****************************/
+#spreadsheet{
+	overflow-x: visible;
+	font-size:.85em;
+}
+
+#spreadsheet tbody > tr > td > span{
+	display:inline-block;
+	/*Figure out how to make the #s lineup*/
+	/*Larger pixel size for table? Visible overflow-x?*/
+}
+
+/*04.20 FACULTY - CANDIDATE SUBMISSIONS TABLE
+*****************************/
+#SummaryTable tbody > tr > td.Pending > a, #SummaryTable tbody > tr > td.Complete > a{
+	padding:3px;
+	border-radius:7px;
+	text-decoration:none;
+}
+
+#SummaryTable tbody > tr > td.Pending > a{
+	border:solid salmon thin;
+	border-radius:7px;
+	background:linear-gradient(to bottom right, salmon, #FFF 10%, salmon 50%);
+	color:#FFF;
+}
+
+#SummaryTable tbody > tr > td.Pending > a:hover{
+	background:linear-gradient(to bottom right, red, maroon 10%, red 50%, #FFF);
+	border-color:maroon;
+	text-decoration:none;
+}
+
+#SummaryTable tbody > tr > td.Complete > a{
+	background-color:#FFF;
+}
+
+#SummaryTable tbody > tr > td.Complete > a:hover{
+	
+}
+
 
 /* 05.00 FOOTER
 *****************************/

@@ -15,17 +15,17 @@
     <div class="col-md-6">
         <h3>Total Score by Knowledge Type</h3>
         <div class="progress">
-            <div class="progress-bar progress-bar-success" style="width:33.3%">Conceptual</div>
-            <div class="progress-bar progress-bar-warning" style="width: 33.3%">Strategic</div>
-            <div class="progress-bar progress-bar" style="width: 33.3%">Personal</div>
+            <div class="progress-bar bar-kt-c" style="width:33.3%">Conceptual</div>
+            <div class="progress-bar bar-kt-s" style="width: 33.3%">Strategic</div>
+            <div class="progress-bar bar-kt-p" style="width: 33.3%">Personal</div>
         </div>
     </div>
     <div class="col-md-6">
         <h3>Score Distribution by Rating</h3>
         <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width:33.3%">1s</div>
-            <div class="progress-bar progress-bar-warning" style="width: 33.3%">2s</div>
-            <div class="progress-bar progress-bar-success" style="width: 33.3%">3s</div>
+            <div class="progress-bar bar-sd-1" style="width:33.3%">1s</div>
+            <div class="progress-bar bar-sd-2" style="width: 33.3%">2s</div>
+            <div class="progress-bar bar-sd-3" style="width: 33.3%">3s</div>
         </div>
     </div>
 </div>
@@ -46,16 +46,16 @@ else
     <div class="row">
         <div class="col-md-6">
             <div class="progress">
-                <div class="progress-bar c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
-                <div class="progress-bar s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
-                <div class="progress-bar progress-bar" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
+                <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
+                <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
+                <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: @totals.OnePercentage%">@totals.OneCount</div>
-                <div class="progress-bar progress-bar-warning" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
-                <div class="progress-bar progress-bar-success" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
+                <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
+                <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
+                <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
             </div>
         </div>
     </div>
