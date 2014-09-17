@@ -41,9 +41,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="progress">
-                <div class="progress-bar c" style="width: @totals.CPercentage%">@totals.CScore</div>
-                <div class="progress-bar s" style="width: @totals.SPercentage%">@totals.SScore</div>
-                <div class="progress-bar progress-bar" style="width: @totals.PPercentage%">@totals.PScore</div>
+                <div class="progress-bar c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
+                <div class="progress-bar s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
+                <div class="progress-bar progress-bar" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
             </div>
         </div>
         <div class="col-md-6">
