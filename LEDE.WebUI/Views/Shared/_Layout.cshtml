@@ -28,10 +28,13 @@
 </head>
 <body>
 	<nav class="mainnav navbar-fixed-top">
-		<div class="container">
-            <div class="navbar-header">
-                <span class="navbar-brand navbartext">UW Bothell LEDE and ECSEL Programs</span>
-            </div>
+		<div class="navbar">
+			<div class="container">
+				<div class="navbar-header navbar-collapse">
+					<span class="navbar-brand navbartext">UW Bothell LEDE and ECSEL Programs</span>
+				</div>
+				@Html.Partial("_LoginPartial")
+			</div>
 		</div>
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container">
@@ -86,7 +89,7 @@
 							</li>
 						}
 					</ul>
-					@Html.Partial("_LoginPartial")
+					<!--@Html.Partial("_LoginPartial")-->
 				</div>
 			</div>
 		</div>

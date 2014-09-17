@@ -67,7 +67,6 @@ nav.navbar a.navbar-brand, nav.navbar > div > div > ul > li > a{
 *****************************/
 a, a:visited{
 	color:#428bca;
-	/*color:#005638;*/
 }
 
 a:hover, a:active{
@@ -142,9 +141,8 @@ input[value=Save]{
 /* 03.00 NAVIGATION
 *****************************/
 nav.mainnav {
-  background:linear-gradient(#f8f4b2 90%,#008457);
-  border-bottom: 1px solid #e7e7e7;
-  padding-bottom: 2px;
+  background-color:#f8f4b2;
+  padding-bottom: 0px;
 }
 
 .navbar{
@@ -152,10 +150,15 @@ nav.mainnav {
 }
 
 /*Allow normal li text in nav bar mimics appearance of links*/
-.navbartext{
+.navbartext, .nav > li > a{
 	color:#777;
 	display:block;
 	padding:15px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus{
+	background-color:transparent;
+	color: #333;
 }
 
 .nav > li > a:first-of-type{
@@ -164,6 +167,14 @@ nav.mainnav {
 
 /* 04.00 MAIN CONTENT
 *****************************/
+.page-header{
+	padding-bottom:20px;
+}
+
+.page-header > div > *{
+	vertical-align:middle;
+	display:inline;
+}
 
 /* 04.01 RATING SUMMARY BY CORE TOPIC (BARS)
 *****************************/
