@@ -7,7 +7,7 @@
     <style>
         h3 {display:inline;}
         #othervalidation{color:red;}
-
+        .message-success{color:green;}
         /*styling for page header (Create a style sheet for this)
         .page-header, .page-header h2 {margin-top:0px;}*/
     </style>
@@ -47,6 +47,7 @@
 {
     @Html.ValidationSummary()
     <div id="othervalidation"></div>
+    <div class="message-success">@ViewBag.SuccessMessage</div>
     
     @Html.HiddenFor(model => model.VersID, new {id="versidhidden" })
 

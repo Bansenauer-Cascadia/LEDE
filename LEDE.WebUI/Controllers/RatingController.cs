@@ -111,13 +111,12 @@ namespace LEDE.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 db.saveCompleteRating(post);
-                return RedirectToAction("Summary", "Faculty");
+                ViewBag.SuccessMessage = "Rating Saved Succesfully";
             }
-            else
-            {
-                RatingViewModel model = db.getRatingModel(post.VersID);
-                return View(model);
-            }
+
+            RatingViewModel model = db.getRatingModel(post.VersID);
+            return View(model);
+
         }
         
         [HttpPost]
