@@ -21,9 +21,14 @@
                             <span class="version">V@(version.Version):</span>
                             @if (version.RatingStatus.Trim() == "Complete")
                             {
-                                int? scoretotal = version.TaskRatings.Sum(r => r.CoreRating.Cscore) +
-                                    @version.TaskRatings.Sum(r => r.CoreRating.Sscore) +
-                                    @version.TaskRatings.Sum(r => r.CoreRating.Pscore);
+                                var taskCoreRatings = version.TaskRatings.Where(r => r.CoreRating != null);
+                                int scoretotal = 0;
+                                if (taskCoreRatings.Any())
+                                {
+                                    scoretotal = (taskCoreRatings.Sum(r => r.CoreRating.Cscore) ?? 0) +
+                                    (version.TaskRatings.Sum(r => r.CoreRating.Sscore) ?? 0) +
+                                    (version.TaskRatings.Sum(r => r.CoreRating.Pscore) ?? 0);
+                                }                                
                                 <span>
                                     @Html.ActionLink(scoretotal.ToString(), "Score", new { VersID = version.VersID }, new { @class = "score" })
                                 </span>
