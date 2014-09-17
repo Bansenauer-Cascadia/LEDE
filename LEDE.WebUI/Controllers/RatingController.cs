@@ -80,17 +80,17 @@ namespace LEDE.WebUI.Controllers
                 try
                 {
                     FileManager.UploadDocument(feedbackUpload, file);
-                    ViewBag.Message = "Upload Successfull!";
+                    ViewBag.SuccessMessage = "Upload Successfull!";
                 }
                 catch
                 {
-                    ViewBag.Message = "Upload Failed. Please Try Again.";
+                    ViewBag.SuccessMessage = "Upload Failed. Please Try Again.";
                 }
             }
 
             if (returnUrl != null)
             {
-                return Redirect(returnUrl);
+                return Redirect(returnUrl + "&Message=" + ViewBag.SuccessMessage);
             }
             else
             {
@@ -98,10 +98,10 @@ namespace LEDE.WebUI.Controllers
             }
         }
 
-        public ActionResult Rate(int VersID)
+        public ActionResult Rate(int VersID, string Message = "")
         {
             RatingViewModel model = db.getRatingModel(VersID);
-
+            ViewBag.SuccessMessage = Message;
             return View(model);
         }
 
@@ -122,7 +122,7 @@ namespace LEDE.WebUI.Controllers
         [HttpPost]
         public ActionResult Header(RatingViewModel post)
         {
-            return View("Rate", db.getRatingModel(post.VersID));
+            return RedirectToAction("Rate", new {VersID = post.VersID});
         }
 
         public PartialViewResult Reflection(int VersID)
