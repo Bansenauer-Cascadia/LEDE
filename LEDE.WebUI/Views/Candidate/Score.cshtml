@@ -36,7 +36,7 @@ else
     <p>This Task Has No Associated Core Topics</p>
 }
 
-@if (Model.OtherCoreRatings.Count() > 0)
+@if (Model.OtherCoreRatings != null  && Model.OtherCoreRatings.Any())
 {
     <h3>Other Core Ratings</h3>
     <table class="table table-striped">
