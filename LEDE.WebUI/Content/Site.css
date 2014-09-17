@@ -39,7 +39,7 @@ When implementing style sheets, make sure Site is called AFTER bootstrap.
 *****************************/
 /* Move down content if using fixed navbar */
 body {
-    padding-top: 100px;
+    padding-top: 150px;
     padding-bottom: 20px;
     margin:0 auto;
     /*background:#D2D1D1;*/
@@ -141,11 +141,25 @@ input[value=Save]{
 
 /* 03.00 NAVIGATION
 *****************************/
+nav.mainnav {
+  background:linear-gradient(#f8f4b2 90%,#008457);
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 2px;
+}
+
+.navbar{
+	margin-bottom:0;
+}
+
 /*Allow normal li text in nav bar mimics appearance of links*/
-.nav > li > span.navbartext{
+.navbartext{
 	color:#777;
 	display:block;
 	padding:15px;
+}
+
+.nav > li > a:first-of-type{
+	padding-left:0;
 }
 
 /* 04.00 MAIN CONTENT

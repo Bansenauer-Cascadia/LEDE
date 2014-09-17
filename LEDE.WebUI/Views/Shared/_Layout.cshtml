@@ -27,65 +27,70 @@
     }
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
+	<nav class="mainnav navbar-fixed-top">
+		<div class="container">
             <div class="navbar-header">
-                <a href="" class="navbar-brand">ECSEL</a>
+                <a href="" class="navbar-brand">UW Bothell LEDE and ECSEL Programs</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Candidate"))
-                    {
-                        <li>
-                            @Html.ActionLink("Tasks", "Summary","Candidate")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Upload", "Index", "Candidate")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Summary", "Student", "Report")
-                        </li>
-                         
-                    }
-                    else if (User.IsInRole("Faculty"))
-                    {
-                        <li>@Html.ActionLink("Feedback", "Index", "Rating")</li>
-                        <li>@Html.ActionLink("Submissions", "Summary", "Faculty")</li>
-                        <li>@Html.ActionLink("Graphs", "Seminar", "Report")</li>
-                    }
-                    else if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
-                    {
-                        <li>@Html.ActionLink("Users", "Index", "Admin")</li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    @Html.ActionLink("Graphs", "Seminar", "Report")
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Summary", "Summary", "Report")
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    @Html.ActionLink("Programs", "Programs", "Setup")
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Cohorts", "Index", "Setup")
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Seminars", "Seminars", "Setup")
-                                </li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+		</div>
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        
+			<div class="container">
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						@if (User.IsInRole("Candidate"))
+						{
+							<li>
+								@Html.ActionLink("Tasks", "Summary","Candidate")
+							</li>
+							<li>
+								@Html.ActionLink("Upload", "Index", "Candidate")
+							</li>
+							<li>
+								@Html.ActionLink("Summary", "Student", "Report")
+							</li>
+							 
+						}
+						else if (User.IsInRole("Faculty"))
+						{
+							<li>@Html.ActionLink("Feedback", "Index", "Rating")</li>
+							<li>@Html.ActionLink("Submissions", "Summary", "Faculty")</li>
+							<li>@Html.ActionLink("Graphs", "Seminar", "Report")</li>
+						}
+						else if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
+						{
+							<li>@Html.ActionLink("Users", "Index", "Admin")</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										@Html.ActionLink("Graphs", "Seminar", "Report")
+									</li>
+									<li>
+										@Html.ActionLink("Summary", "Summary", "Report")
+									</li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										@Html.ActionLink("Programs", "Programs", "Setup")
+									</li>
+									<li>
+										@Html.ActionLink("Cohorts", "Index", "Setup")
+									</li>
+									<li>
+										@Html.ActionLink("Seminars", "Seminars", "Setup")
+									</li>
+								</ul>
+							</li>
+						}
+					</ul>
+					@Html.Partial("_LoginPartial")
+				</div>
+			</div>
+		</div>
     </nav>
     <div class="container">
         @RenderBody()
