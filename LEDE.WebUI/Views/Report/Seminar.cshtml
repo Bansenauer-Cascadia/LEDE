@@ -6,7 +6,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
 
-<h2>Core Ratings Summary</h2>
+@using (Html.BeginForm("Seminar", "Report", new { SelectedCohortID = Model.SelectedCohortID }))
+{
+    <div class="row page-header">
+        <div class="col-md-4">
+            <h2>Core Ratings Summary</h2>
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange = "this.form.submit();" })
+        </div>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-6">
@@ -28,16 +38,11 @@
 </div>
 
 <br />
-@using (Html.BeginForm("Seminar", "Report", new {SelectedCohortID = Model.SelectedCohortID }))
-{
-    <h3>Cohort: @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange="this.form.submit();" })
-    </h3>
-}
 
 @foreach (RatingQuery totals in Model.TotalsList)
 {
-    @Html.ActionLink(totals.UserName, "Student", new { UserID = totals.UserID, ProgramCohortID = Model.SelectedCohortID })
-    
+    <div class="well">
+        @Html.ActionLink(totals.UserName, "Student", new { UserID = totals.UserID, ProgramCohortID = Model.SelectedCohortID })
     <div class="row">
         <div class="col-md-6">
             <div class="progress">
@@ -53,6 +58,7 @@
                 <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
             </div>
         </div>
+    </div>
     </div>
 
 }

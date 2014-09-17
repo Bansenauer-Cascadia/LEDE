@@ -15,12 +15,17 @@
         }
     </style>
 }
-<h2>Summary</h2>
 @using (Ajax.BeginForm(opts))
 {
-    @:Program Cohort:@Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts, 
-    new {@class="form-control" }) <input type="submit" value="Go" class="btn btn-default" />
-
+<div class="row page-header">
+    <div class="col-md-3">
+    <h2>Summary</h2>
+    </div>
+    <div class="col-md-4">
+    @Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts, 
+    new {@class="form-control", style="display:inline;" }) <input type="submit" value="Go" class="btn btn-default" />
+        </div>
+</div>
 }
 
 <div id="LoadingTarget">
