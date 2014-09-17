@@ -45,7 +45,10 @@
 {
     @Html.ValidationSummary()
     <div id="othervalidation"></div>
-    <div class="message-success well well-sm">@ViewBag.SuccessMessage</div>
+    if (ViewBag.SuccessMessage != "")
+    {
+        <div class="message-success well well-sm">@ViewBag.SuccessMessage</div>
+    }
     
     @Html.HiddenFor(model => model.VersID, new {id="versidhidden" })
 
