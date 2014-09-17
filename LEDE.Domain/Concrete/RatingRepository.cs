@@ -63,7 +63,6 @@ namespace LEDE.Domain.Concrete
             
             db.TaskRatings.Add(taskRating);
             db.CoreRatings.Add(rating);
-            db.TaskVersions.Find(VersID).RatingStatus = "Complete";
             db.SaveChanges();                     
         }
 
@@ -138,10 +137,14 @@ namespace LEDE.Domain.Concrete
             ImpactTypeRating impact = db.ImpactTypeRatings.Find(ratingID);
             TaskRating task = db.TaskRatings.Find(ratingID);
 
-            if (core != null)
+            if (core != null){
                 db.CoreRatings.Remove(core);
-            else if (impact != null)
+                db.SaveChanges();
+            }
+            else if (impact != null){
                 db.ImpactTypeRatings.Remove(impact);
+                db.SaveChanges();
+            }
             if(task!= null)
                 db.TaskRatings.Remove(task);
 
@@ -163,7 +166,7 @@ namespace LEDE.Domain.Concrete
             return model;
         }
 
-        private TaskVersion getTaskVersion(int versID)
+        public TaskVersion getTaskVersion(int versID)
         {
             TaskVersion taskVersion = db.TaskVersions.Find(versID);
 
@@ -175,11 +178,12 @@ namespace LEDE.Domain.Concrete
             TaskVersion version = db.TaskVersions.Find(versid);
             int UserID = version.UserID;
             int TaskID = version.TaskID;
-            return new SelectList(db.TaskVersions.Where(v => v.TaskID == TaskID && v.UserID == UserID), "VersID", "Version", versid);
+            return new SelectList(db.TaskVersions.Where(v => v.TaskID == TaskID && v.UserID == UserID).Select(
+                v => new {v.VersID, Version = "V" + v.Version}), "VersID", "Version", versid);
         }
 
 
-        private SelectList getCoreDrop(int VersID)
+        public SelectList getCoreDrop(int VersID)
         {
             int programID = db.TaskVersions.Find(VersID).Task.Seminar.ProgramID;
             IEnumerable<CoreTopic> ratedtopics = db.CoreRatings.Where(r => r.TaskRating.VersID == VersID).Select(r => r.CoreTopic);
@@ -188,36 +192,6 @@ namespace LEDE.Domain.Concrete
                 Select(c => new { Name = c.CoreTopicNum + ": " + c.CoreTopicDesc, c.CoreTopicID });
             return new SelectList(coretopics, "CoreTopicID", "Name");
         }
-
-        private CompleteRating getTaskRating(int versID)
-        {
-            int seminarID = db.TaskVersions.Find(versID).Task.SeminarID;
-            List<CoreRating> taskRatings = new List<CoreRating>();
-            List<CoreRating> otherRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
-                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID != seminarID)
-                .OrderBy(r=> r.CoreTopic.CoreTopicNum).ToList();
-            IEnumerable<CoreRating> existingTaskRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
-                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID == seminarID);
-
-            foreach (CoreTopic topic in db.CoreTopics.Where(c => c.SeminarID == seminarID).OrderBy(c=> c.CoreTopicNum))
-            {
-                CoreRating existingTopicRating = existingTaskRatings.FirstOrDefault(c => c.CoreTopicID == topic.CoreTopicID);
-                if (existingTopicRating == null)
-                    taskRatings.Add(new CoreRating { RatingID = -1, CoreTopic = topic });
-                else
-                    taskRatings.Add(existingTopicRating); 
-            }
-
-            CompleteRating taskRating = new CompleteRating()
-            {
-                TaskCoreRatings = taskRatings,
-                OtherCoreRatings = otherRatings,
-                ImpactRating = db.ImpactTypeRatings.FirstOrDefault(r => r.TaskRating.VersID == versID)
-            };
-
-            return taskRating;
-        }
-
 
         public void EditReflection(int versID, double numHrs)
         {
@@ -269,7 +243,7 @@ namespace LEDE.Domain.Concrete
             {
                 TaskRating rating = new TaskRating()
                 {
-                    FacultyID = impactRating.FacultyID == 0 ? 2: impactRating.FacultyID,  //////Add real facID
+                    FacultyID = impactRating.FacultyID == 0 ? 2: impactRating.FacultyID, 
                     ReviewDate = DateTime.Now,
                     VersID = VersID,
                 };
@@ -281,7 +255,6 @@ namespace LEDE.Domain.Concrete
                     Lscore = impactRating.ImpactRating.Lscore,
                     TaskRating = rating
                 };
-                db.TaskVersions.Find(VersID).RatingStatus = "Complete"; 
                 db.TaskRatings.Add(rating);
                 db.ImpactTypeRatings.Add(impact);
             }
@@ -292,6 +265,96 @@ namespace LEDE.Domain.Concrete
         public Document findDocumentByVersID(int VersID)
         {
             return db.TaskVersions.Find(VersID).Document; 
+        }
+
+        //functions below fetch data for rating partials
+        public RatingViewModel getTaskRatings(int versID)
+        {
+            RatingViewModel model = new RatingViewModel()
+            {
+                Rating = getTaskRating(versID),
+                VersID = versID
+            };
+
+            return model;
+        }
+
+        private CompleteRating getTaskRating(int versID)
+        {
+            int seminarID = db.TaskVersions.Find(versID).Task.SeminarID;
+            List<CoreRating> taskRatings = new List<CoreRating>();            
+            IEnumerable<CoreRating> existingTaskRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
+                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID == seminarID);
+
+            foreach (CoreTopic topic in db.CoreTopics.Where(c => c.SeminarID == seminarID).OrderBy(c => c.CoreTopicNum))
+            {
+                CoreRating existingTopicRating = existingTaskRatings.FirstOrDefault(c => c.CoreTopicID == topic.CoreTopicID);
+                if (existingTopicRating == null)
+                    taskRatings.Add(new CoreRating { RatingID = -1, CoreTopic = topic });
+                else
+                    taskRatings.Add(existingTopicRating);
+            }
+
+            CompleteRating taskRating = new CompleteRating()
+            {
+                TaskCoreRatings = taskRatings,
+                ImpactRating = db.ImpactTypeRatings.FirstOrDefault(r => r.TaskRating.VersID == versID)
+            };
+
+            return taskRating;
+        }
+
+        public RatingViewModel getOtherRatings(int versID)
+        {
+            RatingViewModel model = new RatingViewModel()
+            {
+                Rating = getOtherRating(versID),
+                VersID = versID,
+                CoreDrop = getCoreDrop(versID)
+            };
+
+            return model;
+        }
+
+        private CompleteRating getOtherRating(int versID)
+        {
+            int seminarID = db.TaskVersions.Find(versID).Task.SeminarID;            
+            List<CoreRating> otherRatings = db.CoreRatings.Include(r => r.TaskRating).Include(r => r.CoreTopic).
+                Where(r => r.TaskRating.VersID == versID && r.CoreTopic.SeminarID != seminarID)
+                .OrderBy(r => r.CoreTopic.CoreTopicNum).ToList();            
+
+            CompleteRating otherRating = new CompleteRating()
+            {
+                OtherCoreRatings = otherRatings,
+                ImpactRating = db.ImpactTypeRatings.FirstOrDefault(r => r.TaskRating.VersID == versID)
+            };
+
+            return otherRating;
+        }
+
+
+        public RatingViewModel getImpactRatings(int versID)
+        {
+            RatingViewModel model = new RatingViewModel()
+            {
+                VersID = versID,
+                Rating = new CompleteRating()
+                {
+                    ImpactRating = db.ImpactTypeRatings.FirstOrDefault(r => r.TaskRating.VersID == versID)
+                }
+            };
+
+            return model;
+        }
+
+        //function for saving the entire ratings page
+        public void saveCompleteRating(RatingViewModel model)
+        {
+            saveTaskRating(model.Rating, model.VersID);
+            if (model.TaskVersion.ReadingLogEntry != null) EditReading(model.VersID, model.TaskVersion.ReadingLogEntry.NumEntries);
+            else if (model.TaskVersion.InternReflection != null) EditReflection(model.VersID, model.TaskVersion.InternReflection.NumHrs);
+            db.TaskVersions.Find(model.VersID).RatingStatus = "Complete";
+            db.SaveChanges(); 
         }
     }
 }

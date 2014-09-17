@@ -1,5 +1,11 @@
 ﻿@model LEDE.Domain.Entities.CoreRating
-
+@{
+  AjaxOptions opts = new AjaxOptions()
+  {
+      Url = Model.TaskRating != null? Url.Action("Clear", new { RatingID = Model.RatingID, VersID = Model.TaskRating.VersID, Type="Task"}) : null,
+      UpdateTargetId = "taskratings",
+  };
+}
 @Html.HiddenFor(rating => rating.CoreTopicID)
 @Html.HiddenFor(rating => rating.CoreTopic.CoreTopicNum)
 @Html.HiddenFor(rating => rating.CoreTopic.CoreTopicDesc)
@@ -23,8 +29,7 @@
     <td>
         @if (Model.TaskRating != null)
         {
-            @Html.ActionLink("Clear", "Clear", new { VersID = Model.TaskRating == null ? 0 : Model.TaskRating.VersID, RatingID = Model.RatingID }, 
-            new { @class = "btn btn-default btn-xs" })
+            @Ajax.ActionLink("Clear","Clear",opts)
         }
     </td>
 </tr>

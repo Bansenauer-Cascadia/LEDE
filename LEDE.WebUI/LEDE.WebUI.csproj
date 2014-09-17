@@ -184,6 +184,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\RatingForm.js" />
     <Content Include="Scripts\UploadPopup.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -251,6 +252,10 @@
     <Content Include="Views\Rating\Upload.cshtml" />
     <Content Include="Views\Report\Summary.cshtml" />
     <Content Include="Views\Report\SummarySpreadsheet.cshtml" />
+    <Content Include="Views\Rating\Reflection.cshtml" />
+    <Content Include="Views\Rating\Task.cshtml" />
+    <Content Include="Views\Rating\Other.cshtml" />
+    <Content Include="Views\Rating\Impact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

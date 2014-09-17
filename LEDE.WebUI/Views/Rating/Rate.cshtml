@@ -3,267 +3,71 @@
 @{
     ViewBag.Title = "Rate a Task";
 }
-@section script {
-    <script src="~/Scripts/UploadPopup.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            function validate(value) {
-                var valid = true;
-                var valueint = parseInt(value);
-                if (isNaN(valueint) && value.trim() != "") {
-                    return "Please Enter an Integer Score"; 
-                }
-                    if (valueint < 0 || valueint > 3) {
-                        return "Please Enter an Integer Score Between 0 and 3";
-                    }
-                    else {
-                        return "Valid";
-                    }
-                
-            }
-            $('.othersubmit').click(function (e) {
-                var isvalid = true;
-                $('#othervalidation').empty();
-                var list = "<ul>";
-                $('.other').each(function () {
-                    var validscore = validate(this.value);
-                    if (validscore != "Valid") {
-                        isvalid = false;
-                        list += "<li>" + validscore + "</li>";
-                    }
-                });
-                list += "</ul>"
-                if (!isvalid) {
-                    e.preventDefault();
-                    $('#othervalidation').append(list);
-                }
-            });
-        });
-    </script>
-}
 @section css{
     <style>
-        h3 {
-            display:inline;
-        }
-        #othervalidation{
-            color:red;
-        }
+        h3 {display:inline;}
+        #othervalidation{color:red;}
+
+        /*styling for page header (Create a style sheet for this)*/
+        .page-header, .page-header h2 {margin-top:0px;}
     </style>
 }
-    <div class="jumbotron">
+    <div class="page-header">
         <div class="row">
-            <div class="col-md-6">
-                <h2>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName<br />@Model.TaskVersion.Task.TaskName</h2>
+            <div class="col-md-9">
+                <h2>@Model.TaskVersion.Task.TaskName</h2>
+                <small>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName</small>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
                 {
-                    @:Version @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
+                    @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
                     new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
-    }
+                }
             </div>
-            <div class="col-md-2">
-                @Html.ActionLink("Download Document", "Download", new { DocumentID = Model.TaskVersion.DocumentID }, 
-                new {@class="btn btn-default" })
-            </div>
-            <div class="col-md-2">
-                @{
-                    string feedbackText;
-                    if (Model.TaskVersion.FeedbackDocID != null){
-                        feedbackText = "Replace Feedback";}
-                    else { 
-                        feedbackText = "Upload Feedback";}
-                }                    
-                @Html.ActionLink(feedbackText, "Upload", new {VersID = Model.TaskVersion.VersID, SelectedUserID = 
-           Model.TaskVersion.UserID, User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
-           TaskName = Model.TaskVersion.Task.TaskName, Version = Model.TaskVersion.Version, returnUrl = Request.Url.PathAndQuery}, 
-           new {@class="btn btn-default upload" })
+            <div class="col-md-2" style="text-align:right;">
+                @Html.ActionLink("DL", "Download", new { DocumentID = Model.TaskVersion.DocumentID },
+                new { @class = "btn btn-default", title="Download Candidate Submission" })
+                @Html.ActionLink("UL", "Upload", new
+           {
+               VersID = Model.TaskVersion.VersID,
+               SelectedUserID =
+                   Model.TaskVersion.UserID,
+               User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
+               TaskName = Model.TaskVersion.Task.TaskName,
+               Version = Model.TaskVersion.Version,
+               returnUrl = Request.Url.PathAndQuery
+           },
+           new { @class = "btn btn-default upload", title="Upload Feedback For Submission" })
             </div>
         </div>
     </div>
 
-
+@using (Html.BeginForm("Rate", "Rating", FormMethod.Post, new {id="ratingform"}))
+{
     @Html.ValidationSummary()
+    <div id="othervalidation"></div>
+    
+    @Html.HiddenFor(model => model.VersID, new {id="versidhidden" })
 
-    @using (Html.BeginForm("Reflection", "Rating", new {VersID = Model.VersID }, FormMethod.Post))
-    {
-        @Html.ValidationSummary()
-        @Html.Hidden("TaskVersion.RatingStatus","Complete") //just here to make modelstate valid for server input validation. not great but oh well 
+    @Html.Action("Reflection", new { VersID = Model.VersID })
 
-        if (Model.TaskVersion.Task.TaskTypeID == 2)
-        {
-            <table class="table table-hover">                  
-                <tr>
-                    <th>Number of Entries</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>@Html.TextBoxFor(model => model.TaskVersion.ReadingLogEntry.NumEntries, new { @class = "form-control" })</td>
-                    <td><input type="submit" name="submitCommand" value="Save" class="btn btn-default" /></td>
-                </tr>
-            </table>
-        }
-        else if (Model.TaskVersion.Task.TaskTypeID == 3)
-        {
-            <table class="table table-striped">
-                <tr>
-                    <th>Number of Hours</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>@Html.TextBoxFor(model => model.TaskVersion.InternReflection.NumHrs, new { @class = "form-control" })</td>
-                    <td><input type="submit" name="submitCommand" value="Save" class="btn btn-default" /></td>
-                </tr>
-            </table>
-        }
-    }
-    @using (Html.BeginForm("Task", "Rating", FormMethod.Post))
-    {
-        @Html.ValidationSummary()
-        @Html.HiddenFor(x => x.VersID)
-        <h3>Seminar Core Topic Ratings &nbsp;&nbsp;</h3>
-        if (Model.Rating.TaskCoreRatings.Any())
-        {
-            <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default" />
-            <table class="table table-striped" title="Task Core Ratings">
-            <tr>
-                <th>
-                    Core Topic
-                </th>
-                <th>
-                    Conceptual
-                </th>
-                <th>
-                    Strategic
-                </th>
-                <th>
-                    Personal
-                </th>
-                <th></th>
-            </tr>
-            @Html.EditorFor(model => model.Rating.TaskCoreRatings)
-        </table>
-        }
-        else
-        {
-            @:<p>No Core Topics For This Seminar</p>
-        }
-    }
+    <div id="taskratings">
+        @Html.Action("Task", new { VersID = Model.VersID })
+    </div>
 
-    @using (Html.BeginForm("Other", "Rating", new { panel = postingPanel.Other }, FormMethod.Post, new {id = "otherform" }))
-    {
-        @Html.ValidationSummary()
-        @Html.HiddenFor(x => x.VersID)
-        <h3>
-            Other Core Topic Ratings&nbsp;&nbsp;
-            @if (Model.OtherVisible == false)
-            {
-                <input type="submit" name="SubmitCommand" value="Add" class="btn btn-default" />
-                if (Model.Rating.OtherCoreRatings.FirstOrDefault() != null)
-                {
-                    <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default" />
-                }
-            }
-        </h3>
-        
-        <div id="othervalidation"></div>
+    <div id="otherratings">
+        @Html.Action("Other", new { VersID = Model.VersID })
+    </div>
+    
+    <div id="impactratings">
+        @Html.Action("Impact", new { VersID = Model.VersID })
+    </div>
+    
+    <input type="submit" class="btn btn-default" value="Save" id="ratingsubmit"/>
+}
 
-        <table class="table table-striped">
-
-            @if ((Model.Rating.OtherCoreRatings != null && Model.Rating.OtherCoreRatings.Count > 0) || Model.OtherVisible == true)
-            {
-                <tr>
-                    <th>
-                        Core Topic
-                    </th>
-                    <th>
-                        Conceptual
-                    </th>
-                    <th>
-                        Strategic
-                    </th>
-                    <th>
-                        Personal
-                    </th>
-                    <th></th>
-
-                </tr>
-            }
-            @if (Model.OtherVisible == true)
-            {
-                int index = Model.Rating.OtherCoreRatings.Count;
-                <tr>
-                    <td>
-                        @Html.DropDownList("Rating.OtherCoreRatings[" + index + "].CoreTopicID", Model.CoreDrop, new { @class = "form-control" })
-                    </td>
-                    <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control other"})
-                    </td>
-                    <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control other" })
-                    </td>
-                    <td>
-                        @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control other" })
-                    </td>
-                    <td>
-                        <input type="submit" name="SubmitCommand" value="Cancel" class="btn btn-default" />
-                        <input type="submit" name="SubmitCommand" value="Save" class="btn btn-default othersubmit" />
-                    </td>
-                </tr>
-
-            }
-            @Html.EditorFor(model => model.Rating.OtherCoreRatings)
-        </table>
-    }
-
-    @using (Html.BeginForm("Impact", "Rating", new { panel = postingPanel.Impact, VersID = Model.VersID }, FormMethod.Post))
-    {
-        @Html.ValidationSummary()
-        <h3>
-            Impact Ratings &nbsp;&nbsp;
-            @if (Model.ImpactVisible == false)
-            {
-                if (Model.Rating.ImpactRating == null)
-                {
-                    <input type="submit" name="submitCommand" value="Add" class="btn btn-default" />
-                }
-                else
-                {
-                    <input type="submit" name="submitCommand" value="Save" class="btn btn-default" />
-                }
-            }
-        </h3>
-        <table class="table table-striped">
-
-            @if (Model.Rating.ImpactRating != null || Model.ImpactVisible == true)
-            {
-                <tr>
-                    <th>Structures & Operations</th>
-                    <th>Professional Practices</th>
-                    <th>Student Learning</th>
-                    <th></th>
-                </tr>
-
-                <tr>
-                    <td>@Html.TextBoxFor(model => model.Rating.ImpactRating.Sscore, new { @class = "form-control" })</td>
-                    <td>@Html.TextBoxFor(model => model.Rating.ImpactRating.Pscore, new { @class = "form-control" })</td>
-                    <td>@Html.TextBoxFor(model => model.Rating.ImpactRating.Lscore, new { @class = "form-control" })</td>
-                    <td>
-                        @if (Model.ImpactVisible == true)
-                        {
-                            <input type="submit" name="submitCommand" class="btn btn-default" value="Save" />
-                            <input type="submit" name="submitCommand" class="btn btn-default" value="Cancel" />
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Clear", "Clear", new { VersID = Model.VersID, RatingID = Model.Rating.ImpactRating.RatingID }, new { @class = "btn btn-default btn-xs" })
-
-                        }
-                    </td>
-                </tr>
-
-            }
-        </table>
-
-    }
+@section script {
+    <script src="~/Scripts/UploadPopup.js"></script>
+    <script src="~/Scripts/RatingForm.js"></script>
+}

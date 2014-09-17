@@ -1,0 +1,83 @@
+﻿@using LEDE.Domain.Entities
+@model RatingViewModel
+
+<h3>Other Core Topic Ratings</h3><input type="submit" name="SubmitCommand" value="Add" class="btn btn-default" id="addother"/>
+
+<table class="table table-striped">
+    @if ((Model.Rating.OtherCoreRatings != null && Model.Rating.OtherCoreRatings.Count > 0) || Model.OtherVisible == true)
+    {
+        <tr>
+            <th>
+                Core Topic
+            </th>
+            <th>
+                Conceptual
+            </th>
+            <th>
+                Strategic
+            </th>
+            <th>
+                Personal
+            </th>
+            <th></th>
+        </tr>
+    }
+    @if (Model.OtherVisible == true)
+    {
+        int index = Model.Rating.OtherCoreRatings.Count;
+        <tr>
+            <td>
+                @Html.DropDownList("Rating.OtherCoreRatings[" + index + "].CoreTopicID", Model.CoreDrop, new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control other" })
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control other" })
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control other" })
+            </td>
+            <td>
+                <input id="cancelother" type="submit" name="SubmitCommand" value="Cancel" class="btn btn-default" />
+            </td>
+        </tr>
+
+    }
+    @{int count = 0;}
+    @foreach (CoreRating otherrating in Model.Rating.OtherCoreRatings)
+    {
+        
+        AjaxOptions opts = new AjaxOptions()
+        {
+            Url = Url.Action("Clear", new { RatingID = otherrating.RatingID, VersID = Model.VersID, Type = "Other" }),
+            UpdateTargetId = "otherratings",
+        };
+        
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].CoreTopic.CoreTopicID", otherrating.CoreTopicID)
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].CoreTopic.CoreTopicDesc", otherrating.CoreTopic.CoreTopicDesc)
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].CoreTopic.CoreTopicNum", otherrating.CoreTopic.CoreTopicNum)
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].RatingID", otherrating.RatingID)
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].TaskRating.VersID", otherrating.TaskRating.VersID)
+        @Html.Hidden("Rating.OtherCoreRatings[" + count + "].CoreTopic.Status", otherrating.CoreTopic.Status)
+        <tr>
+            <td>
+                @otherrating.CoreTopic.CoreTopicNum: @otherrating.CoreTopic.CoreTopicDesc
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + count + "].Cscore", otherrating.Cscore, new { @class = "form-control other" })
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + count + "].Sscore", otherrating.Sscore, new { @class = "form-control other" })
+            </td>
+            <td>
+                @Html.TextBox("Rating.OtherCoreRatings[" + count + "].Pscore", otherrating.Pscore, new { @class = "form-control other" })
+            </td>
+            <td>
+                @Ajax.ActionLink("Clear", "Clear", opts)
+            </td>
+        </tr>
+        count++; 
+    }
+</table>
+

@@ -1,0 +1,30 @@
+﻿@using LEDE.Domain.Entities
+@model RatingViewModel
+
+<h3>Seminar Core Topic Ratings</h3>
+@Html.HiddenFor(x => x.VersID)
+@if (Model.Rating.TaskCoreRatings.Any())
+{
+    <table class="table" title="Task Core Ratings">
+        <tr>
+            <th>
+                Core Topic
+            </th>
+            <th>
+                Conceptual
+            </th>
+            <th>
+                Strategic
+            </th>
+            <th>
+                Personal
+            </th>
+            <th></th>
+        </tr>
+        @Html.EditorFor(model => model.Rating.TaskCoreRatings)
+    </table>
+}
+else
+{
+    @:<p>No Core Topics For This Seminar</p>
+}

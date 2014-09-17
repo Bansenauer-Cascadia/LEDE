@@ -13,22 +13,22 @@ namespace LEDE.WebUI.Controllers
     [Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
-        private LEDE.Domain.Abstract.IRatingRepository Ratings; 
+        private LEDE.Domain.Abstract.IRatingRepository db; 
 
         public RatingController(LEDE.Domain.Abstract.IRatingRepository repo)
         {
-            this.Ratings = repo;
+            this.db = repo;
         }
 
         public PartialViewResult GetIndexData(int SelectedUserID, int ProgramCohortID)
         {
-            return PartialView(Ratings.getTaskVersions(SelectedUserID, ProgramCohortID)); 
+            return PartialView(db.getTaskVersions(SelectedUserID, ProgramCohortID)); 
         }
 
         public ActionResult Index(bool? UploadVisible, int? VersID, int? userID, int? ProgramCohortID)
         {
             int FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
-            RatingIndexModel model = Ratings.getIndexModel(FacultyID, ProgramCohortID, userID);
+            RatingIndexModel model = db.getIndexModel(FacultyID, ProgramCohortID, userID);
             model.UploadVisible = UploadVisible ?? false;
             model.VersID = VersID;
 
@@ -39,14 +39,14 @@ namespace LEDE.WebUI.Controllers
         public ActionResult Index(RatingIndexPost post)
         {
             int FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
-            RatingIndexModel model = Ratings.getIndexModel(FacultyID, post.SelectedCohortID, post.SelectedUserID);
+            RatingIndexModel model = db.getIndexModel(FacultyID, post.SelectedCohortID, post.SelectedUserID);
 
             return View(model);
         }
 
         public ActionResult Download(int DocumentID)
         {            
-            Document downloadDoc = Ratings.findDocument((int)DocumentID);            
+            Document downloadDoc = db.findDocument((int)DocumentID);            
             FileManager.DownloadDocument(downloadDoc, HttpContext);             
 
             return RedirectToAction("Index");
@@ -76,143 +76,133 @@ namespace LEDE.WebUI.Controllers
                     Container = "user" + SelectedUserID
                 };               
                 
-                Ratings.saveFeedback(feedbackUpload, VersID);
-                FileManager.UploadDocument(feedbackUpload, file); 
+                db.saveFeedback(feedbackUpload, VersID);
+                try
+                {
+                    FileManager.UploadDocument(feedbackUpload, file);
+                    ViewBag.Message = "Upload Successfull!";
+                }
+                catch
+                {
+                    ViewBag.Message = "Upload Failed. Please Try Again.";
+                }
             }
-            if(returnUrl != null)
-                return Redirect("~" + returnUrl);
+
+            if (returnUrl != null)
+            {
+                return Redirect(returnUrl);
+            }
             else
-                return RedirectToAction("Index", new {returnUrl});
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Rate(int VersID)
         {
-            RatingViewModel model = Ratings.getRatingModel(VersID);
+            RatingViewModel model = db.getRatingModel(VersID);
 
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Rate(RatingViewModel post)
+        {
+            if (ModelState.IsValid)
+            {
+                db.saveCompleteRating(post);
+                return RedirectToAction("Summary", "Faculty");
+            }
+            else
+            {
+                RatingViewModel model = db.getRatingModel(post.VersID);
+                return View(model);
+            }
+        }
         
         [HttpPost]
         public ActionResult Header(RatingViewModel post)
         {
-            return View("Rate", Ratings.getRatingModel(post.VersID));
+            return View("Rate", db.getRatingModel(post.VersID));
         }
 
-        [HttpPost]
-        public ActionResult Reflection(RatingViewModel post)
+        public PartialViewResult Reflection(int VersID)
         {
-            if (ModelState.IsValid)
-            {
-                if (post.TaskVersion.ReadingLogEntry != null)
-                    Ratings.EditReading(post.VersID, post.TaskVersion.ReadingLogEntry.NumEntries);
-                else if (post.TaskVersion.InternReflection != null)
-                    Ratings.EditReflection(post.VersID, post.TaskVersion.InternReflection.NumHrs);
-                return View("Rate", Ratings.getRatingModel(post.VersID));
-            }
-            else
-            {
-                RatingViewModel model = Ratings.getRatingModel(post.VersID);
-                model.TaskVersion.InternReflection = post.TaskVersion.InternReflection;
-                model.TaskVersion.ReadingLogEntry = post.TaskVersion.ReadingLogEntry;
-                return View("Rate", model);
-            }
+            RatingViewModel model = new RatingViewModel() {TaskVersion = db.getTaskVersion(VersID) };
+            return PartialView(model);
         }
 
-        [HttpPost]
-        public ActionResult Task(RatingViewModel post)
+        public PartialViewResult Task(int VersID)
         {
-            if (Request.IsAjaxRequest())
-            {
-                ///this should prove usefulll!
-            }
-            if (ModelState.IsValid)
-            {
-                post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
-                switch (post.SubmitCommand)
-                {
-                    case "Save":
-                        Ratings.saveTaskRating(post.Rating, post.VersID);
-                        break;
-                }
-                return View("Rate", Ratings.getRatingModel(post.VersID));
-            }
-            else
-            {
-                RatingViewModel model = Ratings.getRatingModel(post.VersID);
-                model.Rating.TaskCoreRatings = post.Rating.TaskCoreRatings;
-                return View("Rate", model);
-            }
+            RatingViewModel model = db.getTaskRatings(VersID);
+            return PartialView(model); 
+        }
+
+        public PartialViewResult Other(int VersID)
+        {
+            RatingViewModel model = db.getOtherRatings(VersID);
+            return PartialView(model); 
         }
 
         [HttpPost]
         public ActionResult Other(RatingViewModel post)
         {
-            RatingViewModel model;
-
-            if (ModelState.IsValid)
+            CoreRating ratingToAdd;
+            if (post.Rating.OtherCoreRatings != null)
             {
-                switch (post.SubmitCommand)
+                int addindex = post.Rating.OtherCoreRatings.Count - 1;
+                ratingToAdd = post.Rating.OtherCoreRatings[addindex];
+            }
+            else ratingToAdd = null;
+            
+            if (ratingToAdd != null && ratingToAdd.RatingID == 0 && ValidateCoreRating(ratingToAdd))
+            {
+                CompleteRating rating = new CompleteRating()
                 {
-                    case "Save":
-                        post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
-                        Ratings.saveTaskRating(post.Rating, post.VersID);
-                        model = Ratings.getRatingModel(post.VersID);
-                        break;
-                    case "Add":
-                        model = Ratings.getRatingModel(post.VersID);
-                        model.OtherVisible = true;
-                        break;
-                    default:
-                        model = Ratings.getRatingModel(post.VersID);
-                        break;
-                }
-                return View("Rate", model); 
+                    OtherCoreRatings = new List<CoreRating>()
+                };
+                rating.OtherCoreRatings.Add(ratingToAdd); 
+                db.saveTaskRating(rating, post.VersID);
             }
-            else
-            {
-                model = Ratings.getRatingModel(post.VersID); 
-                return View("Rate", model); 
-            }
+
+            RatingViewModel model = db.getOtherRatings(post.VersID);
+            model.OtherVisible = true;
+            return PartialView(model); 
         }
 
-        [HttpPost]
-        public ActionResult Impact(RatingViewModel post)
+        public PartialViewResult Impact(int VersID, bool ImpactVisible = false)
         {
-            RatingViewModel model;
-
-            if (ModelState.IsValid)
-            {
-                switch (post.SubmitCommand)
-                {
-                    case "Save":
-                        post.Rating.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
-                        Ratings.saveImpactRating(post.Rating, post.VersID);
-                        model = Ratings.getRatingModel(post.VersID);
-                        break;
-                    case "Add":
-                        model = Ratings.getRatingModel(post.VersID);
-                        model.ImpactVisible = true;
-                        break;
-                    default:
-                        model = Ratings.getRatingModel(post.VersID);
-                        break;
-                }
-                return View("Rate", model);
-            }
-            else
-            {
-                model = Ratings.getRatingModel(post.VersID);
-                model.Rating.ImpactRating = post.Rating.ImpactRating;
-                return View("Rate", model);
-            }
+            RatingViewModel model = db.getImpactRatings(VersID);
+            model.ImpactVisible = ImpactVisible;
+            return PartialView(model);
         }
 
-        public ActionResult Clear(int VersID, int RatingID)
+        private bool ValidateCoreRating(CoreRating rating)
+        {
+            if (((rating.Cscore > 0 && rating.Cscore < 4) || rating.Cscore == null) && 
+                ((rating.Sscore > 0 && rating.Sscore < 4) || rating.Sscore == null) &&
+                ((rating.Pscore > 0 && rating.Pscore < 4) || rating.Pscore == null))            
+                return true;
+            else
+                return false; 
+        }
+
+        public PartialViewResult Clear(int VersID, int RatingID, string Type)
         {
             if(VersID > 0)
-                Ratings.deleteTaskRating(RatingID);
-            return View("Rate", Ratings.getRatingModel(VersID));
+                db.deleteTaskRating(RatingID);
+            switch (Type)
+            {
+                case "Task":
+                    return PartialView("Task", db.getTaskRatings(VersID));
+                case "Other":
+                    return PartialView("Other", db.getOtherRatings(VersID));
+                case "Impact":
+                    break;
+                case "Default":
+                    break;
+            }
+            return PartialView("Task", db.getTaskRatings(VersID));
         }
     }
 }

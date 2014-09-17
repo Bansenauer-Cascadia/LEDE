@@ -31,5 +31,19 @@ namespace LEDE.Domain.Abstract
         void EditReading(int versID, int numEntries);
 
         IEnumerable<TaskVersion> getTaskVersions(int userID, int ProgramCohortID);
+
+        //Fetch Data For Rating Partials
+        TaskVersion getTaskVersion(int versID);
+
+        RatingViewModel getTaskRatings(int versID);
+
+        RatingViewModel getOtherRatings(int versID);
+
+        RatingViewModel getImpactRatings(int versID);
+
+        SelectList getCoreDrop(int VersID);
+
+        //function for saving finished rating
+        void saveCompleteRating(RatingViewModel model);
     }
 }
