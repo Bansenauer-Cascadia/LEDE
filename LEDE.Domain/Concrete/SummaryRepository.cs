@@ -30,10 +30,10 @@ namespace LEDE.Domain.Concrete
                 TotalsList = db.Database.SqlQuery<RatingQuery>("facultycohortview @p0", new object[]{cohortID}).ToList()
             };
 
-            var CombinedTotals = model.TotalsList.Select(u => new { Total = u.CScore + u.PScore + u.SScore });
+            var CombinedTotals = model.TotalsList.Select(u => new { Total = (u.CScore ?? 0) + (u.PScore ?? 0) + (u.SScore ?? 0) });
             var CombinedCounts = model.TotalsList.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
 
-            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total) ?? 0) : 0;
+            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total)) : 0;
             model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0; 
 
             return model; 
@@ -47,10 +47,10 @@ namespace LEDE.Domain.Concrete
                 .Where(ut=> ut.UserID == userID).ToList() 
             };           
 
-            var CombinedTotals = model.RatingsList.Select(u => new { Total = u.CScore + u.PScore + u.SScore });
+            var CombinedTotals = model.RatingsList.Select(u => new { Total = (u.CScore ?? 0) + (u.PScore ?? 0) + (u.SScore ?? 0) });
             var CombinedCounts = model.RatingsList.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
             
-            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total) ?? 0) : 0;
+            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total)) : 0;
             model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0;
 
             return model;
