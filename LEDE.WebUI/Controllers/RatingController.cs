@@ -22,6 +22,7 @@ namespace LEDE.WebUI.Controllers
 
         public PartialViewResult GetIndexData(int SelectedUserID, int ProgramCohortID)
         {
+            ViewBag.ProgramCohortID = ProgramCohortID; 
             return PartialView(db.getTaskVersions(SelectedUserID, ProgramCohortID)); 
         }
 

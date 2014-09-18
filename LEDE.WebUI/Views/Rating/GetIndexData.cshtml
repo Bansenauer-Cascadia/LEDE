@@ -32,7 +32,8 @@
                version.User.LastName,
            TaskName = version.Task.TaskName,
            SelectedUserID = version.UserID,
-           Version = version.Version
+           Version = version.Version,
+           returnUrl = "/Rating/Index?userID=" + version.UserID + "&ProgramCohortID=" + ViewBag.ProgramCohortID
        }, new
        {
            @class =
