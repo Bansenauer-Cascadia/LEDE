@@ -145,7 +145,7 @@ namespace LEDE.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Other(RatingViewModel post)
+        public ActionResult AddOther(RatingViewModel post)
         {
             CoreRating ratingToAdd;
             if (post.Rating.OtherCoreRatings != null)
@@ -167,7 +167,7 @@ namespace LEDE.WebUI.Controllers
 
             RatingViewModel model = db.getOtherRatings(post.VersID);
             model.OtherVisible = true;
-            return PartialView(model); 
+            return PartialView("Other", model); 
         }
 
         public PartialViewResult Impact(int VersID, bool ImpactVisible = false)
@@ -200,7 +200,9 @@ namespace LEDE.WebUI.Controllers
                 case "Other":
                     return PartialView("Other", db.getOtherRatings(VersID));
                 case "Impact":
-                    return PartialView("Impact", db.getImpactRatings(VersID));
+                     RatingViewModel model = db.getImpactRatings(VersID);
+                     model.ImpactVisible = false;
+                     return PartialView("Impact", model);
                 case "Default":
                     break;
             }

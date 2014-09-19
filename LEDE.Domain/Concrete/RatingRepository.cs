@@ -45,6 +45,11 @@ namespace LEDE.Domain.Concrete
                     this._saveTaskRating(rating, VersID, taskRating.FacultyID);
                 }
             }
+
+            if (taskRating.ImpactRating != null)
+            {
+                saveImpactRating(taskRating, VersID);
+            }
         }
 
         private void _saveTaskRating(CoreRating rating, int VersID, int facultyID)
@@ -232,6 +237,7 @@ namespace LEDE.Domain.Concrete
 
         public void saveImpactRating(CompleteRating impactRating, int VersID)
         {
+            ImpactTypeRating saveRating = impactRating.ImpactRating; 
             if (impactRating.ImpactRating.RatingID > 0)
             {
                 ImpactTypeRating impact = db.ImpactTypeRatings.Find(impactRating.ImpactRating.RatingID);
@@ -239,7 +245,7 @@ namespace LEDE.Domain.Concrete
                 impact.Pscore = impactRating.ImpactRating.Pscore;
                 impact.Lscore = impactRating.ImpactRating.Lscore;
             }
-            else
+            else if(saveRating.Sscore != null || saveRating.Pscore != null || saveRating.Lscore != null)
             {
                 TaskRating rating = new TaskRating()
                 {

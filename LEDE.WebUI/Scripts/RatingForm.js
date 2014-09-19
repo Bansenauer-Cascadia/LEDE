@@ -2,7 +2,7 @@
     $(document).on('click', '#addother', function (e) {
         e.preventDefault();
         var ratings = $('#ratingform').serialize();
-        $.post('/Rating/Other', ratings, function (data) {
+        $.post('AddOther', ratings, function (data) {
             $('#otherratings').html(data);
         });
     });

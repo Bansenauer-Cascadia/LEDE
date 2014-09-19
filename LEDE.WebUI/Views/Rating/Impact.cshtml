@@ -25,6 +25,7 @@
             <td>
                 @if(Model.Rating.ImpactRating != null)
                 {
+                    @Html.HiddenFor(model => model.Rating.ImpactRating.RatingID)
                     AjaxOptions opts = new AjaxOptions()
                     {
                         Url = Url.Action("Clear", new { VersID = Model.VersID, RatingID = Model.Rating.ImpactRating.RatingID, Type = "Impact" }),
