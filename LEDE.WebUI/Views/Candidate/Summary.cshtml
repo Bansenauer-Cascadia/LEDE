@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-4">
     @Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts, 
-    new {@class="form-control", style="display:inline;" }) <input type="submit" value="Go" class="btn btn-default" />
+    new {@class="form-control", onchange="$(this.form).submit();"})
         </div>
 </div>
 }
@@ -33,7 +33,7 @@
 </div>
 
 <div id="SummaryTarget">
-
+    @Html.Action("SummaryTable", new { ProgramCohortID = Model.ProgramCohortID})
 </div>
 
 

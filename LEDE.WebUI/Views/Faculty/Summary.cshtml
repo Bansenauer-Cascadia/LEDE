@@ -25,8 +25,7 @@
         </div>
         <div class="col-md-4">
             @Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts,
-               new { @class = "form-control", style="display:inline;"})
-            <input id="submit" type="submit" value="Go" class="btn btn-default" />
+               new { @class = "form-control", style="display:inline;", onchange="$(this.form).submit();"})
         </div>
     </div>
 }
