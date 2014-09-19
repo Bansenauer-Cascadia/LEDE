@@ -111,6 +111,13 @@ namespace LEDE.Domain.Concrete
             db.SaveChanges(); 
         }
 
+        public void editCohort(ProgramCohort cohort)
+        {
+            ProgramCohort cohortToEdit = db.ProgramCohorts.Find(cohort.ProgramCohortID);
+            cohortToEdit.Status = cohort.Status;
+            cohortToEdit.AcademicYear = cohort.AcademicYear;
+            db.SaveChanges(); 
+        }
 
         public void createProgramCohort(ProgramCohort cohort)
         {

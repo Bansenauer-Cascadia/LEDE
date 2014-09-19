@@ -20,6 +20,7 @@
 }
 <div class="col md-12">
     <div class="panel panel-default" style="margin-top: 20px;">
+        @Html.HiddenFor(model => model.Entity, new {id="entity"})
         <h2>Edit a @Model.Entity</h2>
         <table class="table">
             <tr class="@headerClass">
@@ -72,13 +73,15 @@
 @section script {
     <script type="text/javascript">
         $(function () {
+            var entity = $('#entity').val();
+
             $('.edit').on('click', function () {
                 selectedrow = $(this).parent().parent();
                 selectedrow.attr('class', 'selected');
                 selectedrow.siblings('.selected').attr('class', '');
                 selectedrow.siblings(':not(.first)').hide().slideUp();
 
-                var $cancelEdit = $('<button id="cancelEdit" class="btn btn-default">Expand</button>');
+                var $cancelEdit = $('<button id="cancelEdit" class="btn btn-default">Change ' + entity + '</button>');
                 $(this).after($cancelEdit);
                 $(this).css('display', 'none');
                 $('.labelcol').css('font-size', '200%');

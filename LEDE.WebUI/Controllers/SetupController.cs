@@ -77,7 +77,7 @@ namespace LEDE.WebUI.Controllers
                     Entity = "Cohort",
                     createAction = "createProgramCohort",
                     deleteAction = "ProgramItems",
-                    editAction = "Index"
+                    editAction = "createProgramCohort"
                 };
             }
             
@@ -90,7 +90,7 @@ namespace LEDE.WebUI.Controllers
                     Entity = "Seminar",
                     createAction = "createProgramSeminar",
                     deleteAction = "ProgramItems",
-                    editAction = "Seminars",
+                    editAction = "createProgramSeminar",
                 };         
             }              
             
@@ -103,29 +103,50 @@ namespace LEDE.WebUI.Controllers
             return PartialView("ChildPanel", model);
         }        
 
-        public ActionResult createProgramCohort(int Id)
+        public ActionResult createProgramCohort(int Id, int? EditID, string mode="Create")
         {
-            ProgramCohort model = new ProgramCohort() { ProgramID = Id };
+            ViewBag.mode = mode;
+            ProgramCohort model;
+            if (EditID != null)
+                model = db.getCohorts().Single(c => c.ProgramCohortID == EditID);
+            else
+                model = new ProgramCohort() { ProgramID = Id };
+
             return View(model);
         }
 
         [HttpPost]
         public ActionResult createProgramCohort(ProgramCohort post)
         {
-            db.createProgramCohort(post);
+            if (post.ProgramCohortID > 0)
+                db.editCohort(post); 
+            else
+                db.createProgramCohort(post);
             return RedirectToAction("Programs", new {SelectedItemID = post.ProgramID});
         }       
 
-        public ActionResult createProgramSeminar(int Id)
+        public ActionResult createProgramSeminar(int Id, int? EditID, string mode = "Create")
         {
-            Seminar model = new Seminar() { ProgramID = Id };
+            ViewBag.mode = mode;
+            Seminar model;
+            if (EditID != null)
+            {
+                model = db.getSeminars().Single(s => s.SeminarID == Id);
+            }
+            else
+            {
+                model = new Seminar() { ProgramID = Id };
+            }
             return View(model);
         }
 
         [HttpPost]
         public ActionResult createProgramSeminar(Seminar post)
         {
-            db.createProgramSeminar(post);
+            if (post.SeminarID > 0)
+                db.editSeminar(post);
+            else
+                db.createProgramSeminar(post);
             return RedirectToAction("Programs", new { SelectedItemID = post.ProgramID }); 
         }
 
@@ -143,7 +164,8 @@ namespace LEDE.WebUI.Controllers
 
             ListViewModel model = new ParentViewModel()
             {
-                Items = db.getSeminars().Select(s => new ListItem() { Id = s.SeminarID, Name = s.SeminarTitle }),
+                Items = db.getSeminars().Select(s => new ListItem() { Id = s.SeminarID, Name = s.Program.ProgramTitle + "-" + s.SeminarTitle }).
+                OrderBy(s=> s.Name),
                 editAction = "EditSeminar",
                 Entity = "Seminar",
                 ChildEntities = new List<ChildEntity>()

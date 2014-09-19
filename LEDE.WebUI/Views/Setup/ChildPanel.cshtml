@@ -33,7 +33,7 @@
                                     UpdateTargetId = child.Entity
                                 };
                                 <tr>
-                                    <td>@Html.ActionLink(item.Name, child.editAction, new { Id = item.Id })</td>
+                                    <td>@Html.ActionLink(item.Name, child.editAction, new { Id = item.Id, mode = "Edit", EditID = item.Id})</td>
                                     <td>
                                         @Ajax.ActionLink("Delete", "Programs", 
                                         new { DeleteID = item.Id, DeleteEntity = child.Entity, SelectedItemID = Model.ParentID},

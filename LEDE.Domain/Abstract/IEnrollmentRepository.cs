@@ -23,6 +23,8 @@ namespace LEDE.Domain.Abstract
 
         void editSeminar(Seminar seminar);
 
+        void editCohort(ProgramCohort cohort);
+
         void editSeminarTask(LEDE.Domain.Entities.Task task);
 
         void editSeminarCoretopic(CoreTopic coretopic); 
