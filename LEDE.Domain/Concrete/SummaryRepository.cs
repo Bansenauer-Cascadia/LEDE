@@ -58,7 +58,10 @@ namespace LEDE.Domain.Concrete
 
         public IEnumerable<ProgramCohort> getCohorts(int FacultyID)
         {
-            return db.CohortEnrollments.Where(e=> e.UserID == FacultyID).Select(e=> e.ProgramCohort);
+            if (FacultyID == 0)
+                return db.ProgramCohorts;
+            else
+                return db.CohortEnrollments.Where(e => e.UserID == FacultyID).Select(e => e.ProgramCohort);
         }
 
 

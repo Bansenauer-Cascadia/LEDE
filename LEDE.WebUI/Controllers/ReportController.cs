@@ -24,7 +24,17 @@ namespace LEDE.WebUI.Controllers
 
         public ActionResult Seminar(SeminarSummary summary)
         {
-            int FacultyID = Convert.ToInt32(User.Identity.GetUserId());
+            int FacultyID; 
+
+            if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
+            {
+                FacultyID = 0;
+            }
+            else
+            {
+                FacultyID = Convert.ToInt32(User.Identity.GetUserId());
+            }
+
             //get dropdown sorted
             SelectList programCohorts = new SelectList(db.getCohorts(FacultyID), "ProgramCohortID", "Program.ProgramTitle");
             int selectedCohortID = summary.SelectedCohortID == 0 ? Convert.ToInt32(programCohorts.First().Value) : summary.SelectedCohortID;
