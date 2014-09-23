@@ -6,10 +6,10 @@
         $('.other-add').each(function () {
             var validscore = validate(this.value);
             if (validscore != "Valid") {
-                isvalid = false;
+                otherValid = false;
                 list += "<li>" + validscore + "</li>";
             }
-        })
+        });
         list += "</ul>";
         if (!otherValid) {
             $('#othervalidation').append(list);
@@ -19,7 +19,7 @@
             $.post('AddOther', ratings, function (data) {
                 $('#otherratings').html(data);
             });
-            }
+        }
         });
 
     $(document).on('click', '#cancelother', function (e) {
