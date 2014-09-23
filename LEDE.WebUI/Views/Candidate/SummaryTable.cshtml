@@ -21,20 +21,19 @@
                             <span class="version">V@(version.Version):</span>
                             @if (version.RatingStatus.Trim() == "Complete")
                             {
-                                var taskCoreRatings = version.TaskRatings.Where(r => r.CoreRating != null);
-                                var taskRatings = version.TaskRatings;
+                                var taskCoreRatings = version.TaskRatings.Where(r => r.CoreRating != null).Select(r=> r.CoreRating);
                                 int scoretotal = 0;
                                 try
                                 {
                                     if (taskCoreRatings.Any())
                                     {
-                                        scoretotal = (taskCoreRatings.Sum(r => r.CoreRating.Cscore) ?? 0) +
-                                        (version.TaskRatings.Sum(r => r.CoreRating.Sscore) ?? 0) +
-                                        (version.TaskRatings.Sum(r => r.CoreRating.Pscore) ?? 0);
+                                        scoretotal = (taskCoreRatings.Sum(r => r.Cscore) ?? 0) +
+                                        (taskCoreRatings.Sum(r => r.Sscore) ?? 0) +
+                                        (taskCoreRatings.Sum(r => r.Pscore) ?? 0);
                                     } 
                                 }
-                                catch
-                                {
+                                catch (Exception e)
+                                {                                   
                                     scoretotal = 0;
                                 }                                                               
                                 <span>

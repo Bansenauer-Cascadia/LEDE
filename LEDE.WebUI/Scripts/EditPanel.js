@@ -6,7 +6,7 @@
         selectedrow.siblings(':not(.first)').hide().slideUp();
         $(this).parent().siblings().css('font-size', '200%');
 
-        var $cancelEdit = $('<button id="cancelEdit" class="btn btn-sm">Change</button>');
+        var $cancelEdit = $('<button id="cancelEdit" class="btn btn-sm">Change Cohort</button>');
         $(this).after($cancelEdit);
         $(this).css('display', 'none');
 

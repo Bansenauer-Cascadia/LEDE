@@ -168,6 +168,10 @@ namespace LEDE.Domain.Concrete
                 VersID = versID
             };
 
+            CompleteRating other = getOtherRating(versID);
+            RatingViewModel impact = getImpactRatings(versID);
+            model.Rating.OtherCoreRatings = other.OtherCoreRatings; 
+
             return model;
         }
 

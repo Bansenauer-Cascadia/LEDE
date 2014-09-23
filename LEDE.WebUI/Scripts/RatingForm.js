@@ -1,11 +1,26 @@
 ﻿$(function () {
     $(document).on('click', '#addother', function (e) {
         e.preventDefault();
-        var ratings = $('#ratingform').serialize();
-        $.post('AddOther', ratings, function (data) {
-            $('#otherratings').html(data);
+        var list = "<ul>";
+        var otherValid = true;
+        $('.other-add').each(function () {
+            var validscore = validate(this.value);
+            if (validscore != "Valid") {
+                isvalid = false;
+                list += "<li>" + validscore + "</li>";
+            }
+        })
+        list += "</ul>";
+        if (!otherValid) {
+            $('#othervalidation').append(list);
+        }
+        else {
+            var ratings = $('#ratingform').serialize();
+            $.post('AddOther', ratings, function (data) {
+                $('#otherratings').html(data);
+            });
+            }
         });
-    });
 
     $(document).on('click', '#cancelother', function (e) {
         e.preventDefault();

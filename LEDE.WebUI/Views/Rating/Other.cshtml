@@ -30,13 +30,13 @@
                 @Html.DropDownList("Rating.OtherCoreRatings[" + index + "].CoreTopicID", Model.CoreDrop, new { @class = "form-control" })
             </td>
             <td>
-                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control other" })
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Cscore", null, new { @class = "form-control other other-add" })
             </td>
             <td>
-                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control other" })
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Sscore", null, new { @class = "form-control other other-add" })
             </td>
             <td>
-                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control other" })
+                @Html.TextBox("Rating.OtherCoreRatings[" + index + "].Pscore", null, new { @class = "form-control other other-add" })
             </td>
             <td>
                 <input id="cancelother" type="submit" name="SubmitCommand" value="Cancel" class="btn btn-default" />
