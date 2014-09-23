@@ -81,7 +81,7 @@
                 selectedrow.siblings('.selected').attr('class', '');
                 selectedrow.siblings(':not(.first)').hide().slideUp();
 
-                var $cancelEdit = $('<button id="cancelEdit" class="btn btn-default">Change ' + entity + '</button>');
+                var $cancelEdit = $('<button id="cancelEdit" class="btn btn-default">Switch ' + entity + '</button>');
                 $(this).after($cancelEdit);
                 $(this).css('display', 'none');
                 $('.labelcol').css('font-size', '200%');
