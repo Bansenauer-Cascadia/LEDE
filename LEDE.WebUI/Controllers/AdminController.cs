@@ -51,6 +51,7 @@ namespace LEDE.WebUI.Controllers
                 else
                     AddErrorsFromResult(result);
             }
+            model.Roles = new SelectList(RoleManager.Roles, "Name", "Name"); 
             return View(model);
         }
 
