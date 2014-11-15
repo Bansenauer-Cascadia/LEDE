@@ -41,7 +41,7 @@ namespace LEDE.WebUI.Controllers
         {
             int FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
             RatingIndexModel model = db.getIndexModel(FacultyID, post.SelectedCohortID, post.SelectedUserID);
-            model.SelectedCohortID = 2; //added by BB
+            model.SelectedCohortID = post.SelectedCohortID ?? 1; //added by BB
 
             return View(model);
         }
