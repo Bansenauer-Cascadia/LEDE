@@ -38,30 +38,33 @@ else
 {
     int rowcount = 0;
     foreach (RatingQuery totals in Model.RatingsList)
-{
-    string rowclass = (rowcount % 2 == 0) ? "even" : "odd";
-        
-    <div class="well @rowclass">
-   <h4>@(totals.CoreTopicNum): @totals.CoreTopicDesc</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="progress">
-                <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
-                <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
-                <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="progress">
-                <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
-                <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
-                <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
-            </div>
-        </div>
-    </div>
-        </div>
-    rowcount++;
-}
+	{
+		if(total.CScore + totals.SScore + totals.PScore + totals.OneCount + totals.TwoCount + totals.ThreeCount > 0) //Rating worth showing
+		{
+		    string rowclass = (rowcount % 2 == 0) ? "even" : "odd";
+		        
+		    <div class="well @rowclass">
+		   <h4>@(totals.CoreTopicNum): @totals.CoreTopicDesc</h4>
+		    <div class="row">
+		        <div class="col-md-6">
+		            <div class="progress">
+		                <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
+		                <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
+		                <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
+		            </div>
+		        </div>
+		        <div class="col-md-6">
+		            <div class="progress">
+		                <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
+		                <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
+		                <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
+		            </div>
+		        </div>
+		    </div>
+		        </div>
+		    rowcount++;
+	    }
+	}
 
 }
 
