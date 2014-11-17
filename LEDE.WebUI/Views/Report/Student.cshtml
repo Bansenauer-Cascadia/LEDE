@@ -39,7 +39,7 @@ else
     int rowcount = 0;
     foreach (RatingQuery totals in Model.RatingsList)
 	{
-		if(total.CScore + totals.SScore + totals.PScore + totals.OneCount + totals.TwoCount + totals.ThreeCount > 0) //Rating worth showing
+		if(totals.CScore + totals.SScore + totals.PScore + totals.OneCount + totals.TwoCount + totals.ThreeCount > 0) //worth showing
 		{
 		    string rowclass = (rowcount % 2 == 0) ? "even" : "odd";
 		        
