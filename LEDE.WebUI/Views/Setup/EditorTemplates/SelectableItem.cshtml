@@ -1,0 +1,11 @@
+﻿@model LEDE.Domain.Entities.SelectableItem
+
+<tr>
+    @Html.HiddenFor(model => model.Id)
+    <td>
+        @Model.Name
+    </td>
+    <td style="text-align:center">
+        @Html.CheckBoxFor(model => model.Selected)
+    </td>
+</tr>

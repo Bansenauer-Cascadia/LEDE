@@ -1,0 +1,24 @@
+﻿@using LEDE.Domain.Entities
+@model IEnumerable<IndexModel>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>User Accounts &nbsp;@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+</h2>
+<table class="table table-hover">
+    <tr><th>Name</th><th>Type</th></tr>
+    @if (Model.Count() == 0)
+    {
+        <tr><td colspan="4" class="text-center">No User Accounts</td></tr>
+    }
+    else
+    {
+        foreach (IndexModel user in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@user.LastName + ", " + @user.FirstName, "Edit", new {UserID = user.Id })</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    }
+</table>

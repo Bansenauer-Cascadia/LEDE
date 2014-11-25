@@ -1,0 +1,27 @@
+﻿@using LEDE.Domain.Entities
+@model RatingViewModel
+
+@Html.Hidden("TaskVersion.RatingStatus", "Complete")<!--here to make modelstate valid for server input validation. not great but oh well-->
+
+@if (Model.TaskVersion.Task.TaskTypeID == 2)
+{
+    <table class="table">
+        <tr>
+            <th>Number of Entries</th>            
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(model => model.TaskVersion.ReadingLogEntry.NumEntries, new { @class = "form-control" })</td>           
+        </tr>
+    </table>
+}
+else if (Model.TaskVersion.Task.TaskTypeID == 3)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>Number of Hours</th>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(model => model.TaskVersion.InternReflection.NumHrs, new { @class = "form-control" })</td>            
+        </tr>
+    </table>
+}

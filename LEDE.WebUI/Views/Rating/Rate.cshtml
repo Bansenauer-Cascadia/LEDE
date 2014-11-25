@@ -1,0 +1,75 @@
+﻿@using LEDE.Domain.Entities
+@model RatingViewModel
+@{
+    ViewBag.Title = "Rate a Task";
+}
+@section css{
+    <style>
+        h3 {display:inline;}
+        #othervalidation{color:red;}
+        .message-success{color:green;}
+    </style>
+}
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>@Model.TaskVersion.Task.TaskName</h2>
+                <small>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName</small>
+            </div>
+            <div class="col-md-1">
+                @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
+                {
+                    @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
+                    new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
+                }
+            </div>
+            <div class="col-md-2" style="text-align:right;">
+                @Html.ActionLink("DL", "Download", new { DocumentID = Model.TaskVersion.DocumentID },
+                new { @class = "btn btn-default", title="Download Candidate Submission" })
+                @Html.ActionLink("UL", "Upload", new
+           {
+               VersID = Model.TaskVersion.VersID,
+               SelectedUserID =
+                   Model.TaskVersion.UserID,
+               User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
+               TaskName = Model.TaskVersion.Task.TaskName,
+               Version = Model.TaskVersion.Version,
+               returnUrl = Request.Url.PathAndQuery
+           },
+           new { @class = "btn btn-default upload", title="Upload Feedback For Submission" })
+            </div>
+        </div>
+    </div>
+
+@using (Html.BeginForm("Rate", "Rating", FormMethod.Post, new {id="ratingform"}))
+{
+    @Html.ValidationSummary()
+    <div id="othervalidation"></div>
+    if (ViewBag.SuccessMessage != "")
+    {
+        <div class="message-success well well-sm">@ViewBag.SuccessMessage</div>
+    }
+    
+    @Html.HiddenFor(model => model.VersID, new {id="versidhidden" })
+
+    @Html.Action("Reflection", new { VersID = Model.VersID })
+
+    <div id="taskratings">
+        @Html.Action("Task", new { VersID = Model.VersID })
+    </div>
+
+    <div id="otherratings">
+        @Html.Action("Other", new { VersID = Model.VersID })
+    </div>
+    
+    <div id="impactratings">
+        @Html.Action("Impact", new { VersID = Model.VersID })
+    </div>
+    
+    <input type="submit" class="btn btn-default" value="Save" id="ratingsubmit"/>
+}
+
+@section script {
+    <script src="~/Scripts/UploadPopup.js"></script>
+    <script src="~/Scripts/RatingForm.js"></script>
+}

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ECSEL</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Header.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <style>
+        container {
+            padding-top: 10px;
+        }
+
+        .jumbotron {
+            margin-top: 10px;
+        }
+
+        .validation-summary-errors {
+            color: #f00;
+        }
+    </style>
+    @if (IsSectionDefined("css"))
+    {
+        @RenderSection("css")
+    }
+</head>
+<body>
+	<nav class="mainnav navbar-fixed-top">
+		<div class="navbar">
+			<div class="container">
+				<div class="navbar-header navbar-collapse">
+					<span class="navbar-brand navbartext">UW Bothell LEDE and ECSEL Programs</span>
+				</div>
+				@Html.Partial("_LoginPartial")
+			</div>
+		</div>
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						@if (User.IsInRole("Candidate"))
+						{
+							<li>@Html.ActionLink("Tasks", "Summary","Candidate")</li>
+							<li>@Html.ActionLink("Upload", "Index", "Candidate")</li>
+							<li>@Html.ActionLink("Summary", "Student", "Report")</li>
+							 
+						}
+						else if (User.IsInRole("Faculty"))
+						{
+							<li>@Html.ActionLink("Feedback", "Index", "Rating")</li>
+							<li>@Html.ActionLink("Submissions", "Summary", "Faculty")</li>
+							<li>@Html.ActionLink("Graphs", "Seminar", "Report")</li>
+						}
+						else if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
+						{
+							<li>@Html.ActionLink("Users", "Index", "Admin")</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li>@Html.ActionLink("Graphs", "Seminar", "Report")</li>
+									<li>@Html.ActionLink("Summary", "Summary", "Report")</li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										@Html.ActionLink("Programs", "Programs", "Setup")
+									</li>
+									<li>
+										@Html.ActionLink("Cohorts", "Index", "Setup")
+									</li>
+									<li>
+										@Html.ActionLink("Seminars", "Seminars", "Setup")
+									</li>
+								</ul>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    @if (IsSectionDefined("script"))
+    {
+        @RenderSection("script")
+    }
+</body>
+</html>

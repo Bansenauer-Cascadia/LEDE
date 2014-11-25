@@ -1,0 +1,85 @@
+﻿@using LEDE.Domain.Entities
+@model CompleteRating
+@{
+    ViewBag.Title = "Score";
+}
+<div class="page-header">
+    <h2>
+        Task Score <br />
+        <small>@ViewBag.Task</small>
+    </h2>
+</div>
+
+<h3>Task Core Ratings</h3>
+@if (Model.TaskCoreRatings.Any())
+{
+    <table class="table table-striped">
+        <tr>
+            <th>Core Topic</th>
+            <th>Conceptual</th>
+            <th>Strategic</th>
+            <th>Personal</th>
+        </tr>
+        @foreach (CoreRating rating in Model.TaskCoreRatings)
+        {
+            <tr>
+                <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
+                <td>@rating.Cscore</td>
+                <td>@rating.Sscore</td>
+                <td>@rating.Pscore</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>This Task Has No Associated Core Topics</p>
+}
+
+@if (Model.OtherCoreRatings != null  && Model.OtherCoreRatings.Any())
+{
+    <h3>Other Core Ratings</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Core Topic
+            </th>
+            <th>Conceptual</th>
+            <th>Strategic</th>
+            <th>Personal</th>
+        </tr>
+        @foreach (CoreRating rating in Model.OtherCoreRatings)
+        {
+            <tr>
+                <td>@rating.CoreTopic.CoreTopicNum: @rating.CoreTopic.CoreTopicDesc</td>
+                <td>@rating.Cscore</td>
+                <td>@rating.Sscore</td>
+                <td>@rating.Pscore</td>
+            </tr>
+        }
+    </table>
+
+}
+@if (Model.ImpactRating != null)
+{
+    <h3>Impact Ratings</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Structures & Operations</th>
+            <th>Professional Practices</th>
+            <th>Student Learning</th>
+        </tr>
+        <tr>
+        <td>
+            @Model.ImpactRating.Sscore
+        </td>
+        <td>
+            @Model.ImpactRating.Pscore
+        </td>
+        <td>
+            @Model.ImpactRating.Lscore
+        </td>
+        </tr>
+    </table>
+}
+
