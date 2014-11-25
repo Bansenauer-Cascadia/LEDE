@@ -24,7 +24,7 @@ namespace LEDE.WebUI.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        
         public ActionResult LoginRedirect()
         {
             if (HttpContext.User.IsInRole("Candidate"))
@@ -35,7 +35,7 @@ namespace LEDE.WebUI.Controllers
                      || HttpContext.User.IsInRole("Super Admin"))
                 return RedirectToAction("Index", "Admin");
             else
-                return RedirectToAction("Logout");
+                return RedirectToAction("Logout"); 
         }
 
         [HttpPost]

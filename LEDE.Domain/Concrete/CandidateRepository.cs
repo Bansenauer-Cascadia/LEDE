@@ -151,7 +151,7 @@ namespace LEDE.Domain.Concrete
             model.MaxVersions = maxVersions;
             model.CohortTasks = tasks;
             model.CohortCandidates = db.Users.Where(user => user.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
-                && user.Roles.Any(r=> r.RoleId == 1));
+                && user.Roles.Any(r=> r.RoleId == 1)).OrderBy(u=> u.LastName);
             model.ProgramCohortID = ProgramCohortID; 
 
             return model;
