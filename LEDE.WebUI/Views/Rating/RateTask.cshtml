@@ -1,0 +1,57 @@
+﻿@using LEDE.Domain.Entities
+@model RatingViewModel
+
+@section script {
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-animate.js"></script>
+    <script src="~/Scripts/angular-resource.js"></script>
+    <script src="~/Angular/app.js"></script>
+    <script src="~/Angular/rate/gradeTable/gradeTable.directive.js"></script>
+    <script src="~/Angular/services/ratingModels/ratingModels.service.js"></script>
+    <script src="~/Angular/rate/rate.controller.js"></script>
+}
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-9">
+            <h2>@Model.TaskVersion.Task.TaskName</h2>
+            <small>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName</small>
+        </div>
+        <div class="col-md-1">
+            @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
+            {
+                @Html.DropDownListFor(x => x.VersID, Model.VersionDrop,
+                    new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
+            }
+        </div>
+        <div class="col-md-2" style="text-align:right;">
+            @Html.ActionLink("DL", "Download", new { DocumentID = Model.TaskVersion.DocumentID },
+                new { @class = "btn btn-default", title = "Download Candidate Submission" })
+            @Html.ActionLink("UL", "Upload", new
+           {
+               VersID = Model.TaskVersion.VersID,
+               SelectedUserID =
+                   Model.TaskVersion.UserID,
+               User = Model.TaskVersion.User.FirstName + " " + Model.TaskVersion.User.LastName,
+               TaskName = Model.TaskVersion.Task.TaskName,
+               Version = Model.TaskVersion.Version,
+               returnUrl = Request.Url.PathAndQuery
+           },
+           new { @class = "btn btn-default upload", title = "Upload Feedback For Submission" })
+        </div>
+    </div>
+</div>
+
+<div ng-app="facultyApp">
+    <div ng-controller="RateCtrl" class="container">
+        <div class="row">
+            <grade-table ratings="grade.TaskRatings" title="Seminar Core Topic Ratings"></grade-table>
+        </div>
+        <div class="row">
+            <grade-table ratings="grade.OtherRatings" title="Other Core Topic Ratings"></grade-table>
+        </div>
+        <div class="row">
+            <grade-table ratings="grade.ImpactRating" title="Impact Type Rating" is-impact-rating="true"></grade-table>
+        </div>
+        <button class="btn-success">Save</button>
+    </div>
+</div>

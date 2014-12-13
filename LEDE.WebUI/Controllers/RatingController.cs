@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles="Faculty")]
+    //[Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
         private LEDE.Domain.Abstract.IRatingRepository db; 
@@ -98,6 +98,13 @@ namespace LEDE.WebUI.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+
+
+        public ActionResult RateTask(int VersID)
+        {
+            RatingViewModel model = db.getRatingModel(VersID);
+            return View(model);
         }
 
         public ActionResult Rate(int VersID, string Message = "")

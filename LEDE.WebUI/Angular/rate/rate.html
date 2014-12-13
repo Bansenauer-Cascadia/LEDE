@@ -1,0 +1,36 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Sample Task Name</h2>
+      <p>Sample Candidate</p>
+    </div>
+    <div class="col-md-2">
+      <select>
+        <option>V?</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button>
+        <span class="glyphicon glyphicon-download-alt"></span>
+      </button>
+      <button>
+        <span class="glyphicon glyphicon-cloud-upload"></span>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <grade-table ratings="grade.TaskRatings" title="Seminar Core Topic Ratings"></grade-table>
+  </div>
+  <div class="row">
+    <grade-table ratings="grade.OtherRatings" title="Other Core Topic Ratings"></grade-table>
+  </div>
+  <div class="row">
+    <grade-table ratings="grade.ImpactRating" title="Impact Type Rating" is-impact-rating="true"></grade-table>
+  </div>
+
+  <button class="btn-success">Save</button>
+</div>

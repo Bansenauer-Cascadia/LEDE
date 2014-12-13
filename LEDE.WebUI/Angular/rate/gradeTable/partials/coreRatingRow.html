@@ -1,0 +1,15 @@
+<td>
+  {{rating.data.CoreTopicTitle}}
+</td>
+<td>
+  <input type="number" ng-model="rating.data.CScore" min="0" max="3" integer/>
+</td>
+<td>
+  <input type="number" ng-model="rating.data.SScore" min="0" max="3" integer/>
+</td>
+<td>
+  <input type="number" ng-model="rating.data.PScore" min="0" max="3" integer/>
+</td>
+<td>
+  <span class="glyphicon glyphicon-remove" ng-click="rating.Clear()" ng-show="!rating.IsEmpty()"></span>
+</td>

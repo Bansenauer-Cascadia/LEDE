@@ -155,6 +155,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Angular\app.js" />
+    <Content Include="Angular\rate\gradeTable\gradeTable.directive.js" />
+    <Content Include="Angular\rate\gradeTable\gradeTable.directive.spec.js" />
+    <Content Include="Angular\rate\gradeTable\gradeTable.html" />
+    <Content Include="Angular\rate\gradeTable\partials\coreRatingHeader.html" />
+    <Content Include="Angular\rate\gradeTable\partials\coreRatingRow.html" />
+    <Content Include="Angular\rate\gradeTable\partials\impactRatingHeader.html" />
+    <Content Include="Angular\rate\gradeTable\partials\impactRatingRow.html" />
+    <Content Include="Angular\rate\rate.controller.js" />
+    <Content Include="Angular\rate\rate.controller.spec.js" />
+    <Content Include="Angular\rate\rate.html" />
+    <Content Include="Angular\rate\rate.js" />
+    <Content Include="Angular\services\ratingModels\ratingModels.service.js" />
+    <Content Include="Angular\services\ratingModels\ratingModels.service.spec.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditPanel.css" />
@@ -167,8 +181,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Angular\rate\gradeTable\gradeTable.scss" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\EditPanel.js" />
     <Content Include="Scripts\Enrollment.js" />
@@ -257,6 +282,7 @@
     <Content Include="Views\Rating\Task.cshtml" />
     <Content Include="Views\Rating\Other.cshtml" />
     <Content Include="Views\Rating\Impact.cshtml" />
+    <Content Include="Views\Rating\RateTask.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
