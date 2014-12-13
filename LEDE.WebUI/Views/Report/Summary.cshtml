@@ -2,8 +2,16 @@
 @model SummaryModel
 @section css {
     <style>
+        table {
+            table-layout: fixed;
+        }
+
+        table .coretopic {
+            width: 300px;
+        }
         .cscore, .sscore, .pscore {
-            display: block;
+            width: 100%;
+            display: inline-block;
         }
 
         .inlinedrop {
