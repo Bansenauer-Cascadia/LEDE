@@ -76,11 +76,12 @@ namespace LEDE.Domain.Concrete
                 },
                 CohortTasks = db.Tasks.Where(t=> t.Seminar.ProgramID == programID),
             };
-            IEnumerable<CoreTopic> CoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID);
+            IEnumerable<CoreTopic> ProgramCoreTopics = db.CoreTopics.Where(c=> c.Seminar.ProgramID == programID);
             IEnumerable<CoreTopicScore> userScores = db.Database.SqlQuery<CoreTopicScore>(
-                "SELECT * FROM coretopicscores WHERE userid = @p0 AND programcohortid = @p1", new object[] {UserID, ProgramCohortID}); 
+                "SELECT * FROM CoreTopicScoresByTask WHERE userid = @p0 AND programcohortid = @p1", 
+                new object[] {UserID, ProgramCohortID}); 
 
-            foreach(CoreTopic topic in CoreTopics) 
+            foreach(CoreTopic topic in ProgramCoreTopics) 
             {
                 IEnumerable<CoreTopicScore> topicScores = userScores.Where(s=> s.CoreTopicID == topic.CoreTopicID); 
                 SpreadsheetRow row = new SpreadsheetRow() { Scores = new List<CoreTopicScore>(), CoreTopic = topic.CoreTopicNum + " " +
@@ -88,11 +89,15 @@ namespace LEDE.Domain.Concrete
 
                 foreach(Task task in model.CohortTasks)
                 {
-                    CoreTopicScore score = topicScores.FirstOrDefault(s => s.TaskID == task.TaskID);
-                    if (score != null)
+                    try
+                    {
+                        CoreTopicScore score = topicScores.First(s => s.TaskID == task.TaskID);
                         row.Scores.Add(score);
-                    else
-                        row.Scores.Add(new CoreTopicScore()); 
+                    }
+                    catch
+                    {
+                        row.Scores.Add(new CoreTopicScore());
+                    }                                             
                 }
                 model.TableBody.Rows.Add(row); 
             }
