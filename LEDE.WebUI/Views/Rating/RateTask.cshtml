@@ -10,6 +10,10 @@
     <script src="~/Angular/services/ratingModels/ratingModels.service.js"></script>
     <script src="~/Angular/rate/rate.controller.js"></script>
 }
+
+@section css {
+    <link href="~/Angular/rate/gradeTable/gradeTable.css" rel="stylesheet" />
+}
 <div class="page-header">
     <div class="row">
         <div class="col-md-9">
@@ -44,14 +48,18 @@
 <div ng-app="facultyApp">
     <div ng-controller="RateCtrl" class="container">
         <div class="row">
-            <grade-table ratings="grade.TaskRatings" title="Seminar Core Topic Ratings"></grade-table>
-        </div>
+            <h3>Seminar Core Topic Ratings</h3>
+            <grade-table ratings="TaskRatings" rating-type="TaskRating"></grade-table>
+        </div>        
         <div class="row">
-            <grade-table ratings="grade.OtherRatings" title="Other Core Topic Ratings"></grade-table>
+            <h3>Other Core Topic Ratings</h3>
+            <grade-table ratings="OtherRatings" rating-type="OtherRating"></grade-table>
         </div>
+                        <!--
         <div class="row">
-            <grade-table ratings="grade.ImpactRating" title="Impact Type Rating" is-impact-rating="true"></grade-table>
-        </div>
-        <button class="btn-success">Save</button>
+            <h3>Impact Type Rating</h3>
+            <grade-table ratings="ImpactRating" rating-type="ratingModels.ImpactRating" is-impact-rating="true"></grade-table>
+        </div> -->
+        <button class="btn-success" ng-click="SubmitRating()">Save</button>
     </div>
 </div>

@@ -4,11 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using LEDE.Domain.Repositories;
+using LEDE.WebUI.DTOs;
+using LEDE.Domain.Entities;
 
 namespace LEDE.WebUI.Controllers
 {
-    public class TaskRatingController : ApiController
+    public class TaskVersionController : ApiController
     {
+        private ITaskVersionRepository TaskVersions; 
+
+        public TaskVersionController()
+        {
+            this.TaskVersions = new TaskVersionRepository();
+        }
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
@@ -16,9 +25,10 @@ namespace LEDE.WebUI.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public TaskVersionDTO Get(int id)
         {
-            return "value";
+            TaskVersion tv = TaskVersions.Find(id);
+            return new TaskVersionDTO(tv); 
         }
 
         // POST api/<controller>

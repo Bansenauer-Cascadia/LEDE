@@ -1,4 +1,3 @@
 'use strict';
 
-angular.module('facultyApp', [
-])
+angular.module('facultyApp', ['ngResource', 'ngAnimate'])

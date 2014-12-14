@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Angular\app.js" />
+    <Content Include="Angular\rate\gradeTable\gradeTable.css" />
     <Content Include="Angular\rate\gradeTable\gradeTable.directive.js" />
     <Content Include="Angular\rate\gradeTable\gradeTable.directive.spec.js" />
     <Content Include="Angular\rate\gradeTable\gradeTable.html" />
@@ -206,7 +207,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Angular\rate\gradeTable\gradeTable.scss" />
     <Content Include="Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\EditPanel.js" />
@@ -236,13 +236,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
+    <Compile Include="Controllers\CoreRatingController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\TaskRatingController.cs" />
+    <Compile Include="Controllers\TaskVersionController.cs" />
+    <Compile Include="DTOs\CoreRatingDTO.cs" />
+    <Compile Include="DTOs\TaskVersionDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
