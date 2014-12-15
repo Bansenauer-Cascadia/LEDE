@@ -60,6 +60,14 @@
             <h3>Impact Type Rating</h3>
             <grade-table ratings="ImpactRating" rating-type="ratingModels.ImpactRating" is-impact-rating="true"></grade-table>
         </div> -->
-        <button class="btn-success" ng-click="SubmitRating()">Save</button>
+        <button class="btn-success" ng-click="SubmitRating()" ng-disabled="SaveStatus === 'pending'">Save</button>
+        <span class="save-status" ng-switch="SaveStatus">
+            <span ng-switch-when="pending">
+                Saving...
+            </span>
+            <span ng-switch-when="success">
+                Saved Successfully
+            </span>
+        </span>
     </div>
 </div>

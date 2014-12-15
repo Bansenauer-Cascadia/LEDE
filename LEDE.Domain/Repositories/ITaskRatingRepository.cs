@@ -4,27 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LEDE.Domain.Entities;
+using LEDE.Domain.Concrete;
 
 namespace LEDE.Domain.Repositories
 {
     public interface ITaskRatingRepository
     {
-        public void SaveCoreRating(CoreRating RatingToSave);
+        int CreateTaskRating(TaskRating RatingToCreate);
 
-        public void SaveImpactRating(ImpactTypeRating RatingToSave);
+        void UpdateTaskRating(TaskRating RatingToUpdate);
     }
 
     public class TaskRatingRepository : ITaskRatingRepository
     {
+        private DbContext db; 
 
-        public void SaveCoreRating(CoreRating RatingToSave)
+        public TaskRatingRepository() {
+            this.db = new DbContext(); 
+        }       
+
+        public int CreateTaskRating(TaskRating RatingToCreate)
         {
-            throw new NotImplementedException();
+            db.TaskRatings.Add(RatingToCreate);
+            db.SaveChanges();
+            return RatingToCreate.RatingID; 
         }
 
-        public void SaveImpactRating(ImpactTypeRating RatingToSave)
+        public void UpdateTaskRating(TaskRating RatingToUpdate)
         {
-            throw new NotImplementedException();
-        }
+            TaskRating OldRating = db.TaskRatings.Find(RatingToUpdate.RatingID);
+            OldRating.FacultyID = RatingToUpdate.FacultyID;
+            OldRating.ReviewDate = RatingToUpdate.ReviewDate;
+            db.SaveChanges();
+        }        
     }
 }

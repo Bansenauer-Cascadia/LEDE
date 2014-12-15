@@ -6,7 +6,9 @@ using System.Web.Mvc;
 using LEDE.Domain.Entities;
 using LEDE.Domain.Concrete;
 using LEDE.Domain.Abstract;
+using LEDE.Domain.Repositories;
 using Microsoft.AspNet.Identity;
+using LEDE.WebUI.DTOs;
 
 namespace LEDE.WebUI.Controllers
 {
@@ -14,12 +16,16 @@ namespace LEDE.WebUI.Controllers
     public class ReportController : Controller
     {
         private ISummaryRepository db;
+
         private IPercentageCalculator Calculator;
 
-        public ReportController(ISummaryRepository repo, IPercentageCalculator calc)
+        private IProgramCohortRepository Cohorts;
+
+        public ReportController(ISummaryRepository repo, IPercentageCalculator calc, IProgramCohortRepository Cohorts)
         {
             this.db = repo;
             this.Calculator = calc;
+            this.Cohorts = Cohorts; 
         }
 
         public ActionResult Seminar(SeminarSummary summary)
@@ -70,6 +76,34 @@ namespace LEDE.WebUI.Controllers
         {
             SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID); 
             return PartialView(model); 
+        }
+
+        public ActionResult CohortHours(int ProgramCohortID)
+        {
+            List<InternReflection> CohortReflections = Cohorts.GetCohortInternReflections(ProgramCohortID);
+            List<ReadingLogEntry> CohortEntries = Cohorts.GetCohortReadingLogEntries(ProgramCohortID);
+            List<HoursDTO> HoursDTOs = GetHoursDTOs(CohortReflections);
+            List<EntryDTO> EntryDTOs = GetEntryDTOs(CohortEntries);
+
+            return View(); 
+        }
+
+        public List<HoursDTO> GetHoursDTOs(List<InternReflection> Reflections)
+        {
+            return Reflections.Select(r => new HoursDTO(r)).ToList();
+        }
+
+        public List<EntryDTO> GetEntryDTOs(List<ReadingLogEntry> Entries)
+        {
+            return Entries.Select(e => new EntryDTO(e)).ToList();            
+        }
+    }
+
+    public class TotalsManager
+    {
+        public TotalsManager(int foo)
+        {
+
         }
     }
 }

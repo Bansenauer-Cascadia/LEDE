@@ -1,35 +1,51 @@
 'use strict';
 
 angular.module('facultyApp')
-  .controller('RateCtrl', function ($scope, $filter, $resource, $timeout, ratingModels) {
+  .controller('RateCtrl', function ($scope, $filter, $resource, $timeout, $q, ratingModels, apiUrl) {
 
-      var CoreRatingsResource = $resource('http://localhost:65127/api/CoreRating/:VersID', { VersID: 1109 }, {
-          'get': { method: 'GET', isArray: true }
+      var CoreRatingsResource = $resource(apiUrl + 'CoreRating/:VersID', { VersID: 1109 }, {
+          get: { method: 'GET', isArray: true },
+          update: { method: 'PUT' }
       })
-      var TaskVersionResource = $resource('http://localhost:65127/api/TaskVersion/:VersID', { VersID: 1109 })
+      var TaskVersionResource = $resource(apiUrl + 'TaskVersion/:VersID', { VersID: 1109 })
 
       $scope.ratingModels = ratingModels
       $scope.TaskRatings = []
       $scope.OtherRatings = []
 
-      $scope.TaskVersion = TaskVersionResource.get({ VersID: 1109 })
-      $scope.TaskVersion.$promise.then(function(TaskVersion) {
-          $scope.SeminarID = TaskVersion.SeminarID
+      TaskVersionResource.get({ VersID: 1109 }).$promise.then(function (TaskVersion) {
+          $scope.TaskVersion = TaskVersion
+          return CoreRatingsResource.get({ VersID: 1109 }).$promise
       })
-
-      var CoreRatings = CoreRatingsResource.get({ VersID: 1109 })
-
-      CoreRatings.$promise.then(function (CoreRatings) {
-          $scope.TaskRatings = $filter('filter')(CoreRatings, { SeminarID: $scope.SeminarID })
-          $scope.OtherRatings = $filter('filter')(CoreRatings, function (rating) { return rating.SeminarID !== $scope.SeminarID })
+      .then(function (CoreRatings) {
+          $scope.CoreRatings = CoreRatings
+          $scope.TaskRatings = $filter('filter')(CoreRatings, { SeminarID: $scope.TaskVersion.SeminarID })
+          $scope.OtherRatings = $filter('filter')(CoreRatings, function (rating) { return rating.SeminarID !== $scope.TaskVersion.SeminarID })
+      })
+      .catch(function (error) {
+          console.log('error: ' + error)
       })
 
       $scope.SubmitRating = function () {
-          CoreRatings.forEach(function (rating) {
-              rating.$save(function (rating, putResponseHeaders) {
-
-              })
+          $scope.SaveStatus = 'pending'
+          var RatingPromises = [];
+          $scope.CoreRatings.forEach(function (rating) {
+              RatingPromises.push(GetRestPromise(rating))
           })
+          $q.all(RatingPromises).then(function (data) {
+              $scope.SaveStatus = 'success'
+          }, function (error) {
+              console.log(error)
+          })
+      }
+
+      var GetRestPromise = function (rating) {
+          if (rating.RatingID === 0) {
+              return rating.$save().$promise
+          }
+          else {
+              return rating.$update().$promise
+          }
       }
   });
 

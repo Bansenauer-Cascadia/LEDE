@@ -283,7 +283,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\TaskSeminarCoreTopic.cs" />
     <Compile Include="Entities\TaskVersionMax.cs" />
+    <Compile Include="Repositories\ICoreRatingRepository.cs" />
     <Compile Include="Repositories\IProgramRepository.cs" />
+    <Compile Include="Repositories\ITaskRatingRepository.cs" />
     <Compile Include="Repositories\ITaskVersionRepository.cs" />
   </ItemGroup>
   <ItemGroup>

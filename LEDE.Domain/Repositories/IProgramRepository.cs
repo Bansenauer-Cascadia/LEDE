@@ -11,7 +11,7 @@ namespace LEDE.Domain.Repositories
     public interface IProgramRepository
     {
         List<CoreTopic> GetProgramCoreTopics(int ProgramID);
-    }
+    }        
 
     public class ProgramRepository : IProgramRepository
     {
@@ -25,5 +25,6 @@ namespace LEDE.Domain.Repositories
         {
             return db.CoreTopics.Where(ct=> ct.Seminar.ProgramID == ProgramID).ToList();
         }
+        
     }
 }

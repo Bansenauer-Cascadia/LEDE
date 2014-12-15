@@ -16,6 +16,8 @@ namespace LEDE.WebUI.DTOs
 
         public int RatingID;
 
+        public int VersID; 
+
         public int? CScore;
 
         public int? SScore;
@@ -32,6 +34,11 @@ namespace LEDE.WebUI.DTOs
             this.CScore = Rating.Cscore;
             this.SScore = Rating.Sscore;
             this.PScore = Rating.Pscore;
+        }
+
+        public CoreRatingDTO()
+        {
+
         }
     }    
 }

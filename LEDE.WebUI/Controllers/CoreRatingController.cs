@@ -6,7 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using LEDE.Domain.Repositories;
 using LEDE.Domain.Entities;
-using LEDE.WebUI.DTOs; 
+using LEDE.WebUI.DTOs;
+using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
@@ -16,21 +17,29 @@ namespace LEDE.WebUI.Controllers
 
         private IProgramRepository Programs;
 
-        public CoreRatingController(ITaskVersionRepository TaskVersions, IProgramRepository Programs)
+        private ITaskRatingRepository TaskRatings;
+
+        private ICoreRatingRepository CoreRatings;
+
+        private int FacultyID; 
+
+        public CoreRatingController(ITaskVersionRepository TaskVersions, IProgramRepository Programs, 
+            ITaskRatingRepository TaskRatings, ICoreRatingRepository CoreRatings)
         {
             this.TaskVersions = TaskVersions;
-            this.Programs = Programs; 
+            this.Programs = Programs;
+            this.TaskRatings = TaskRatings;
+            this.CoreRatings = CoreRatings; 
+            this.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
         }
 
         public CoreRatingController()
         {
             this.TaskVersions = new TaskVersionRepository();
-            this.Programs = new ProgramRepository(); 
-        }
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            this.Programs = new ProgramRepository();
+            this.CoreRatings = new CoreRatingRepository();
+            this.TaskRatings = new TaskRatingRepository();
+            this.FacultyID = Convert.ToInt32(User.Identity.GetUserId());
         }
 
         // GET api/<controller>/5
@@ -55,6 +64,7 @@ namespace LEDE.WebUI.Controllers
                     rating = new CoreRating(); 
                 }
                 CoreRatingDTO dto = new CoreRatingDTO(topic, rating);
+                dto.VersID = VersID; 
                 CoreTopicRatings.Add(dto); 
             }
 
@@ -62,13 +72,48 @@ namespace LEDE.WebUI.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post(CoreRatingDTO RatingToCreate)
         {
+            TaskRating NewTaskRating = new TaskRating()
+            {
+                FacultyID = FacultyID,
+                ReviewDate = DateTime.Now,
+                VersID = RatingToCreate.VersID
+            };
+            int NewRatingID = TaskRatings.CreateTaskRating(NewTaskRating);
+
+            CoreRating NewCoreRating = new CoreRating()
+            {
+                RatingID = NewRatingID,
+                CoreTopicID = RatingToCreate.CoreTopicID,
+                Cscore = RatingToCreate.CScore,
+                Sscore = RatingToCreate.SScore,
+                Pscore = RatingToCreate.PScore
+            };
+            CoreRatings.CreateCoreRating(NewCoreRating);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(CoreRatingDTO RatingToSave)
         {
+            throw new HttpResponseException(HttpStatusCode.NotAcceptable);
+            TaskRating UpdatedTaskRating = new TaskRating()
+            {
+                RatingID = RatingToSave.RatingID,
+                FacultyID = FacultyID,
+                VersID = RatingToSave.VersID,
+                ReviewDate = DateTime.Now
+            };
+            TaskRatings.UpdateTaskRating(UpdatedTaskRating);
+
+            CoreRating UpdatedCoreRating = new CoreRating()
+            {
+                RatingID = RatingToSave.RatingID,
+                Cscore = RatingToSave.CScore,
+                Sscore = RatingToSave.SScore,
+                Pscore = RatingToSave.PScore,
+            };
+            CoreRatings.UpdateCoreRating(UpdatedCoreRating);
         }
 
         // DELETE api/<controller>/5
