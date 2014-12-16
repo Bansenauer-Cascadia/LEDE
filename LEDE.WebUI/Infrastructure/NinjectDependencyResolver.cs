@@ -42,7 +42,7 @@ namespace LEDE.WebUI.Infrastructure
             kernel.Bind<ITaskVersionRepository>().To<TaskVersionRepository>();
             kernel.Bind<ITaskRatingRepository>().To<TaskRatingRepository>();
             kernel.Bind<ICoreRatingRepository>().To<CoreRatingRepository>();
-            kernel.Bind<IProgramCohortRepository>().To<ProgramCohortRepository>();
+            kernel.Bind<ICohortTotalsRepository>().To<CohortTotalsRepository>();
 
             kernel.Bind<IPercentageCalculator>().To<PercentageCalculator>(); 
         }

@@ -19,18 +19,18 @@ namespace LEDE.WebUI.Controllers
 
         private IPercentageCalculator Calculator;
 
-        private IProgramCohortRepository Cohorts;
+        private ICohortTotalsRepository CohortTotals;
 
-        public ReportController(ISummaryRepository repo, IPercentageCalculator calc, IProgramCohortRepository Cohorts)
+        public ReportController(ISummaryRepository repo, IPercentageCalculator calc, ICohortTotalsRepository CohortTotals)
         {
             this.db = repo;
             this.Calculator = calc;
-            this.Cohorts = Cohorts; 
+            this.CohortTotals = CohortTotals;
         }
 
         public ActionResult Seminar(SeminarSummary summary)
         {
-            int FacultyID; 
+            int FacultyID;
 
             if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
             {
@@ -57,7 +57,7 @@ namespace LEDE.WebUI.Controllers
         public ActionResult Student(int? UserID, int? ProgramCohortID)
         {
             int userID = UserID ?? Convert.ToInt32(User.Identity.GetUserId());
-            int programCohortID = ProgramCohortID ?? db.getStudentCohortID(userID); 
+            int programCohortID = ProgramCohortID ?? db.getStudentCohortID(userID);
             StudentSummary model = db.getStudentTotals(programCohortID, userID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
@@ -67,43 +67,21 @@ namespace LEDE.WebUI.Controllers
         {
             int? SelectedCohortID = post.ProgramCohortID == 0 ? (int?)null : post.ProgramCohortID;
             SummaryModel model = db.getSummaryCohorts(Convert.ToInt32(User.Identity.GetUserId()), SelectedCohortID);
-            db.getSummaryCandidates(model); 
+            db.getSummaryCandidates(model);
 
-            return View(model); 
+            return View(model);
         }
 
         public PartialViewResult SummarySpreadsheet(int ProgramCohortID, int UserID)
         {
-            SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID); 
-            return PartialView(model); 
+            SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID);
+            return PartialView(model);
         }
 
-        public ActionResult CohortHours(int ProgramCohortID)
+        public ActionResult CohortHours(int ProgramCohortID = 1)
         {
-            List<InternReflection> CohortReflections = Cohorts.GetCohortInternReflections(ProgramCohortID);
-            List<ReadingLogEntry> CohortEntries = Cohorts.GetCohortReadingLogEntries(ProgramCohortID);
-            List<HoursDTO> HoursDTOs = GetHoursDTOs(CohortReflections);
-            List<EntryDTO> EntryDTOs = GetEntryDTOs(CohortEntries);
-
-            return View(); 
-        }
-
-        public List<HoursDTO> GetHoursDTOs(List<InternReflection> Reflections)
-        {
-            return Reflections.Select(r => new HoursDTO(r)).ToList();
-        }
-
-        public List<EntryDTO> GetEntryDTOs(List<ReadingLogEntry> Entries)
-        {
-            return Entries.Select(e => new EntryDTO(e)).ToList();            
-        }
-    }
-
-    public class TotalsManager
-    {
-        public TotalsManager(int foo)
-        {
-
-        }
+            IEnumerable<LogAndReadingGraphsDTO> model = CohortTotals.GetHoursTotals(ProgramCohortID);
+            return View(model);
+        }        
     }
 }

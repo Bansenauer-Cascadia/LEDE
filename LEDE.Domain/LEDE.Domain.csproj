@@ -179,6 +179,7 @@
     <Compile Include="Entities\CoreTaskRating.cs" />
     <Compile Include="Entities\CoreTaskVersion.cs" />
     <Compile Include="Entities\CoreTopicScore.cs" />
+    <Compile Include="Entities\DTO\HoursTotalDTO.cs" />
     <Compile Include="Entities\ViewModels\CandidateViewModels.cs" />
     <Compile Include="Entities\CohortEnrollment.cs" />
     <Compile Include="Entities\CoreRating.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Entities\TaskSeminarCoreTopic.cs" />
     <Compile Include="Entities\TaskVersionMax.cs" />
     <Compile Include="Repositories\ICoreRatingRepository.cs" />
+    <Compile Include="Repositories\ICohortTotalsRepository.cs" />
     <Compile Include="Repositories\IProgramRepository.cs" />
     <Compile Include="Repositories\ITaskRatingRepository.cs" />
     <Compile Include="Repositories\ITaskVersionRepository.cs" />
@@ -344,6 +346,7 @@
       <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
