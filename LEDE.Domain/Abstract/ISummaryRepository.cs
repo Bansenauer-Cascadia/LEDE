@@ -9,7 +9,7 @@ namespace LEDE.Domain.Abstract
 {
     public interface ISummaryRepository
     {
-        SeminarSummary getCohortTotals (int cohortID);
+        IEnumerable<RatingQuery> getCohortTotals (int cohortID);
 
         IEnumerable<ProgramCohort> getCohorts(int FacultyID);
 

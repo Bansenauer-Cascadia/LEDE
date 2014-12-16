@@ -12,7 +12,7 @@ using LEDE.WebUI.DTOs;
 
 namespace LEDE.WebUI.Controllers
 {
-    //[Authorize(Roles = "Faculty")]
+    [Authorize(Roles = "Faculty")]
     public class ReportController : Controller
     {
         private ISummaryRepository db;
@@ -21,37 +21,43 @@ namespace LEDE.WebUI.Controllers
 
         private ICohortTotalsRepository CohortTotals;
 
+        private int FacultyID; 
+
         public ReportController(ISummaryRepository repo, IPercentageCalculator calc, ICohortTotalsRepository CohortTotals)
         {
             this.db = repo;
             this.Calculator = calc;
-            this.CohortTotals = CohortTotals;
+            this.CohortTotals = CohortTotals;            
         }
 
-        public ActionResult Seminar(SeminarSummary summary)
-        {
-            int FacultyID;
+        public ActionResult Seminar(int? ProgramCohortID)
+        {            
+            SelectList userCohorts = ProgramCohortsForUser(ProgramCohortID);
+            int selectedCohortID = ProgramCohortID ?? Convert.ToInt32(userCohorts.SelectedValue);
+            ViewBag.Cohorts = userCohorts;
 
-            if (User.IsInRole("ECSEL Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("Super Admin"))
-            {
-                FacultyID = 0;
-            }
-            else
-            {
-                FacultyID = Convert.ToInt32(User.Identity.GetUserId());
-            }
-
-            //get dropdown sorted
-            SelectList programCohorts = new SelectList(db.getCohorts(FacultyID), "ProgramCohortID", "Program.ProgramTitle");
-            int selectedCohortID = summary.SelectedCohortID == 0 ? Convert.ToInt32(programCohorts.First().Value) : summary.SelectedCohortID;
-
-            //initialize page model 
-            SeminarSummary model = db.getCohortTotals(selectedCohortID);
-            model.SelectedCohortID = selectedCohortID;
-            Calculator.CalculateSeminarPercentages(model);
-            model.ProgramCohorts = programCohorts;
-
+            IEnumerable<RatingQuery> model = db.getCohortTotals(selectedCohortID);
             return View(model);
+        }
+
+        public ActionResult CohortHours(int? ProgramCohortID)
+        {            
+            SelectList userCohorts = ProgramCohortsForUser(ProgramCohortID);
+            int selectedCohortID = ProgramCohortID ?? Convert.ToInt32(userCohorts.SelectedValue);
+            ViewBag.Cohorts = userCohorts;
+
+            IEnumerable<LogAndReadingGraphsDTO> model = CohortTotals.GetHoursTotals(selectedCohortID);
+            return View(model);
+        }
+
+        public SelectList ProgramCohortsForUser(int? ProgramCohortID)
+        {
+            IEnumerable<ProgramCohort> FacultyCohorts = db.getCohorts(FacultyID);
+            int selectedProgramCohortID = ProgramCohortID ?? FacultyCohorts.First().ProgramCohortID;
+
+            SelectList programCohorts = new SelectList(FacultyCohorts, "ProgramCohortID",
+                "Program.ProgramTitle", selectedProgramCohortID);
+            return programCohorts;
         }
 
         public ActionResult Student(int? UserID, int? ProgramCohortID)
@@ -77,11 +83,6 @@ namespace LEDE.WebUI.Controllers
             SpreadsheetModel model = db.getSpreadsheetTable(ProgramCohortID, UserID);
             return PartialView(model);
         }
-
-        public ActionResult CohortHours(int ProgramCohortID = 1)
-        {
-            IEnumerable<LogAndReadingGraphsDTO> model = CohortTotals.GetHoursTotals(ProgramCohortID);
-            return View(model);
-        }        
+     
     }
 }

@@ -23,18 +23,26 @@ namespace LEDE.Domain.Concrete
             this.db = new DbContext();
         }
 
-        public SeminarSummary getCohortTotals(int cohortID)
+        public IEnumerable<RatingQuery> getCohortTotals(int cohortID)
         {
-            SeminarSummary model = new SeminarSummary()
+            IEnumerable<RatingQuery> model = db.Database.SqlQuery<RatingQuery>("facultycohortview @p0", new object[] { cohortID }).ToList();
+
+            var CombinedTotals = model.Select(u => new { Total = (u.CScore ?? 0) + (u.PScore ?? 0) + (u.SScore ?? 0) });
+            var CombinedCounts = model.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
+
+            int maxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total)) : 0;
+            int maxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0;
+
+            foreach (RatingQuery total in model)
             {
-                TotalsList = db.Database.SqlQuery<RatingQuery>("facultycohortview @p0", new object[]{cohortID}).ToList()
-            };
+                total.CPercentage = 100 * (total.CScore ?? 0) / maxTotal;
+                total.SPercentage = 100 * (total.SScore ?? 0) / maxTotal;
+                total.PPercentage = 100 * (total.PScore ?? 0) / maxTotal;
 
-            var CombinedTotals = model.TotalsList.Select(u => new { Total = (u.CScore ?? 0) + (u.PScore ?? 0) + (u.SScore ?? 0) });
-            var CombinedCounts = model.TotalsList.Select(u => new { Count = u.OneCount + u.TwoCount + u.ThreeCount });
-
-            model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total)) : 0;
-            model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0; 
+                total.OnePercentage = 100 * total.OneCount / maxCount;
+                total.TwoPercentage = 100 * total.TwoCount / maxCount;
+                total.ThreePercentage = 100 * total.ThreeCount / maxCount;
+            }
 
             return model; 
         }

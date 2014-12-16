@@ -213,6 +213,15 @@ nav.mainnav {
 	background-color:#008457;
 }
 
+/*Alternating Bar Row Colors*/
+.bar-row {
+    padding-top: 10px;    
+    border-bottom: 1px groove;
+}
+.bar-row:nth-child(odd) {
+    background-color: #F8F8F8;
+}
+
 /* 04.10 ADMIN - REPORT SUMMARY SPREADSHEET
 *****************************/
 #spreadsheet{

@@ -303,6 +303,7 @@
     <Content Include="Views\Rating\Impact.cshtml" />
     <Content Include="Views\Rating\RateTask.cshtml" />
     <Content Include="Views\Report\CohortHours.cshtml" />
+    <Content Include="Views\Report\CohortGraphs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

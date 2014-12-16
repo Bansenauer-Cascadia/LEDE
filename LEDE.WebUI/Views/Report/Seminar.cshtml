@@ -1,34 +1,29 @@
-﻿@model LEDE.Domain.Entities.SeminarSummary
-@using LEDE.Domain.Entities
+﻿@using LEDE.Domain.Entities
+@model IEnumerable<RatingQuery>
 
-@{
-    ViewBag.Title = "Seminar";
-    Layout = "~/Views/Shared/_Layout.cshtml"; 
-}
-
-@using (Html.BeginForm("Seminar", "Report", new { SelectedCohortID = Model.SelectedCohortID }))
+@using (Html.BeginForm("Seminar", "Report"))
 {
     <div class="row page-header">
-        <div class="col-md-4">
-            <h2>Core Ratings Summary</h2>
+        <div class="col-md-5">
+            <h2>Cohort Core Rating Totals</h2>
+        </div>        
+        <div class="col-md-3">
+            @Html.ActionLink("View Log Totals", "CohortHours")
         </div>
         <div class="col-md-4">
-            @Html.DropDownListFor(x => x.SelectedCohortID, Model.ProgramCohorts, new { @class = "form-control", onchange = "this.form.submit();" })
+            @Html.DropDownList("ProgramCohortID", (SelectList)ViewBag.Cohorts, new { @class = "form-control", onchange = "this.form.submit();" })
         </div>
     </div>
 }
-
 <div class="row">
-    <div class="col-md-6">
-        <h3>Total Score by Knowledge Type</h3>
+    <div class="col-md-5 col-md-offset-2">
         <div class="progress">
             <div class="progress-bar bar-kt-c" style="width:33.3%">Conceptual</div>
             <div class="progress-bar bar-kt-s" style="width: 33.3%">Strategic</div>
             <div class="progress-bar bar-kt-p" style="width: 33.3%">Personal</div>
         </div>
     </div>
-    <div class="col-md-6">
-        <h3>Score Distribution by Rating</h3>
+    <div class="col-md-5">
         <div class="progress">
             <div class="progress-bar bar-sd-1" style="width:33.3%">1s</div>
             <div class="progress-bar bar-sd-2" style="width: 33.3%">2s</div>
@@ -39,19 +34,20 @@
 
 <br />
 
-@foreach (RatingQuery totals in Model.TotalsList)
+@foreach (RatingQuery totals in Model)
 {
-    <div class="well">
-        @Html.ActionLink(totals.UserName, "Student", new { UserID = totals.UserID, ProgramCohortID = Model.SelectedCohortID })
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row bar-row">
+        <div class="col-md-2">
+            @Html.ActionLink(totals.UserName, "Student", new { UserID = totals.UserID, ProgramCohortID = ViewBag.ProgramCohortID })
+        </div>
+        <div class="col-md-5">
             <div class="progress">
                 <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
                 <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
                 <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="progress">
                 <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
                 <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
@@ -59,7 +55,5 @@
             </div>
         </div>
     </div>
-    </div>
-
 }
 
