@@ -179,6 +179,7 @@
     <Compile Include="Entities\CoreTaskRating.cs" />
     <Compile Include="Entities\CoreTaskVersion.cs" />
     <Compile Include="Entities\CoreTopicScore.cs" />
+    <Compile Include="Entities\DTO\CoreRatingDTO.cs" />
     <Compile Include="Entities\DTO\HoursTotalDTO.cs" />
     <Compile Include="Entities\ViewModels\CandidateViewModels.cs" />
     <Compile Include="Entities\CohortEnrollment.cs" />

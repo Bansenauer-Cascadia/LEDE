@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using LEDE.Domain.Entities;
 
-namespace LEDE.WebUI.DTOs
+namespace LEDE.Domain.Entities.DTOs
 {
     public class CoreRatingDTO
     {

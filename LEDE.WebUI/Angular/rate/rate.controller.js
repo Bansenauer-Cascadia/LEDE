@@ -40,10 +40,14 @@ angular.module('facultyApp')
       }
 
       var GetRestPromise = function (rating) {
-          if (rating.RatingID === 0) {
+          if (rating.RatingID === 0 && (rating.CScore !== null || rating.SScore != null || rating.PScore != null)) {
               return rating.$save().$promise
           }
-          else {
+          else if(rating.RatingID !== 0 && (rating.CScore === null && rating.SScore === null && rating.PScore === null))
+          {
+              return rating.$delete({id: rating.RatingID}).$promise
+          }
+          else if (rating.CScore !== null || rating.SScore != null || rating.PScore != null) {
               return rating.$update().$promise
           }
       }

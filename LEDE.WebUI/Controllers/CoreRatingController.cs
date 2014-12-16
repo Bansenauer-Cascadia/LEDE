@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using LEDE.Domain.Repositories;
 using LEDE.Domain.Entities;
-using LEDE.WebUI.DTOs;
+using LEDE.Domain.Entities.DTOs;
 using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
@@ -96,7 +96,6 @@ namespace LEDE.WebUI.Controllers
         // PUT api/<controller>/5
         public void Put(CoreRatingDTO RatingToSave)
         {
-            throw new HttpResponseException(HttpStatusCode.NotAcceptable);
             TaskRating UpdatedTaskRating = new TaskRating()
             {
                 RatingID = RatingToSave.RatingID,
@@ -119,6 +118,7 @@ namespace LEDE.WebUI.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            CoreRatings.DeleteCoreRating(id); 
         }        
     }
 }

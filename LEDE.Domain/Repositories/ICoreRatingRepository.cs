@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LEDE.Domain.Entities;
 using LEDE.Domain.Concrete;
+using LEDE.Domain.Entities.DTOs;
 
 namespace LEDE.Domain.Repositories
 {
@@ -13,6 +14,8 @@ namespace LEDE.Domain.Repositories
         void UpdateCoreRating(CoreRating UpdatedRating);
 
         void CreateCoreRating(CoreRating RatingToCreate);
+
+        void DeleteCoreRating(int RatingID);
     }
 
     public class CoreRatingRepository : ICoreRatingRepository
@@ -36,6 +39,18 @@ namespace LEDE.Domain.Repositories
         {
             db.CoreRatings.Add(RatingToCreate);
             db.SaveChanges();
+        }
+
+
+        public void DeleteCoreRating(int RatingID)
+        {
+            CoreRating coreRatingToDelete = db.CoreRatings.Find(RatingID);
+            db.CoreRatings.Remove(coreRatingToDelete);
+
+            TaskRating taskRatingToDelete = db.TaskRatings.Find(RatingID);
+            db.TaskRatings.Remove(taskRatingToDelete);
+
+            db.SaveChanges(); 
         }
     }
 }
