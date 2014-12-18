@@ -14,9 +14,4 @@ describe('Controller: RateCtrl', function () {
       $scope: scope
     });
   }));
-
-  it('does work', function() {
-    expect(1).toEqual(1);
-  })
-
 });
