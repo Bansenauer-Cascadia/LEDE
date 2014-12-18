@@ -9,27 +9,26 @@
             <th>@task.TaskCode</th>
         }
     </tr>
-    @foreach (User candidate in Model.CohortCandidates)
+    @foreach (FacultySummaryRow row in Model.Rows)
     {
-        IEnumerable<TaskVersion> candidateVersions = Model.MaxVersions.Where(v => v.UserID == candidate.Id);
         <tr>
-            <td>@Html.ActionLink(candidate.LastName + ", " + candidate.FirstName, "Student", "Report", 
-                new {UserID = candidate.Id, ProgramCohortID = Model.ProgramCohortID}, null)</td>
-            @foreach (Task task in Model.CohortTasks)
+            <td>
+                @Html.ActionLink(row.Candidate.LastName + ", " + row.Candidate.FirstName, "Student", "Report",
+                new { UserID = row.Candidate.Id, ProgramCohortID = Model.ProgramCohortID }, null)
+            </td>
+            @foreach (LatestVersion version in row.LatestVersions)
             {
-
-                TaskVersion maxVersion = candidateVersions.SingleOrDefault(v=> v.TaskID == task.TaskID);
-                if (maxVersion != null)
+                if (version.VersID != null)
                 {
-                    <td class="@maxVersion.RatingStatus">
-                        @Html.ActionLink("V" + maxVersion.Version,"Rate","Rating",new{VersID = maxVersion.VersID}, null)
+                    <td class="@version.RatingStatus">
+                        @Html.ActionLink("V" + version.Version, "Rate", "Rating", new { VersID = version.VersID }, null)
                     </td>
                 }
                 else
                 {
                     <td></td>
-                }                
-            }
+                }
+            }            
         </tr>
     }
 

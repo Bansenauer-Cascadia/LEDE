@@ -44,11 +44,27 @@ namespace LEDE.Domain.Entities
     {
         public IEnumerable<Task> CohortTasks { get; set; }
 
-        public IEnumerable<User> CohortCandidates { get; set; }
-
-        public IEnumerable<TaskVersion> MaxVersions { get; set; }
+        public List<FacultySummaryRow> Rows { get; set; }
 
         public int ProgramCohortID { get; set; }
+    }
+
+    public class FacultySummaryRow
+    {
+        public User Candidate { get; set; }
+
+        public List<LatestVersion> LatestVersions { get; set; }
+    }
+
+    public class LatestVersion
+    {
+        public int? VersID { get; set; }
+
+        public int? Version { get; set; }
+
+        public int? TaskID { get; set; }
+
+        public string RatingStatus { get; set; }
     }
 
     public class SummaryTaskVersion

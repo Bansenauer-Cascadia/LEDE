@@ -135,23 +135,25 @@ namespace LEDE.Domain.Concrete
 
         public FacultySummaryModel getFacultySummary(int ProgramCohortID)
         {
-            FacultySummaryModel model = new FacultySummaryModel();
+            int ProgramID = db.ProgramCohorts.Single(c => c.ProgramCohortID == ProgramCohortID).ProgramID;            
+            IEnumerable<Task> tasks = db.Tasks.Where(t => t.Seminar.ProgramID == ProgramID).OrderBy(t => t.TaskCode);
 
-            int ProgramID = db.ProgramCohorts.Single(c => c.ProgramCohortID == ProgramCohortID).ProgramID;
+            FacultySummaryModel model = new FacultySummaryModel() { 
+                Rows = new List<FacultySummaryRow>()
+            };
 
-            IEnumerable<TaskVersion> maxVersions =
-                from v in db.TaskVersions
-                where v.Task.Seminar.ProgramID == ProgramID && v.User.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
-                group v by new { v.UserID, v.TaskID } into m
-                let maxVersion = m.Max(v => v.Version)
-                select m.FirstOrDefault(v=> v.Version == maxVersion);
+            int roleID = db.Roles.FirstOrDefault(r => r.Name == "Candidate").Id;
+            IEnumerable<User> cohortCandidates = db.CohortEnrollments.Where(e => e.ProgramCohortID == ProgramCohortID &&
+                e.User.Roles.Any(r => r.RoleId == roleID)).Select(ce => ce.User).OrderBy(u => new {u.LastName, u.FirstName });
 
-            IEnumerable<Task> tasks = db.Tasks.Where(t => t.Seminar.ProgramID == ProgramID);
-
-            model.MaxVersions = maxVersions;
+            foreach(User cohortUser in cohortCandidates) {
+                FacultySummaryRow row = new FacultySummaryRow();
+                row.Candidate = cohortUser;
+                row.LatestVersions = db.Database.SqlQuery<LatestVersion>("LatestTaskVersions @p0, @p1", 
+                    new object[] { ProgramCohortID, cohortUser.Id }).ToList();
+                model.Rows.Add(row);
+            }
             model.CohortTasks = tasks;
-            model.CohortCandidates = db.Users.Where(user => user.CohortEnrollments.Any(e => e.ProgramCohortID == ProgramCohortID)
-                && user.Roles.Any(r=> r.RoleId == 1)).OrderBy(u=> u.LastName);
             model.ProgramCohortID = ProgramCohortID; 
 
             return model;
