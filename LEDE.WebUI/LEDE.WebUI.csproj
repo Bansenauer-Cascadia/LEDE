@@ -172,18 +172,14 @@
     <Content Include="Angular\app.js" />
     <Content Include="Angular\rate\gradeTable\gradeTable.css" />
     <Content Include="Angular\rate\gradeTable\gradeTable.directive.js" />
-    <Content Include="Angular\rate\gradeTable\gradeTable.directive.test.js" />
     <Content Include="Angular\rate\gradeTable\gradeTable.html" />
     <Content Include="Angular\rate\gradeTable\partials\coreRatingHeader.html" />
     <Content Include="Angular\rate\gradeTable\partials\coreRatingRow.html" />
     <Content Include="Angular\rate\gradeTable\partials\impactRatingHeader.html" />
     <Content Include="Angular\rate\gradeTable\partials\impactRatingRow.html" />
     <Content Include="Angular\rate\rate.controller.js" />
-    <Content Include="Angular\rate\rate.controller.test.js" />
     <Content Include="Angular\rate\rate.html" />
     <Content Include="Angular\rate\rate.js" />
-    <Content Include="Angular\services\ratingModels\coreRating.js" />
-    <Content Include="Angular\services\ratingModels\coreRating.test.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditPanel.css" />
@@ -229,6 +225,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\LogRatingController.cs" />
+    <Compile Include="API\ReflectionRatingController.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -236,14 +234,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
-    <Compile Include="Controllers\CoreRatingController.cs" />
+    <Compile Include="API\CoreRatingController.cs" />
+    <Compile Include="API\ImpactRatingController.cs" />
     <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\TaskVersionController.cs" />
     <Compile Include="DTOs\TaskVersionDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

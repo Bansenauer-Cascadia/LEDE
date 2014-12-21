@@ -9,7 +9,7 @@ using LEDE.Domain.Entities;
 using LEDE.Domain.Entities.DTOs;
 using Microsoft.AspNet.Identity;
 
-namespace LEDE.WebUI.Controllers
+namespace LEDE.WebUI.API
 {
     public class CoreRatingController : ApiController
     {
