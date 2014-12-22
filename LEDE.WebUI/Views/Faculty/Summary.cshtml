@@ -27,11 +27,12 @@
             @Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts,
                new { @class = "form-control", style="display:inline;", onchange="$(this.form).submit();"})
         </div>
+        <div class="LoadPlaceholder">
+            <img id="ajaxgif" src="~/Images/ajax-loader.gif" alt="Loading..." style="display:none;" />
+        </div>
     </div>
 }
-<div class="LoadPlaceholder">
-    <img id="ajaxgif" src="~/Images/ajax-loader.gif" alt="Loading..." style="display:none;"/>
-</div>
+
 <div id="SummaryTable">
 @if(Model.ProgramCohortID > 0){
     @Html.Action("SummaryTable", new { ProgramCohortID = Model.ProgramCohortID})
