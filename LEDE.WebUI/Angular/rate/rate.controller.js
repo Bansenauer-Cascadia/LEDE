@@ -1,31 +1,39 @@
 'use strict';
 
 angular.module('facultyApp')
-  .controller('RateCtrl', function ($scope, $filter, $resource, apiUrl, coreRatings) {
+    .controller('RateCtrl', function ($scope, $filter, taskGradeService) {
+        $scope.VersID = 1067;
+        $scope.SeminarID = 15;
+        var gradeService = taskGradeService.Create($scope.VersID);
 
-      var TaskVersionResource = $resource(apiUrl + 'TaskVersion/:VersID', { VersID: 1109 });
+        this.GetGrade = function() {
+            gradeService.GetGrade().then(function (grade) {
+                $scope.grade = grade;
+                $scope.grade.TaskCoreRatings = $filter('filter')(grade.CoreRatings, TaskRating);
+                $scope.grade.OtherCoreRatings = $filter('filter')(grade.CoreRatings, OtherRating);
+            }).catch(function(){
+                $scope.errorFetchingGrade = true;
+            });
+        };
 
-      $scope.TaskRatings = [];
-      $scope.OtherRatings = [];
+        $scope.SaveGrade = function () {
+            gradeService.SaveGrade().then(function (grade) {
+                $scope.errorSavingGrade = false;
+            }).catch(function (error) {
+                $scope.errorSavingGrade = true;
+            })
+        };
 
-      TaskVersionResource.get({ VersID: 1109 }).$promise.then(function (TaskVersion) {
-          $scope.TaskVersion = TaskVersion;
-          coreRatings.GetAll(TaskVersion.VersID, function(CoreRatings) {
-              $scope.CoreRatings = CoreRatings;
-              $scope.TaskRatings = $filter('filter')(CoreRatings, { SeminarID: $scope.TaskVersion.SeminarID });
-              $scope.OtherRatings = $filter('filter')(CoreRatings, function (rating) {
-                  return rating.SeminarID !== $scope.TaskVersion.SeminarID
-              });
-          })
-      });
+        var TaskRating = function (value) {
+            return value.data.SeminarID === $scope.SeminarID;
+        }
 
-        $scope.SubmitRating = function () {
-          coreRatings.SaveAll($scope.CoreRatings, function() {
-              $scope.SaveStatus = 'complete';
-          })
-      }
+        var OtherRating = function (value) {
+            return value.data.SeminarID !== $scope.SeminarID;
+        }
 
-  });
+        this.GetGrade();
+    });
 
 
 

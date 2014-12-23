@@ -8,7 +8,7 @@ using LEDE.Domain.Concrete;
 using LEDE.Domain.Entities;
 using Microsoft.AspNet.Identity;
 
-namespace LEDE.WebUI.API
+namespace LEDE.WebUI.Controllers
 {
     public class ImpactDTO
     {
@@ -39,7 +39,7 @@ namespace LEDE.WebUI.API
         {
             try
             {
-                ImpactTypeRating rating = db.ImpactTypeRatings.Find(id);
+                ImpactTypeRating rating = db.ImpactTypeRatings.Single(ir => ir.TaskRating.VersID == id);
                 return new ImpactDTO()
                 {
                     RatingID = rating.RatingID,
@@ -51,7 +51,7 @@ namespace LEDE.WebUI.API
             }
             catch
             {
-                return new ImpactDTO();
+                return new ImpactDTO() {VersID = id};
             }
         }
 

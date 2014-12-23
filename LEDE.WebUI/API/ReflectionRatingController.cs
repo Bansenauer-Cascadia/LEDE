@@ -8,7 +8,7 @@ using LEDE.Domain.Entities;
 using LEDE.Domain.Concrete;
 using Microsoft.AspNet.Identity;
 
-namespace LEDE.WebUI.API
+namespace LEDE.WebUI.Controllers
 {
     public class ReflectionDTO
     {

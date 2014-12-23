@@ -7,8 +7,14 @@
     <script src="~/Angular/angular-resource.js"></script>
     <script src="~/Angular/app.js"></script>
     <script src="~/Angular/rate/gradeTable/gradeTable.directive.js"></script>
-    <script src="~/Angular/services/ratingModels/coreRating.js"></script>
     <script src="~/Angular/rate/rate.controller.js"></script>
+    <script src="~/Angular/services/taskGradeService.js"></script>
+    <script src="~/Angular/services/taskRating.js"></script>
+    <script src="~/Angular/services/taskRatingFactory.js"></script>
+    <script src="~/Angular/services/taskRatingResource.js"></script>
+    <script src="~/Angular/services/taskRatingService.js"></script>
+    <script src="~/Angular/services/taskRatingServiceFactory.js"></script>
+
 }
 
 @section css {
@@ -46,28 +52,97 @@
 </div>
 
 <div ng-app="facultyApp">
-    <div ng-controller="RateCtrl" class="container">
-        <div class="row">
-            <h3>Seminar Core Topic Ratings</h3>
-            <grade-table ratings="TaskRatings" rating-type="TaskRating"></grade-table>
-        </div>        
-        <div class="row">
-            <h3>Other Core Topic Ratings</h3>
-            <grade-table ratings="OtherRatings" rating-type="OtherRating"></grade-table>
+    <div ng-controller="RateCtrl">
+        <div ng-show="grade.LogRating.IsExistingRating()">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Number of Entries</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <input type="number" ng-model="grade.LogRating.data.NumEntries" />
+                    </td>
+                </tr>
+            </table>
         </div>
-                        <!--
-        <div class="row">
-            <h3>Impact Type Rating</h3>
-            <grade-table ratings="ImpactRating" rating-type="ratingModels.ImpactRating" is-impact-rating="true"></grade-table>
-        </div> -->
-        <button class="btn-success" ng-click="SubmitRating()" ng-disabled="SaveStatus === 'pending'">Save</button>
-        <span class="save-status" ng-switch="SaveStatus">
-            <span ng-switch-when="pending">
-                Saving...
-            </span>
-            <span ng-switch-when="success">
-                Saved Successfully
-            </span>
-        </span>
-    </div>
+
+        <div ng-show="grade.ReflectionRating.IsExistingRating()">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Number of Hours</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <input type="number" ng-model="grade.ReflectionRating.data.NumHours" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h3>Seminar Core Topic Ratings</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Core Topic</th>
+                    <th>Conceptual</th>
+                    <th>Strategic</th>
+                    <th>Personal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="rating in grade.TaskCoreRatings">
+                    <td>
+                        {{rating.data.CoreTopicTitle}}
+                    </td>
+                    <td>
+                        <input type="number" ng-model="rating.data.CScore" min="0" max="3" name="foo" integer />
+                    </td>
+                    <td>
+                        <input type="number" ng-model="rating.data.SScore" min="0" max="3" integer />
+                    </td>
+                    <td>
+                        <input type="number" ng-model="rating.data.PScore" min="0" max="3" integer />
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove" ng-click="rating.Clear()" ng-show="!rating.IsEmpty()"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Other Core Ratings</h3>
+        <grade-table ratings="grade.OtherCoreRatings"></grade-table>
+
+        <h3>Impact Rating</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Structures & Operations</th>
+                    <th>Professional Practices</th>
+                    <th>Student Learning</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" ng-model="grade.ImpactRating.data.SScore" />
+                    </td>
+                    <td>
+                        <input type="number" ng-model="grade.ImpactRating.data.PScore" />
+                    </td>
+                    <td>
+                        <input type="number" ng-model="grade.ImpactRating.data.LScore" />
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove" ng-click="grade.ImpactRating.Clear()" ng-show="!grade.ImpactRating.IsEmpty()"></span>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+
+        <button class="btn-success" ng-click="SaveGrade()">Save</button> 
+        <span ng-show="errorSavingGrade === false">Grade Saved Successfully!</span>
+    </div>    
 </div>
