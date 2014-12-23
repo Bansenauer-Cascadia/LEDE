@@ -12,7 +12,7 @@ using LEDE.WebUI.DTOs;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles = "Faculty")]
+    [Authorize(Roles = "Faculty, LEDE Admin, ECSEL Admin, Super Admin")]
     public class ReportController : Controller
     {
         private ISummaryRepository db;
