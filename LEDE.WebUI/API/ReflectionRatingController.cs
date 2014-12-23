@@ -21,12 +21,8 @@ namespace LEDE.WebUI.Controllers
     {
         private DbContext db;
 
-        private int FacultyID; 
-
         public ReflectionRatingController()
         {
-            this.FacultyID = Int32.Parse(User.Identity.GetUserId());
-
             this.db = new DbContext(); 
         }
         // GET api/<controller>/5

@@ -32,8 +32,8 @@ namespace LEDE.WebUI.Controllers
         public ImpactRatingController()
         {
             this.db = new DbContext();
-            FacultyID = Int32.Parse(User.Identity.GetUserId());
         }
+
         // GET api/<controller>/5
         public ImpactDTO Get(int id)
         {
@@ -58,6 +58,7 @@ namespace LEDE.WebUI.Controllers
         // POST api/<controller>
         public void Post(ImpactDTO value)
         {
+            FacultyID = Int32.Parse(User.Identity.GetUserId());
             TaskRating rating = new TaskRating()
             {
                 FacultyID = FacultyID,

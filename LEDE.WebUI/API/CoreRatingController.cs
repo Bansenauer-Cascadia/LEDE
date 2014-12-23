@@ -29,8 +29,7 @@ namespace LEDE.WebUI.Controllers
             this.TaskVersions = TaskVersions;
             this.Programs = Programs;
             this.TaskRatings = TaskRatings;
-            this.CoreRatings = CoreRatings; 
-            this.FacultyID = Convert.ToInt32(User.Identity.GetUserId()); 
+            this.CoreRatings = CoreRatings;             
         }
 
         public CoreRatingController()
@@ -74,6 +73,7 @@ namespace LEDE.WebUI.Controllers
         // POST api/<controller>
         public void Post(CoreRatingDTO RatingToCreate)
         {
+            this.FacultyID = Int32.Parse(User.Identity.GetUserId()); 
             TaskRating NewTaskRating = new TaskRating()
             {
                 FacultyID = FacultyID,
@@ -96,6 +96,7 @@ namespace LEDE.WebUI.Controllers
         // PUT api/<controller>/5
         public void Put(CoreRatingDTO RatingToSave)
         {
+            this.FacultyID = Int32.Parse(User.Identity.GetUserId()); 
             TaskRating UpdatedTaskRating = new TaskRating()
             {
                 RatingID = RatingToSave.RatingID,
