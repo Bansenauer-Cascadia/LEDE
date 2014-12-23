@@ -1,7 +1,7 @@
 'use strict';
 var INTEGER_REGEXP = /^\-?\d+$/;
 angular.module('facultyApp', ['ngResource', 'ngAnimate'])
-    .constant('apiUrl', 'http://ecsel.azurewebsites.net/api/')
+    .constant('apiUrl', 'api/')
    .config(function ($locationProvider) {
        $locationProvider.html5Mode(true)
    })
