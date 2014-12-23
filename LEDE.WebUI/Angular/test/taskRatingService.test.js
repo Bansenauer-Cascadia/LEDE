@@ -154,12 +154,12 @@ describe('taskRatingService', function () {
                 }
                 return deferred.promise;
             });
-            spyOn(ratingDataResource, "Delete").and.callFake(function (ratingID) {
+            spyOn(ratingDataResource, "Delete").and.callFake(function (ratingData) {
                 var deferred = $q.defer();
-                if (ratingID == validDeleteRating.data.RatingID) {
+                if (ratingData == validDeleteRating.data) {
                     deferred.resolve();
                 }
-                else if (ratingID == invalidRating.data.RatingID) {
+                else if (ratingData == invalidRating.data) {
                     deferred.reject(mockSaveError);
                 }
                 return deferred.promise;
@@ -174,7 +174,7 @@ describe('taskRatingService', function () {
 
             expect(ratingDataResource.Save).toHaveBeenCalledWith(validSaveRating.data);
             expect(ratingDataResource.Update).toHaveBeenCalledWith(validUpdateRating.data);
-            expect(ratingDataResource.Delete).toHaveBeenCalledWith(validDeleteRating.data.RatingID);
+            expect(ratingDataResource.Delete).toHaveBeenCalledWith(validDeleteRating.data);
         });
         it("Resolves returned promise when all resources are saved successfully", function () {
             taskRatingService.taskRatingModels = [validSaveRating, validUpdateRating, validDeleteRating, doNothingRating];
@@ -183,6 +183,9 @@ describe('taskRatingService', function () {
             taskRatingService.SaveAll()
                 .then(function () {
                     savedSuccessfully = true;
+                })
+                .catch(function(){
+                   savedSuccessfully = false;
                 });
             $rootScope.$apply();
 

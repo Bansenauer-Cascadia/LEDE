@@ -1,15 +1,13 @@
-<div class="grade-header">
+<span class="grade-header">
     <span ng-switch="expanded">
-        <span class="glyphicon glyphicon-collapse-down" ng-switch-when="false" ng-click="EnterExpandedMode()"
-              ng-hide="NoRatingsToShow()"></span>
-        <span class="glyphicon glyphicon-collapse-up" ng-switch-when="true" ng-click="EnterContractedMode()"
-              ng-hide="NoRatingsToHide()"></span>
+        <span class="glyphicon glyphicon-collapse-down grade-toggle" ng-switch-when="false" ng-click="EnterExpandedMode()"></span>
+        <span class="glyphicon glyphicon-collapse-up grade-toggle" ng-switch-when="true" ng-click="EnterContractedMode()"></span>
     </span>
-</div>
+</span>
 <form name="form" novalidate>
     <span class="grade-error" ng-show="form.$invalid">All scores must be between 0 and 3</span>
     <table class="table table-default grade-table">
-        <tr ng-include="headerUrl" ng-show="IsHeaderVisible()"></tr>
-        <tr ng-include="rowUrl" ng-repeat="rating in visibleRatings"></tr>
+        <tr ng-include="headerUrl"></tr>
+        <tr ng-include="rowUrl" ng-repeat="rating in allRatings | filter:IsRatingVisible"></tr>
     </table>
 </form>

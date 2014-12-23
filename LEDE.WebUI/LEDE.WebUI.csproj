@@ -1329,6 +1329,7 @@
     <Content Include="Angular\services\taskRatingResource.js" />
     <Content Include="Angular\services\taskRatingService.js" />
     <Content Include="Angular\services\taskRatingServiceFactory.js" />
+    <Content Include="Angular\services\taskVersionService.js" />
     <Content Include="Angular\test\rate.controller.test.js" />
     <Content Include="Angular\test\taskGradeService.test.js" />
     <Content Include="Angular\test\taskRating.test.js" />
@@ -2534,6 +2535,7 @@
     <Content Include="Angular\node_modules\karma\package.json" />
     <Content Include="Angular\node_modules\karma\README.md" />
     <Content Include="Angular\node_modules\karma\requirejs.config.tpl.coffee" />
+    <Content Include="Angular\npm-debug.log" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\EditPanel.js" />
     <Content Include="Scripts\Enrollment.js" />
@@ -2557,6 +2559,7 @@
   <ItemGroup>
     <Compile Include="API\LogRatingController.cs" />
     <Compile Include="API\ReflectionRatingController.cs" />
+    <Compile Include="API\TaskVersionController.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2594,7 +2597,7 @@
     <Content Include="Views\RoleAdmin\Edit.cshtml" />
     <Content Include="Views\Report\Seminar.cshtml" />
     <Content Include="Views\Report\Student.cshtml" />
-    <Content Include="Views\Rating\Rate.cshtml" />
+    <Content Include="Views\Rating\RateOld.cshtml" />
     <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Setup\EditorTemplates\SelectableUser.cshtml" />
     <Content Include="Views\Rating\EditorTemplates\CoreRating.cshtml" />
@@ -2628,7 +2631,7 @@
     <Content Include="Views\Rating\Task.cshtml" />
     <Content Include="Views\Rating\Other.cshtml" />
     <Content Include="Views\Rating\Impact.cshtml" />
-    <Content Include="Views\Rating\RateTask.cshtml" />
+    <Content Include="Views\Rating\Rate.cshtml" />
     <Content Include="Views\Report\CohortHours.cshtml" />
     <Content Include="Views\Report\CohortGraphs.cshtml" />
     <None Include="Web.Debug.config">

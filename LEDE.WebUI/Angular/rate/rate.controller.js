@@ -1,36 +1,29 @@
 'use strict';
 
 angular.module('facultyApp')
-    .controller('RateCtrl', function ($scope, $filter, taskGradeService) {
-        $scope.VersID = 1067;
-        $scope.SeminarID = 15;
+    .controller('RateCtrl', function ($scope, $location, taskGradeService) {
+        var params = $location.search();
+        $scope.VersID = params.VersID;
+        $scope.UploadMessage = params.Message;
+
         var gradeService = taskGradeService.Create($scope.VersID);
 
         this.GetGrade = function() {
             gradeService.GetGrade().then(function (grade) {
-                $scope.grade = grade;
-                $scope.grade.TaskCoreRatings = $filter('filter')(grade.CoreRatings, TaskRating);
-                $scope.grade.OtherCoreRatings = $filter('filter')(grade.CoreRatings, OtherRating);
+                $scope.grade = grade;                
             }).catch(function(){
                 $scope.errorFetchingGrade = true;
             });
         };
 
         $scope.SaveGrade = function () {
+            $scope.errorSavingGrade = undefined;
             gradeService.SaveGrade().then(function (grade) {
                 $scope.errorSavingGrade = false;
             }).catch(function (error) {
                 $scope.errorSavingGrade = true;
             })
-        };
-
-        var TaskRating = function (value) {
-            return value.data.SeminarID === $scope.SeminarID;
-        }
-
-        var OtherRating = function (value) {
-            return value.data.SeminarID !== $scope.SeminarID;
-        }
+        };        
 
         this.GetGrade();
     });

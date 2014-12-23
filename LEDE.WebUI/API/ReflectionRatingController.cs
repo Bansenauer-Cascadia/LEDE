@@ -43,7 +43,24 @@ namespace LEDE.WebUI.Controllers
             }
             catch
             {
-                return null; 
+                return InitializeReflectionIfAppropriate(id);
+            }
+        }
+
+        private ReflectionDTO InitializeReflectionIfAppropriate(int VersID)
+        {
+            try
+            {
+                TaskVersion versionForReflection = db.TaskVersions.Find(VersID);
+
+                if (versionForReflection.Task.TaskTypeID == 3) 
+                    return new ReflectionDTO() { VersID = versionForReflection.VersID };
+                else 
+                    return null;
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -77,7 +94,7 @@ namespace LEDE.WebUI.Controllers
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                Post(reflection);
             }
         }
 

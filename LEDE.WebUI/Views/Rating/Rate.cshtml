@@ -1,32 +1,43 @@
 ﻿@using LEDE.Domain.Entities
 @model RatingViewModel
-@{
-    ViewBag.Title = "Rate a Task";
+
+@section script {
+    <script src="~/Angular/angular.js"></script>
+    <script src="~/Angular/angular-animate.js"></script>
+    <script src="~/Angular/angular-resource.js"></script>
+    <script src="~/Angular/app.js"></script>
+    <script src="~/Angular/rate/gradeTable/gradeTable.directive.js"></script>
+    <script src="~/Angular/rate/rate.controller.js"></script>
+    <script src="~/Angular/services/taskGradeService.js"></script>
+    <script src="~/Angular/services/taskRating.js"></script>
+    <script src="~/Angular/services/taskRatingFactory.js"></script>
+    <script src="~/Angular/services/taskRatingResource.js"></script>
+    <script src="~/Angular/services/taskRatingService.js"></script>
+    <script src="~/Angular/services/taskRatingServiceFactory.js"></script>
+    <script src="~/Angular/services/taskVersionService.js"></script>
+    <script src="~/Scripts/UploadPopup.js"></script>
 }
-@section css{
-    <style>
-        h3 {display:inline;}
-        #othervalidation{color:red;}
-        .message-success{color:green;}
-    </style>
+
+@section css {
+    <link href="~/Angular/rate/gradeTable/gradeTable.css" rel="stylesheet" />
 }
-    <div class="page-header">
-        <div class="row">
-            <div class="col-md-9">
-                <h2>@Model.TaskVersion.Task.TaskName</h2>
-                <small>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName</small>
-            </div>
-            <div class="col-md-1">
-                @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
-                {
-                    @Html.DropDownListFor(x => x.VersID, Model.VersionDrop, 
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-9">
+            <h2>@Model.TaskVersion.Task.TaskName</h2>
+            <small>@Model.TaskVersion.User.LastName, @Model.TaskVersion.User.FirstName</small>
+        </div>
+        <div class="col-md-1">
+            @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
+            {
+                @Html.DropDownListFor(x => x.VersID, Model.VersionDrop,
                     new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
-                }
-            </div>
-            <div class="col-md-2" style="text-align:right;">
-                @Html.ActionLink("DL", "Download", new { DocumentID = Model.TaskVersion.DocumentID },
-                new { @class = "btn btn-default", title="Download Candidate Submission" })
-                @Html.ActionLink("UL", "Upload", new
+            }
+        </div>
+        <div class="col-md-2" style="text-align:right;">
+            @Html.ActionLink("DL", "Download", new { DocumentID = Model.TaskVersion.DocumentID },
+                new { @class = "btn btn-default", title = "Download Candidate Submission" })
+            @Html.ActionLink("UL", "Upload", new
            {
                VersID = Model.TaskVersion.VersID,
                SelectedUserID =
@@ -36,40 +47,110 @@
                Version = Model.TaskVersion.Version,
                returnUrl = Request.Url.PathAndQuery
            },
-           new { @class = "btn btn-default upload", title="Upload Feedback For Submission" })
-            </div>
+           new { @class = "btn btn-default upload", title = "Upload Feedback For Submission" })
         </div>
     </div>
+</div>
 
-@using (Html.BeginForm("Rate", "Rating", FormMethod.Post, new {id="ratingform"}))
-{
-    @Html.ValidationSummary()
-    <div id="othervalidation"></div>
-    if (ViewBag.SuccessMessage != "")
-    {
-        <div class="message-success well well-sm">@ViewBag.SuccessMessage</div>
-    }
-    
-    @Html.HiddenFor(model => model.VersID, new {id="versidhidden" })
+<div ng-app="facultyApp">
+    <div ng-controller="RateCtrl">
+        {{UploadMessage}}
+        <form name="taskGradeForm" novalidate>
+            <div ng-if="grade.LogRating.IsExistingRating()">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Number of Entries</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <input type="number" ng-model="grade.LogRating.data.NumEntries" min="0" required integer/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-    @Html.Action("Reflection", new { VersID = Model.VersID })
+            <div ng-if="grade.ReflectionRating.IsExistingRating()">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Number of Hours</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <input type="number" ng-model="grade.ReflectionRating.data.NumHours" min="0" required/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h3 class="grade-header">Seminar Core Topic Ratings</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Core Topic</th>
+                        <th>Conceptual</th>
+                        <th>Strategic</th>
+                        <th>Personal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="rating in grade.TaskCoreRatings">
+                        <td>
+                            {{rating.data.CoreTopicTitle}}
+                        </td>
+                        <td>
+                            <input type="number" ng-model="rating.data.CScore" min="0" max="3" name="foo" integer />
+                        </td>
+                        <td>
+                            <input type="number" ng-model="rating.data.SScore" min="0" max="3" integer />
+                        </td>
+                        <td>
+                            <input type="number" ng-model="rating.data.PScore" min="0" max="3" integer />
+                        </td>
+                        <td>
+                            <span class="glyphicon glyphicon-remove" ng-click="rating.Clear()" ng-show="!rating.IsEmpty()"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="grade-header">Other Core Ratings</h3>
+            <grade-table ratings="grade.OtherCoreRatings"></grade-table>
 
-    <div id="taskratings">
-        @Html.Action("Task", new { VersID = Model.VersID })
+            <h3 class="grade-header">Impact Rating</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Structures & Operations</th>
+                        <th>Professional Practices</th>
+                        <th>Student Learning</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" ng-model="grade.ImpactRating.data.SScore" min="0" max="3" integer/>
+                        </td>
+                        <td>
+                            <input type="number" ng-model="grade.ImpactRating.data.PScore" min="0" max="3" integer/>
+                        </td>
+                        <td>
+                            <input type="number" ng-model="grade.ImpactRating.data.LScore" min="0" max="3" integer/>
+                        </td>
+                        <td>
+                            <span class="glyphicon glyphicon-remove" ng-click="grade.ImpactRating.Clear()" ng-show="!grade.ImpactRating.IsEmpty()"></span>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+
+            <button class="btn-success" ng-click="SaveGrade()" ng-disabled="taskGradeForm.$invalid">Save</button>
+            <span ng-show="taskGradeForm.$invalid" class="error-message">Please Correct Highlighted Errors</span>
+            <span ng-switch="errorSavingGrade">
+                <span ng-switch-when="false">Saved Successfully</span>
+                <span ng-switch-when="true">Failed To Save Rating. Please try again.</span>
+            </span>
+        </form>
     </div>
-
-    <div id="otherratings">
-        @Html.Action("Other", new { VersID = Model.VersID })
-    </div>
-    
-    <div id="impactratings">
-        @Html.Action("Impact", new { VersID = Model.VersID })
-    </div>
-    
-    <input type="submit" class="btn btn-default" value="Save" id="ratingsubmit"/>
-}
-
-@section script {
-    <script src="~/Scripts/UploadPopup.js"></script>
-    <script src="~/Scripts/RatingForm.js"></script>
-}
+</div>

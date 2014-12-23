@@ -39,7 +39,7 @@ namespace LEDE.WebUI.Controllers
         {
             try
             {
-                ImpactTypeRating rating = db.ImpactTypeRatings.Single(ir => ir.TaskRating.VersID == id);
+                ImpactTypeRating rating = db.ImpactTypeRatings.First(ir => ir.TaskRating.VersID == id);
                 return new ImpactDTO()
                 {
                     RatingID = rating.RatingID,

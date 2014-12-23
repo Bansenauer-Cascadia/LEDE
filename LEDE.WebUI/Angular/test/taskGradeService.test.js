@@ -78,9 +78,9 @@ describe('Service: taskGradeService', function () {
             var grade;
             var gradeService = taskGradeService.Create(mockVersID);
             spyOn(coreService, "GetAll").and.callFake(getSuccessPromiseFn(CoreSuccessData));
-            spyOn(impactService, "GetSingle").and.callFake(getSuccessPromiseFn(ImpactSuccessData));
-            spyOn(logService, "GetSingle").and.callFake(getSuccessPromiseFn(LogSuccessData));
-            spyOn(reflectionService, "GetSingle").and.callFake(getSuccessPromiseFn(ReflectionSuccessData));
+            spyOn(impactService, "GetSingle").and.callFake(getSuccessPromiseFn([ImpactSuccessData]));
+            spyOn(logService, "GetSingle").and.callFake(getSuccessPromiseFn([LogSuccessData]));
+            spyOn(reflectionService, "GetSingle").and.callFake(getSuccessPromiseFn([ReflectionSuccessData]));
 
 
             gradeService.GetGrade().then(function () {

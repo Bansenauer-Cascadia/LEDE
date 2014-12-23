@@ -14,29 +14,17 @@ angular.module('facultyApp')
 
                 scope.EnterExpandedMode = function () {
                     scope.expanded = true;
-                    scope.visibleRatings = scope.allRatings
                 };
 
                 scope.EnterContractedMode = function () {
                     scope.expanded = false;
-                    scope.visibleRatings = $filter('filter')(scope.allRatings, scope.IsRatingVisible, true)
                 };
 
-                scope.NoRatingsToShow = function () {
-                    return scope.allRatings.length === scope.visibleRatings.length
-                };
-
-                scope.NoRatingsToHide = function () {
-                    var ratingsToHide = $filter('filter')(scope.allRatings, !scope.IsRatingVisible, true);
-                    return ratingsToHide.length === 0
-                };
-
-                scope.IsHeaderVisible = function () {
-                    return scope.expanded || scope.visibleRatings.length > 0
-                };
-
-                scope.IsRatingVisible = function(rating) {
-                  return rating.IsExistingRating() || !rating.IsEmpty()
+                scope.IsRatingVisible = function (rating) {
+                    if (rating === undefined) return false; 
+                    var existing = rating.IsExistingRating();
+                    var empty = rating.IsEmpty();
+                    return rating.IsExistingRating() || !rating.IsEmpty() || scope.expanded;
                 };
 
                 var partialsUrl = '../Angular/rate/gradeTable/partials/'

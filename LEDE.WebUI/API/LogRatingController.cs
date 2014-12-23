@@ -41,6 +41,23 @@ namespace LEDE.WebUI.Controllers
             }
             catch
             {
+                return InitializeLogIfAppropriate(id);
+            }
+        }
+
+        private LogDTO InitializeLogIfAppropriate(int VersID)
+        {
+            try
+            {
+                TaskVersion versionForReflection = db.TaskVersions.Find(VersID);
+
+                if (versionForReflection.Task.TaskTypeID == 2)
+                    return new LogDTO() { VersID = versionForReflection.VersID };
+                else
+                    return null;
+            }
+            catch
+            {
                 return null;
             }
         }
@@ -55,6 +72,7 @@ namespace LEDE.WebUI.Controllers
                     VersID = log.VersID,
                     NumEntries = log.NumEntries
                 };
+                db.ReadingLogEntries.Add(newLog);
                 db.SaveChanges();
             }
             catch
@@ -74,7 +92,7 @@ namespace LEDE.WebUI.Controllers
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                Post(log);
             }
         }
 
