@@ -2537,6 +2537,8 @@
     <Content Include="Angular\node_modules\karma\requirejs.config.tpl.coffee" />
     <Content Include="Angular\npm-debug.log" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\EditPanel.js" />
     <Content Include="Scripts\Enrollment.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
