@@ -171,6 +171,7 @@
     <Compile Include="Concrete\AppUserManager.cs" />
     <Compile Include="Concrete\CandidateRepository.cs" />
     <Compile Include="Concrete\EnrollmentRepository.cs" />
+    <Compile Include="Concrete\FacultyCohortAccess.cs" />
     <Compile Include="Concrete\FileManager.cs" />
     <Compile Include="Concrete\PercentageCalculator.cs" />
     <Compile Include="Concrete\RatingRepository.cs" />

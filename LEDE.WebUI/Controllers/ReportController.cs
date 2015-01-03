@@ -52,6 +52,7 @@ namespace LEDE.WebUI.Controllers
 
         public SelectList ProgramCohortsForUser(int? ProgramCohortID)
         {
+            int FacultyID = Int32.Parse(User.Identity.GetUserId());
             IEnumerable<ProgramCohort> FacultyCohorts = db.getCohorts(FacultyID);
             int selectedProgramCohortID = ProgramCohortID ?? FacultyCohorts.First().ProgramCohortID;
 

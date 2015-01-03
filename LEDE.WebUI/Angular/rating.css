@@ -1,0 +1,38 @@
+﻿.rating-label {    
+    font-weight: normal;
+}
+.rating-table-header {
+    font-size:1.2em;
+    display: inline;
+}
+.rating-toggle {
+    cursor: pointer;
+    display:inline-block;
+}
+.rating-toggle .rating-caption {
+    margin-right:10px;
+}
+
+input.ng-invalid {
+    background-color: mistyrose;
+}
+
+.rating-save-message {
+    display: inline-block;
+    margin-left: 10px;
+    color: grey;
+}
+
+.rating-submit {
+    margin-left: 6px;
+}
+
+.page-header, .form-group.row {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.rating-error {
+    color:red;
+    margin-left: 10px;
+}

@@ -15,25 +15,17 @@ describe('Service: taskRating', function () {
 
     it("sets data to parameter provided", function(){
         var taskRatingData = {foo: 'asdf', bar: 'fdsa'};
-        var taskRatingWithData = new taskRating(taskRatingData);
+        var taskRatingWithData = new taskRating(null, null, taskRatingData);
 
         var data = taskRatingWithData.data;
 
         expect(data).toEqual(taskRatingData);
     });
-    it("sets data to empty object if none is provided", function(){
-        var taskRatingWithoutData = new taskRating();
-        var emptyData = {};
-
-        var data = taskRatingWithoutData.data;
-
-        expect(data).toEqual(emptyData);
-    });
     it("correctly determines if a rating is existing rating", function(){
         var existingTaskRatingData = {RatingID: 1};
-        var existingTaskRating = new taskRating(existingTaskRatingData, 'RatingID', []);
+        var existingTaskRating = new taskRating('RatingID', [], existingTaskRatingData);
         var newTaskRatingData = {RatingID: 0};
-        var newTaskRating = new taskRating(newTaskRatingData, 'RatingID', []);
+        var newTaskRating = new taskRating('RatingID', [], newTaskRatingData);
 
         var isExistingRatingExisting = existingTaskRating.IsExistingRating();
         var isNewRatingExisting = newTaskRating.IsExistingRating();
@@ -43,7 +35,7 @@ describe('Service: taskRating', function () {
     });
     it("sets all scores to null when Clear() is called", function () {
         var sampleRatingData = {RatingID: 1, CScore: 1, SScore: 3, PScore: 1};
-        var taskRatingToClear = new taskRating(sampleRatingData, mockKey, mockFields);
+        var taskRatingToClear = new taskRating(mockKey, mockFields, sampleRatingData);
 
         taskRatingToClear.Clear();
 
@@ -59,7 +51,7 @@ describe('Service: taskRating', function () {
             SScore: null
         };
 
-        var emptyTaskRating = new taskRating(emptyRatingData, mockKey, mockFields);
+        var emptyTaskRating = new taskRating(mockKey, mockFields, emptyRatingData);
         var isRatingEmpty = emptyTaskRating.IsEmpty();
 
         expect(isRatingEmpty).toBeTruthy();
@@ -69,47 +61,11 @@ describe('Service: taskRating', function () {
         var NonEmptyRatingModels = [];
 
         NonEmptyRatingData.forEach(function (data) {
-            NonEmptyRatingModels.push(new taskRating(data, mockKey, mockFields))
+            NonEmptyRatingModels.push(new taskRating(mockKey, mockFields, data))
         });
 
         NonEmptyRatingModels.forEach(function (model) {
             expect(model.IsEmpty()).toBeFalsy();
         })
-    });
-    it("RatingStatus() correctly returns 'deleted'", function () {
-        var deletedTaskRating = new taskRating();
-        spyOn(deletedTaskRating, "IsExistingRating").and.returnValue(true);
-        spyOn(deletedTaskRating, "IsEmpty").and.returnValue(true);
-
-        var DeletedStatus = deletedTaskRating.RatingStatus();
-
-        expect(DeletedStatus).toEqual("deleted");
-    });
-    it("RatingStatus() correctly returns 'updated'", function () {
-        var updatedTaskRating = new taskRating();
-        spyOn(updatedTaskRating, "IsExistingRating").and.returnValue(true);
-        spyOn(updatedTaskRating, "IsEmpty").and.returnValue(false);
-
-        var UpdatedStatus = updatedTaskRating.RatingStatus();
-
-        expect(UpdatedStatus).toEqual("updated");
-    });
-    it("RatingStatus() correctly returns 'created'", function () {
-        var createdRating = new taskRating();
-        spyOn(createdRating, "IsExistingRating").and.returnValue(false);
-        spyOn(createdRating, "IsEmpty").and.returnValue(false);
-
-        var CreatedStatus = createdRating.RatingStatus();
-
-        expect(CreatedStatus).toEqual("created");
-    });
-    it("returns undefined for RatingStatus()", function () {
-        var noActionRating = new taskRating();
-        spyOn(noActionRating, "IsExistingRating").and.returnValue(false);
-        spyOn(noActionRating, "IsEmpty").and.returnValue(true);
-
-        var noStatus = noActionRating.RatingStatus();
-
-        expect(noStatus).toBeUndefined()
     });
 });

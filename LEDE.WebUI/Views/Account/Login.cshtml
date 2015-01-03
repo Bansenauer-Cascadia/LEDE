@@ -1,16 +1,35 @@
-﻿@model LEDE.Domain.Entities.LoginModel
+﻿@model bool?
 @{
     ViewBag.Title = "Login";
+    bool? isTestLogin = Model;
 }
-@section css{
-
-}
-@section script{
-
+@if (isTestLogin == true)
+{
+    <div class="row">
+        <h2 class="col-md-12">What You're About To See</h2>
+        <div class="col-md-6">
+            <p>
+                The site a Faculty Member for the LEDE/ECSEL program uses to grade student submissions.
+            </p>
+            <h3>Site Tips</h3>
+            <ul>
+                <li>
+                    Students submit 'Versions' of assignments.
+                    The home page shows most recent versions submitted by each student.
+                </li>
+                <li>
+                    Red boxes indicate that an assignment is unrated. Click a box to go to the rating page.
+                </li>
+                <li>
+                    Feel free to fully interact with the site by uploading files and submitting test ratings; it's all dummy data! 
+                </li>
+            </ul>
+        </div>
+    </div>
 }
 <h2>Log In</h2>
 
-@Html.ValidationSummary() 
+@Html.ValidationSummary()
 
 @using (Html.BeginForm())
 {
@@ -18,11 +37,11 @@
     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
     <div class="form-group">
         <label>User name</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.TextBox("Name", (string)ViewBag.TestUser, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Password</label>
-        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+        @Html.Password("Password", (string)ViewBag.TestPassword, new { @class = "form-control" })
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
 }

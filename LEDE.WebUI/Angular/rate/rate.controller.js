@@ -1,15 +1,16 @@
 'use strict';
 
 angular.module('facultyApp')
-    .controller('RateCtrl', function ($scope, $location, taskGradeService) {
+    .controller('RateCtrl', function ($scope, $location, $timeout, $window, gradeService) {
         var params = $location.search();
         $scope.VersID = params.VersID;
         $scope.UploadMessage = params.Message;
 
-        var gradeService = taskGradeService.Create($scope.VersID);
+        var gradeResource = gradeService.Create($scope.VersID);
 
         this.GetGrade = function() {
-            gradeService.GetGrade().then(function (grade) {
+            gradeResource.GetGrade().then(function (grade) {
+                $scope.SeminarID = grade.TaskVersion.data;
                 $scope.grade = grade;                
             }).catch(function(){
                 $scope.errorFetchingGrade = true;
@@ -18,12 +19,17 @@ angular.module('facultyApp')
 
         $scope.SaveGrade = function () {
             $scope.errorSavingGrade = undefined;
-            gradeService.SaveGrade().then(function (grade) {
+            gradeResource.SaveGrade($scope.grade).then(function () {
                 $scope.errorSavingGrade = false;
-            }).catch(function (error) {
+                $timeout(redirectToHome, 500);
+            }).catch(function () {
                 $scope.errorSavingGrade = true;
             })
-        };        
+        };
+
+        var redirectToHome = function () {
+            $window.location.href = '/';
+        }
 
         this.GetGrade();
     });

@@ -23,6 +23,7 @@ namespace LEDE.WebUI.Controllers
         public int? LScore { get; set; }
     }
 
+    [Authorize(Roles = "Faculty")]
     public class ImpactRatingController : ApiController
     {
         private DbContext db;

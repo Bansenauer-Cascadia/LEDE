@@ -15,14 +15,20 @@ namespace LEDE.WebUI.Controllers
     public class AccountController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, bool? isTestLogin)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("LoginRedirect");
             }
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+
+            if (isTestLogin == true)
+            {
+                ViewBag.TestUser = "TestFaculty";
+                ViewBag.TestPassword = "Test123";
+            }
+            return View(isTestLogin);
         }
         
         public ActionResult LoginRedirect()

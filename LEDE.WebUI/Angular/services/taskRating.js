@@ -1,39 +1,35 @@
 'use strict';
 
-angular.module('facultyApp').factory('taskRating', function(){
-   return function(data, primaryKeyField, scoreFields) {
-       if(!data) data = {};
-       this.data = data;
-       var primaryKey = this.primaryKey = primaryKeyField;
-       this.scoreFields = scoreFields;
+angular.module('facultyApp').factory('taskRating', function () {
+    var taskRating = function (PrimaryKey, ScoreFields, Data) {
+        this.scoreFields = ScoreFields;
+        this.primaryKey = PrimaryKey;
+        this.data = Data;
+    };
 
-       this.IsExistingRating = function(){
-           return this.data[primaryKey] > 0;
-       };
+    taskRating.prototype = {
 
-       this.IsEmpty = function () {
-           for(var i = 0; i < this.scoreFields.length; i ++) {
-               if(this.data[scoreFields[i]] !== null) return false;
-           }
-           return true;
-       };
+        IsExistingRating: function () {
+            return this.data[this.primaryKey] > 0;
+        },
 
-       this.Clear = function(){
-         this.scoreFields.forEach(function(field){
-            this.data[field] = null;
-         }.bind(this));
-       };
+        IsEmpty: function () {
+            for (var i = 0; i < this.scoreFields.length; i++) {
+                if (this.data[this.scoreFields[i]] !== null) return false;
+            }
+            return true;
+        },
 
-       this.RatingStatus = function() {
-           var ratingStatus;
-           if(this.IsExistingRating()) {
-               if(this.IsEmpty()) ratingStatus = 'deleted';
-               else ratingStatus = 'updated';
-           }
-           else if(!this.IsEmpty()) {
-               ratingStatus = 'created';
-           }
-           return ratingStatus;
-       };
-   };
+        Clear: function () {
+            this.scoreFields.forEach(function (field) {
+                this.data[field] = null;
+            }.bind(this));
+        },
+
+        IsSeminarRating: function (SeminarID) {
+            return this.data.SeminarID === SeminarID;
+        }
+    };
+
+    return taskRating;
 });
