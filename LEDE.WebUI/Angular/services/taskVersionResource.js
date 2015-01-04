@@ -4,7 +4,7 @@
         this.GetTaskVersion = function (VersID) {
             return $http.get(taskVersionUrl + VersID)
         };
-        this.CompleteRating = function (VersID) {
+        this.MarkTaskVersionAsRated = function (VersID) {
            return $http.put(taskVersionUrl + VersID)
         };
     };

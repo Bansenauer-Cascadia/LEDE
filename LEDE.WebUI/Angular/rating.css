@@ -36,3 +36,7 @@ input.ng-invalid {
     color:red;
     margin-left: 10px;
 }
+
+.upload-message {
+    color: green;
+}

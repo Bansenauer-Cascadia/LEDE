@@ -91,6 +91,10 @@ namespace LEDE.WebUI.Controllers
                     ViewBag.SuccessMessage = "Upload Failed. Please Try Again.";
                 }
             }
+            else
+            {
+                ViewBag.SuccessMessage = "Upload Failed. Please attach a non-empty file";
+            }
 
             if (returnUrl != null)
             {

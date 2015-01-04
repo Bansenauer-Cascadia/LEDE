@@ -1,78 +1,99 @@
 angular.module('facultyApp').factory('gradeService', function (ratingResource, taskVersionResource, taskRating, $q) {
 
+    var coreRating = taskRating.bind(null, 'RatingID', ['CScore', 'SScore', 'PScore']);
+    var impactRating = taskRating.bind(null, 'RatingID', ['SScore', 'PScore', 'LScore']);
+    var reflectionRating = taskRating.bind(null, 'VersID', ['NumHours']);
+    var logRating = taskRating.bind(null, 'VersID', ['NumEntries']);
+
+    var ratingRepository = function (ratingResource, ratingType) {
+        this.rating = {};
+        this.ratingResource = ratingResource;
+        this.ratingType = ratingType;
+    };
+    ratingRepository.prototype = {
+        GetRating: function (VersID) {
+            return this.ratingResource.GetAll(VersID).then(function (ratingData) {
+                this.rating = new this.ratingType(ratingData);
+            }.bind(this))
+        },
+        SaveRating: function(rating) {
+            if (rating.IsExistingRating() && rating.IsEmpty()) return this.ratingResource.Delete(rating.data);
+            if (rating.IsExistingRating() && !rating.IsEmpty()) return this.ratingResource.Update(rating.data);
+            if (!rating.IsExistingRating() && !rating.IsEmpty()) return this.ratingResource.Create(rating.data);
+        }
+    };
+
+    var ratingArrayRepository = function (ratingResource, ratingType) {
+        ratingRepository.call(this, ratingResource, ratingType);
+        this.ratings = [];
+    };
+    ratingArrayRepository.prototype = {
+        GetRatings: function(VersID) {
+            return this.ratingResource.GetAll(VersID).then(function (ratingDataArray) {
+                for (var i = 0; i < ratingDataArray.length; i++) {
+                    this.ratings.push(new this.ratingType(ratingDataArray[i]))
+                }
+            }.bind(this))
+        },
+        SaveRatings: function(ratings) {
+            var saveRatingActions = [];
+            for (var i = 0; i < ratings.length; i++) {
+                var saveRatingAction = ratingRepository.prototype.SaveRating.call(this, ratings[i]);
+                saveRatingActions.push(saveRatingAction);
+            }
+            return $q.all(saveRatingActions);
+        }
+    };
+
     function TaskGradeService(VersID) {
 
-        this.grade = {};
+        this.CoreRatings = new ratingArrayRepository(ratingResource.core, coreRating);
+        this.ImpactRating = new ratingRepository(ratingResource.impact, impactRating);
+        this.Reflection = new ratingRepository(ratingResource.reflection, reflectionRating);
+        this.Log = new ratingRepository(ratingResource.log, logRating);
 
         this.GetGrade = function () {
-            var deferred = $q.defer(),
-                getGradeActions = GetTaskRatings().concat(GetTaskVersion());
-
-            $q.all(getGradeActions)
+            var getGradeActions = InitializeRatingsFromData().concat(InitializeTaskFromData());
+            return $q.all(getGradeActions)
                 .then(function () {
-                    deferred.resolve(this.grade);
-                }.bind(this))
-                .catch(function (error) {
-                    deferred.reject(error);
-                });
-            return deferred.promise;
+                    return {
+                        CoreRatings: this.CoreRatings.ratings,
+                        ImpactRating: this.ImpactRating.rating,
+                        Reflection: this.Reflection.rating,
+                        Log: this.Log.rating,
+                        TaskVersion: this.TaskVersion
+                    };
+                }.bind(this));
         };
 
         this.SaveGrade = function (grade) {
-            var saveGradeActions = SaveTaskRatings(grade).concat(MarkTaskAsRated());
+            var saveGradeActions = SaveTaskRatings(grade).concat(taskVersionResource.MarkTaskVersionAsRated(VersID));
             return $q.all(saveGradeActions);
         };
 
-        var GetTaskRatings = function () {
+        var InitializeRatingsFromData = function () {
             var ratingPromises = [];
-
-            ratingPromises.push(ratingResource.core.GetAll(VersID).then(function (data) {
-                this.grade.CoreRatings = data.map(function (rating) { return new coreRating(rating); });
-            }.bind(this)));
-            ratingPromises.push(ratingResource.impact.GetAll(VersID).then(function (data) {
-                this.grade.ImpactRating = new impactRating(data);
-            }.bind(this)));
-            ratingPromises.push(ratingResource.reflection.GetAll(VersID).then(function (data) {
-                this.grade.Reflection = new reflectionRating(data);
-            }.bind(this)));
-            ratingPromises.push(ratingResource.log.GetAll(VersID).then(function (data) {
-                this.grade.Log = new logRating(data);
-            }.bind(this)));
-
+            ratingPromises.push(this.CoreRatings.GetRatings(VersID));
+            ratingPromises.push(this.ImpactRating.GetRating(VersID));
+            ratingPromises.push(this.Reflection.GetRating(VersID));
+            ratingPromises.push(this.Log.GetRating(VersID));
             return ratingPromises;
         }.bind(this);
 
-        var GetTaskVersion = function () {
-            taskVersionResource.GetTaskVersion(VersID).then(function (data) {
-                this.grade.TaskVersion = data;
+        var InitializeTaskFromData = function () {
+            return taskVersionResource.GetTaskVersion(VersID).then(function (data) {
+                this.TaskVersion = data;
             }.bind(this))
         }.bind(this);
 
         var SaveTaskRatings = function (grade) {
             savePromises = [];
-            grade.CoreRatings.forEach(function (coreRating) {
-                savePromises.push(SaveIndividualRating(coreRating, ratingResource.core))
-            });
-            savePromises.push(SaveIndividualRating(grade.ImpactRating, ratingResource.impact));
-            savePromises.push(SaveIndividualRating(grade.Reflection, ratingResource.reflection));
-            savePromises.push(SaveIndividualRating(grade.Log, ratingResource.log));
+            savePromises.push(this.CoreRatings.SaveRatings(grade.CoreRatings));
+            savePromises.push(this.ImpactRating.SaveRating(grade.ImpactRating));
+            savePromises.push(this.Reflection.SaveRating(grade.Reflection));
+            savePromises.push(this.Log.SaveRating(grade.Log));
             return savePromises;
-        };
-
-        var SaveIndividualRating = function (rating, resource) {
-            if (rating.IsExistingRating() && rating.IsEmpty()) return resource.Delete(rating.data);
-            if (rating.IsExistingRating() && !rating.IsEmpty()) return resource.Update(rating.data);
-            if (!rating.IsExistingRating() && !rating.IsEmpty()) return resource.Create(rating.data);
-        };
-
-        var MarkTaskAsRated = function () {
-            return taskVersionResource.CompleteRating(VersID);
-        };
-
-        var coreRating = taskRating.bind(null, 'RatingID', ['CScore', 'SScore', 'PScore']);
-        var impactRating = taskRating.bind(null, 'RatingID', ['SScore', 'PScore', 'LScore']);
-        var reflectionRating = taskRating.bind(null, 'VersID', ['NumHours']);
-        var logRating = taskRating.bind(null, 'VersID', ['NumEntries']);
+        }.bind(this);
     }
 
     return {
