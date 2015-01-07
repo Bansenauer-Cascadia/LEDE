@@ -25,10 +25,11 @@ namespace LEDE.WebUI.Controllers
 
             if (isTestLogin == true)
             {
+                ViewBag.isTestLogin = true;
                 ViewBag.TestUser = "TestFaculty";
                 ViewBag.TestPassword = "Test123";
             }
-            return View(isTestLogin);
+            return View();
         }
         
         public ActionResult LoginRedirect()
