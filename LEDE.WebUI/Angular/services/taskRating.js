@@ -1,5 +1,5 @@
 'use strict';
-
+//This class holds all the business logic for individual task ratings.
 angular.module('facultyApp').factory('taskRating', function () {
     var taskRating = function (PrimaryKey, ScoreFields, Data) {
         this.scoreFields = ScoreFields;

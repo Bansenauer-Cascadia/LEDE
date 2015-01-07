@@ -1,10 +1,15 @@
+//This class is responsible for getting grade data and converting it to taskRating models when GetGrade() is called
+//and persisting this data when SaveGrade() is called.
 angular.module('facultyApp').factory('gradeService', function (ratingResource, taskVersionResource, taskRating, $q) {
 
+    //There are 4 taskRating types that make up a grade. Here we create constructor functions for each type that
+    //will call the taskRating constructor with the appropriate fields. 
     var coreRating = taskRating.bind(null, 'RatingID', ['CScore', 'SScore', 'PScore']);
     var impactRating = taskRating.bind(null, 'RatingID', ['SScore', 'PScore', 'LScore']);
     var reflectionRating = taskRating.bind(null, 'VersID', ['NumHours']);
     var logRating = taskRating.bind(null, 'VersID', ['NumEntries']);
 
+    //class that persists a single taskRating model to a taskRating data source
     var ratingRepository = function (ratingResource, ratingType) {
         this.rating = {};
         this.ratingResource = ratingResource;
@@ -23,6 +28,7 @@ angular.module('facultyApp').factory('gradeService', function (ratingResource, t
         }
     };
 
+    //class that persists an array of taskRating models to a taskRating data source
     var ratingArrayRepository = function (ratingResource, ratingType) {
         ratingRepository.call(this, ratingResource, ratingType);
         this.ratings = [];
@@ -45,6 +51,7 @@ angular.module('facultyApp').factory('gradeService', function (ratingResource, t
         }
     };
 
+    //taskGradeService object which is created and returned by gradeService.Create()
     function TaskGradeService(VersID) {
 
         this.CoreRatings = new ratingArrayRepository(ratingResource.core, coreRating);
