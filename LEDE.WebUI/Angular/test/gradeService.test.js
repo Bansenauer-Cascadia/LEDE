@@ -35,11 +35,11 @@ describe('Service: ratingResource', function () {
 
     describe('GetGrade()', function () {
         beforeEach(function () {
-            coreData = [{RatingID: 1, CScore: 2, SScore: 2, PScore: null}];
-            impactData = {RatingID: 2, SScore: null, PScore: 1, LScore: 1};
-            logData = {VersID: 1, NumEntries: 2};
-            reflectionData = {VersID: 1, NumHours: 2.1};
-            taskVersionData = {SeminarID: 1};
+            coreData = [{ RatingID: 1, CScore: 2, SScore: 2, PScore: null }];
+            impactData = { RatingID: 2, SScore: null, PScore: 1, LScore: 1 };
+            logData = { VersID: 1, NumEntries: 2 };
+            reflectionData = { VersID: 1, NumHours: 2.1 };
+            taskVersionData = { SeminarID: 1 };
             error = 'There was an error retrieving the data';
         });
         describe('Behavior when called Successfully', function () {
@@ -86,13 +86,13 @@ describe('Service: ratingResource', function () {
 
     describe('SaveGrade(): All 4 components of the grade are individually created, updated, or deleted depending on their data', function () {
         var gradeToSave, createGradeFromRating;
-        beforeEach(function(){
-            coreData = {coreData: true};
-            impactData = {impactData: true};
-            logData = {logData: true};
-            reflectionData = {reflectionData: true};
+        beforeEach(function () {
+            coreData = { coreData: true };
+            impactData = { impactData: true };
+            logData = { logData: true };
+            reflectionData = { reflectionData: true };
 
-            createGradeFromRating = function(rating) {
+            createGradeFromRating = function (rating) {
                 return {
                     CoreRatings: [new rating(coreData)],
                     ImpactRating: new rating(impactData),
@@ -102,12 +102,12 @@ describe('Service: ratingResource', function () {
             }
         });
         describe('Non-empty ratings that already exist should be updated', function () {
-            var ratingThatShouldBeUpdated = function(data) {
+            var ratingThatShouldBeUpdated = function (data) {
                 this.data = data;
-                this.IsEmpty = function() {
+                this.IsEmpty = function () {
                     return false;
                 };
-                this.IsExistingRating = function() {
+                this.IsExistingRating = function () {
                     return true;
                 }
             };
@@ -127,12 +127,12 @@ describe('Service: ratingResource', function () {
             });
         });
         describe('Non-empty ratings that do not already exist should be created', function () {
-            var ratingThatShouldBeCreated = function(data) {
+            var ratingThatShouldBeCreated = function (data) {
                 this.data = data;
-                this.IsEmpty = function() {
+                this.IsEmpty = function () {
                     return false;
                 };
-                this.IsExistingRating = function() {
+                this.IsExistingRating = function () {
                     return false;
                 };
             };
@@ -152,12 +152,12 @@ describe('Service: ratingResource', function () {
             });
         });
         describe('null data with a non-zero primary key should be deleted', function () {
-            var ratingThatShouldBeDeleted = function(data) {
+            var ratingThatShouldBeDeleted = function (data) {
                 this.data = data;
-                this.IsEmpty = function() {
+                this.IsEmpty = function () {
                     return true;
                 };
-                this.IsExistingRating = function() {
+                this.IsExistingRating = function () {
                     return true;
                 };
             };
@@ -176,11 +176,11 @@ describe('Service: ratingResource', function () {
                 expect(ratingResource.reflection.Delete).toHaveBeenCalledWith(reflectionData);
             });
             it('Marks ratingStatus as "complete" after successful rating save', function () {
-                spyOn(taskVersionResource, 'CompleteRating').and.callFake(asyncSuccess());
+                spyOn(taskVersionResource, 'MarkTaskVersionAsRated').and.callFake(asyncSuccess());
                 testService.SaveGrade(gradeToSave);
                 $rootScope.$apply();
 
-                expect(taskVersionResource.CompleteRating).toHaveBeenCalledWith(testVersID);
+                expect(taskVersionResource.MarkTaskVersionAsRated).toHaveBeenCalledWith(testVersID);
             });
         });
     });

@@ -8,8 +8,10 @@ angular.module('facultyApp')
 
         var gradeResource = gradeService.Create($scope.VersID);
 
-        this.GetGrade = function() {
+        this.GetGrade = function () {
+            $scope.errorFetchingGrade = undefined;
             gradeResource.GetGrade().then(function (grade) {
+                $scope.errorFetchingGrade = false;
                 $scope.SeminarID = grade.TaskVersion.data;
                 $scope.grade = grade;                
             }).catch(function(){

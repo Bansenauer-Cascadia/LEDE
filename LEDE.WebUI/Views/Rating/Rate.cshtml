@@ -57,98 +57,104 @@ else
     </div>
 
     <div ng-app="facultyApp">
-        <div ng-controller="RateCtrl">
-            <span ng-show="UploadMessage !== undefined" class="upload-message">{{UploadMessage}}</span>
+        <div ng-controller="RateCtrl" ng-switch="errorFetchingGrade">
 
-            <form name="gradeForm" novalidate>
+            <img ng-switch-default class="grade-loading" src="~/Images/ajax-loader.gif" />
+            <span ng-switch-when="true">Error Fetching Grade. Please reload and try again.</span>
 
-                <ng-form name="logForm" ng-if="grade.Log.IsExistingRating() === true" class="form-group row">
-                    <label class="rating-label">
-                        Number of Entries
-                        <input class="form-control" type="number" ng-model="grade.Log.data.NumEntries" min="0" required integer />
-                    </label>
-                    <span class="rating-error" ng-show="logForm.$invalid">Please enter an integer number of hours</span>
-                </ng-form>
+            <div ng-switch-when="false">
+                <span ng-show="UploadMessage !== undefined" class="upload-message">{{UploadMessage}}</span>
 
-                <ng-form name="reflectionForm" ng-if="grade.Reflection.IsExistingRating() === true" class="form-group row">
-                    <label class="rating-label">
-                        Number of Hours
-                        <input class="form-control" type="number" ng-model="grade.Reflection.data.NumHours" min="0" required />
-                    </label>
-                    <span class="rating-error" ng-show="reflectionForm.$invalid">Please enter a number of hours</span>
-                </ng-form>
+                <form name="gradeForm" novalidate>
 
-                <ng-form name="seminarCoreForm" class="row">
-                    <h3 class="rating-table-header">Seminar Core Ratings</h3>
-                    <span class="rating-error" ng-show="seminarCoreForm.$invalid">Please enter an integer between 0 and 3</span>
-                    <table class="table rating-table">
-                        <tr>
-                            <th>Core Topic</th>
-                            <th>Conceptual</th>
-                            <th>Strategic</th>
-                            <th>Personal</th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="rating in grade.CoreRatings| seminarRating:SeminarID" core-rating-row rating="rating"></tr>
-                    </table>
-                </ng-form>
+                    <ng-form name="logForm" ng-if="grade.Log.IsExistingRating() === true" class="form-group row">
+                        <label class="rating-label">
+                            Number of Entries
+                            <input class="form-control" type="number" ng-model="grade.Log.data.NumEntries" min="0" required integer />
+                        </label>
+                        <span class="rating-error" ng-show="logForm.$invalid">Please enter an integer number of hours</span>
+                    </ng-form>
 
-                <ng-form name="otherCoreForm" class="row">
-                    <div ng-switch="showOther" ng-click="showOther = !showOther" class="rating-toggle">
-                        <h3 class="rating-table-header">Other Core Ratings</h3>
-                        <span class="glyphicon glyphicon-collapse-up" ng-switch-when="true"></span>
-                        <span class="glyphicon glyphicon-collapse-down" ng-switch-default></span>
-                        <span class="rating-error" ng-show="otherCoreForm.$invalid">Please enter an integer between 0 and 3</span>
+                    <ng-form name="reflectionForm" ng-if="grade.Reflection.IsExistingRating() === true" class="form-group row">
+                        <label class="rating-label">
+                            Number of Hours
+                            <input class="form-control" type="number" ng-model="grade.Reflection.data.NumHours" min="0" required />
+                        </label>
+                        <span class="rating-error" ng-show="reflectionForm.$invalid">Please enter a number of hours</span>
+                    </ng-form>
+
+                    <ng-form name="seminarCoreForm" class="row">
+                        <h3 class="rating-table-header">Seminar Core Ratings</h3>
+                        <span class="rating-error" ng-show="seminarCoreForm.$invalid">Please enter an integer between 0 and 3</span>
+                        <table class="table rating-table">
+                            <tr>
+                                <th>Core Topic</th>
+                                <th>Conceptual</th>
+                                <th>Strategic</th>
+                                <th>Personal</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="rating in grade.CoreRatings| seminarRating:SeminarID" core-rating-row rating="rating"></tr>
+                        </table>
+                    </ng-form>
+
+                    <ng-form name="otherCoreForm" class="row">
+                        <div ng-switch="showOther" ng-click="showOther = !showOther" class="rating-toggle">
+                            <h3 class="rating-table-header">Other Core Ratings</h3>
+                            <span class="glyphicon glyphicon-collapse-up" ng-switch-when="true"></span>
+                            <span class="glyphicon glyphicon-collapse-down" ng-switch-default></span>
+                            <span class="rating-error" ng-show="otherCoreForm.$invalid">Please enter an integer between 0 and 3</span>
+                        </div>
+                        <table class="table rating-table">
+                            <tr>
+                                <th>Core Topic</th>
+                                <th>Conceptual</th>
+                                <th>Strategic</th>
+                                <th>Personal</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="rating in grade.CoreRatings | otherRating:SeminarID:showOther" core-rating-row rating="rating"></tr>
+                        </table>
+                    </ng-form>
+
+                    <ng-form name="impactForm" class="row">
+                        <h3 class="rating-table-header">Impact Rating</h3>
+                        <span class="rating-error" ng-show="impactForm.$invalid">Please enter an integer between 0 and 3</span>
+                        <table class="table rating-table">
+                            <tr>
+                                <th>Structures & Operations</th>
+                                <th>Professional Practices</th>
+                                <th>Student Learning</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" ng-model="grade.ImpactRating.data.SScore" min="0" max="3" integer />
+                                </td>
+                                <td>
+                                    <input type="number" ng-model="grade.ImpactRating.data.PScore" min="0" max="3" integer />
+                                </td>
+                                <td>
+                                    <input type="number" ng-model="grade.ImpactRating.data.LScore" min="0" max="3" integer />
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-remove" ng-click="grade.ImpactRating.Clear()" ng-show="!grade.ImpactRating.IsEmpty()"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </ng-form>
+
+                    <div class="rating-submit row">
+                        <button class="btn-success" ng-click="SaveGrade()" ng-disabled="gradeForm.$invalid">Save</button>
+                        <div class="rating-save-message">
+                            <span ng-switch="errorSavingGrade">
+                                <span ng-switch-when="false">Saved Successfully! Redirecting to Home Page.</span>
+                                <span ng-switch-when="true">Failed To Save Rating. Please try again.</span>
+                            </span>
+                        </div>
                     </div>
-                    <table class="table rating-table">
-                        <tr>
-                            <th>Core Topic</th>
-                            <th>Conceptual</th>
-                            <th>Strategic</th>
-                            <th>Personal</th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="rating in grade.CoreRatings | otherRating:SeminarID:showOther" core-rating-row rating="rating"></tr>
-                    </table>
-                </ng-form>
-
-                <ng-form name="impactForm" class="row">
-                    <h3 class="rating-table-header">Impact Rating</h3>
-                    <span class="rating-error" ng-show="impactForm.$invalid">Please enter an integer between 0 and 3</span>
-                    <table class="table rating-table">
-                        <tr>
-                            <th>Structures & Operations</th>
-                            <th>Professional Practices</th>
-                            <th>Student Learning</th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="number" ng-model="grade.ImpactRating.data.SScore" min="0" max="3" integer />
-                            </td>
-                            <td>
-                                <input type="number" ng-model="grade.ImpactRating.data.PScore" min="0" max="3" integer />
-                            </td>
-                            <td>
-                                <input type="number" ng-model="grade.ImpactRating.data.LScore" min="0" max="3" integer />
-                            </td>
-                            <td>
-                                <span class="glyphicon glyphicon-remove" ng-click="grade.ImpactRating.Clear()" ng-show="!grade.ImpactRating.IsEmpty()"></span>
-                            </td>
-                        </tr>
-                    </table>
-                </ng-form>
-
-                <div class="rating-submit row">
-                    <button class="btn-success" ng-click="SaveGrade()" ng-disabled="gradeForm.$invalid">Save</button>
-                    <div class="rating-save-message">
-                        <span ng-switch="errorSavingGrade">
-                            <span ng-switch-when="false">Saved Successfully! Redirecting to Home Page.</span>
-                            <span ng-switch-when="true">Failed To Save Rating. Please try again.</span>
-                        </span>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>            
         </div>
     </div>
 
