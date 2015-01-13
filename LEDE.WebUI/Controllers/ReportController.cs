@@ -52,7 +52,9 @@ namespace LEDE.WebUI.Controllers
 
         public SelectList ProgramCohortsForUser(int? ProgramCohortID)
         {
-            int FacultyID = Int32.Parse(User.Identity.GetUserId());
+            int FacultyID; 
+            if (User.IsInRole("Super Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("ECSEL Admin")) FacultyID = 0;
+            else FacultyID = Int32.Parse(User.Identity.GetUserId());
             IEnumerable<ProgramCohort> FacultyCohorts = db.getCohorts(FacultyID);
             int selectedProgramCohortID = ProgramCohortID ?? FacultyCohorts.First().ProgramCohortID;
 
