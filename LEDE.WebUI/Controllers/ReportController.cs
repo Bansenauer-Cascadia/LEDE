@@ -63,6 +63,8 @@ namespace LEDE.WebUI.Controllers
             return programCohorts;
         }
 
+        [AllowAnonymous]
+        [Authorize]
         public ActionResult Student(int? UserID, int? ProgramCohortID)
         {
             int userID = UserID ?? Convert.ToInt32(User.Identity.GetUserId());
