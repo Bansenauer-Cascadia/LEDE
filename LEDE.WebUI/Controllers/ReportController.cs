@@ -70,6 +70,7 @@ namespace LEDE.WebUI.Controllers
             int userID = UserID ?? Convert.ToInt32(User.Identity.GetUserId());
             int programCohortID = ProgramCohortID ?? db.getStudentCohortID(userID);
             StudentSummary model = db.getStudentTotals(programCohortID, userID);
+            model.Logs = CohortTotals.GetHoursTotals(programCohortID).SingleOrDefault(ht => ht.Id == userID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
         }
