@@ -31,6 +31,8 @@ namespace LEDE.Domain.Entities
         [Display(Name="Task Type")]
         public int? TaskTypeID { get; set; }
 
+        public bool SumScores { get; set; }
+
         public virtual Seminar Seminar { get; set; }
 
         public virtual TaskType TaskType { get; set; }

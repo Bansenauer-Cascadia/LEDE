@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201409130548185_checkifnull.Designer.cs">
       <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.cs" />
+    <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.Designer.cs">
+      <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\TaskSeminarCoreTopic.cs" />
@@ -346,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409130548185_checkifnull.resx">
       <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503012135433_AddSummableTaskColumn.resx">
+      <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
