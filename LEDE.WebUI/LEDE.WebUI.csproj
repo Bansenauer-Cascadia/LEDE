@@ -3050,7 +3050,6 @@
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\.travis.yml" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\CHANGELOG.md" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\LICENSE" />
-    <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\.bin\mkdirp" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\component.json" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\LICENSE" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\package.json" />
