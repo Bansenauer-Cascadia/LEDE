@@ -14,15 +14,6 @@
     <script src="~/Angular/services/taskVersionResource.js"></script>
     <script src="~/Angular/filters/seminarRating.js"></script>
     <script src="~/Scripts/UploadPopup.js"></script>
-    <script type="text/javascript">
-        $('#versionDrop option').each(function () {
-            if ($(this).html().charAt(0) === '*') {
-                $(this).html($(this).html().substring(1))
-                $(this).addClass('unrated')
-            }
-            else $(this).addClass('rated')
-        })
-    </script>
 }
 @section css {
     <link href="~/Angular/rating.css" type="text/css" rel="stylesheet" />

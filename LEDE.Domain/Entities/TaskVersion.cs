@@ -52,9 +52,8 @@ namespace LEDE.Domain.Entities
     {
         public string versionString()
         {
-            string text = "";
+            string text = "V" + Version;
             if (RatingStatus.Trim() == "Pending") text += "*";
-            text += "V" + Version;
             return text;
         }
     }
