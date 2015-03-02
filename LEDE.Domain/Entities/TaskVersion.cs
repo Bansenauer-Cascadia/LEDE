@@ -47,4 +47,15 @@ namespace LEDE.Domain.Entities
 
         public virtual ICollection<TaskRating> TaskRatings { get; set; }
     }
+
+    public partial class TaskVersion
+    {
+        public string versionString()
+        {
+            string text = "";
+            if (RatingStatus.Trim() == "Pending") text += "*";
+            text += "V" + Version;
+            return text;
+        }
+    }
 }

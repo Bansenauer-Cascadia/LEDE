@@ -14,6 +14,15 @@
     <script src="~/Angular/services/taskVersionResource.js"></script>
     <script src="~/Angular/filters/seminarRating.js"></script>
     <script src="~/Scripts/UploadPopup.js"></script>
+    <script type="text/javascript">
+        $('#versionDrop option').each(function () {
+            if ($(this).html().charAt(0) === '*') {
+                $(this).html($(this).html().substring(1))
+                $(this).addClass('unrated')
+            }
+            else $(this).addClass('rated')
+        })
+    </script>
 }
 @section css {
     <link href="~/Angular/rating.css" type="text/css" rel="stylesheet" />
@@ -35,7 +44,7 @@ else
                 @using (Html.BeginForm("Header", "Rating", FormMethod.Post))
                 {
                     @Html.DropDownListFor(x => x.VersID, Model.VersionDrop,
-                    new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control" })
+                    new { style = "width:75px", onchange = "this.form.submit();", @class = "form-control", id = "versionDrop" })
                 }
             </div>
             <div class="col-md-2" style="text-align:right;">

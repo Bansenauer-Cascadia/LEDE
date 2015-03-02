@@ -274,3 +274,10 @@ nav.mainnav {
 /* 07.00 RESPONSIVE
 *****************************/
 
+option.unrated {
+    background-color: salmon;
+}
+option.rated {
+    background-color: lightgreen;
+}
+
