@@ -2520,8 +2520,6 @@
     <Content Include="Angular\node_modules\karma\config.tpl.ls" />
     <Content Include="Angular\node_modules\karma\karma-completion.sh" />
     <Content Include="Angular\node_modules\karma\LICENSE" />
-    <Content Include="Angular\node_modules\karma\node_modules\.bin\node-http-proxy" />
-    <Content Include="Angular\node_modules\karma\node_modules\.bin\rimraf" />
     <Content Include="Angular\node_modules\karma\node_modules\chokidar\node_modules\async-each\.npmignore" />
     <Content Include="Angular\node_modules\karma\node_modules\chokidar\node_modules\async-each\bower.json" />
     <Content Include="Angular\node_modules\karma\node_modules\chokidar\node_modules\async-each\CHANGELOG.md" />
@@ -3053,7 +3051,6 @@
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\CHANGELOG.md" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\LICENSE" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\.bin\mkdirp" />
-    <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\.bin\ncp" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\component.json" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\LICENSE" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\async\package.json" />
@@ -3078,7 +3075,6 @@
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\mkdirp\readme.markdown" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\.npmignore" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\.travis.yml" />
-    <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\bin\ncp" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\LICENSE.md" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\package.json" />
     <Content Include="Angular\node_modules\karma\node_modules\http-proxy\node_modules\utile\node_modules\ncp\README.md" />
@@ -3110,7 +3106,6 @@
     <Content Include="Angular\node_modules\karma\node_modules\log4js\.npmignore" />
     <Content Include="Angular\node_modules\karma\node_modules\log4js\.travis.yml" />
     <Content Include="Angular\node_modules\karma\node_modules\log4js\lib\log4js.json" />
-    <Content Include="Angular\node_modules\karma\node_modules\log4js\node_modules\.bin\semver" />
     <Content Include="Angular\node_modules\karma\node_modules\log4js\node_modules\async\component.json" />
     <Content Include="Angular\node_modules\karma\node_modules\log4js\node_modules\async\LICENSE" />
     <Content Include="Angular\node_modules\karma\node_modules\log4js\node_modules\async\package.json" />
@@ -3346,8 +3341,6 @@
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\lib\vendor\web-socket-js\README.md" />
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\lib\vendor\web-socket-js\WebSocketMainInsecure.zip" />
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\Makefile" />
-    <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\node_modules\.bin\uglifyjs" />
-    <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\node_modules\.bin\wscat" />
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\node_modules\active-x-obfuscator\.index.js.un~" />
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\node_modules\active-x-obfuscator\.npmignore" />
     <Content Include="Angular\node_modules\karma\node_modules\socket.io\node_modules\socket.io-client\node_modules\active-x-obfuscator\.package.json.un~" />
