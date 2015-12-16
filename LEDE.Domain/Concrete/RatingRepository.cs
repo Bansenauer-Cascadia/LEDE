@@ -187,8 +187,8 @@ namespace LEDE.Domain.Concrete
             TaskVersion version = db.TaskVersions.Find(versid);
             int UserID = version.UserID;
             int TaskID = version.TaskID;
-            return new SelectList(db.TaskVersions.Where(v => v.TaskID == TaskID && v.UserID == UserID).Select(
-                v => new {v.VersID, Version = "V" + v.Version}), "VersID", "Version", versid);
+            return new SelectList(db.TaskVersions.Where(v => v.TaskID == TaskID && v.UserID == UserID).ToList().Select(
+                v => new {v.VersID, Version = v.versionString()}), "VersID", "Version", versid);
         }
 
 

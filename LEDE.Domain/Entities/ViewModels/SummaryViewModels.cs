@@ -29,6 +29,8 @@ namespace LEDE.Domain.Entities
     {
         public List<RatingQuery> RatingsList { get; set; }
 
+        public LogAndReadingGraphsDTO Logs { get; set; }
+
         public int MaxTotal { get; set; }
 
         public int MaxCount { get; set; }

@@ -6,22 +6,25 @@
         <th>Candidate</th>
         @foreach (Task task in Model.CohortTasks)
         {
-            <th>@task.TaskCode</th>
+            <th title="Task @task.TaskCode.TrimEnd(): @task.TaskName">@task.TaskCode</th>
         }
     </tr>
     @foreach (FacultySummaryRow row in Model.Rows)
     {
         <tr>
             <td>
-                @Html.ActionLink(row.Candidate.LastName + ", " + row.Candidate.FirstName, "Student", "Report",
-                new { UserID = row.Candidate.Id, ProgramCohortID = Model.ProgramCohortID }, null)
+                @(row.Candidate.LastName + ", " + row.Candidate.FirstName)
+                    <!--Html.ActionLink(row.Candidate.LastName + ", " + row.Candidate.FirstName, "Student", "Report",
+                new { UserID = row.Candidate.Id, ProgramCohortID = Model.ProgramCohortID })-->
+           
             </td>
             @foreach (LatestVersion version in row.LatestVersions)
             {
                 if (version.VersID != null)
                 {
                     <td class="@version.RatingStatus">
-                        @Html.ActionLink("V" + version.Version, "Rate", "Rating", new { VersID = version.VersID }, null)
+                        @Html.ActionLink("V" + version.Version, "Rate", "Rating", new { VersID = version.VersID }, 
+                        new {title="Click to rate this task" })
                     </td>
                 }
                 else

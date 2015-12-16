@@ -10,14 +10,16 @@ using Microsoft.AspNet.Identity;
 
 namespace LEDE.WebUI.Controllers
 {
-    //[Authorize(Roles="Faculty")]
+    [Authorize(Roles="Faculty")]
     public class RatingController : Controller
     {
-        private LEDE.Domain.Abstract.IRatingRepository db; 
+        private LEDE.Domain.Abstract.IRatingRepository db;
+        private FacultyAccess AccessValidator; 
 
         public RatingController(LEDE.Domain.Abstract.IRatingRepository repo)
         {
             this.db = repo;
+            this.AccessValidator = new FacultyAccess();
         }
 
         public PartialViewResult GetIndexData(int SelectedUserID, int ProgramCohortID)
@@ -89,6 +91,10 @@ namespace LEDE.WebUI.Controllers
                     ViewBag.SuccessMessage = "Upload Failed. Please Try Again.";
                 }
             }
+            else
+            {
+                ViewBag.SuccessMessage = "Upload Failed. Please attach a non-empty file";
+            }
 
             if (returnUrl != null)
             {
@@ -109,6 +115,15 @@ namespace LEDE.WebUI.Controllers
 
         public ActionResult Rate(int VersID, string Message = "")
         {
+            try
+            {
+                AccessValidator.Validate(Int32.Parse(User.Identity.GetUserId()), VersID);
+            }
+            catch
+            {
+                ViewBag.InvalidAccessError = true;
+                return View();
+            }
             RatingViewModel model = db.getRatingModel(VersID);
             ViewBag.SuccessMessage = Message;
             return View(model);

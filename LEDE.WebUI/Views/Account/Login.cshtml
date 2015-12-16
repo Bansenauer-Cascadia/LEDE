@@ -1,16 +1,27 @@
 ﻿@model LEDE.Domain.Entities.LoginModel
 @{
     ViewBag.Title = "Login";
+    bool? isTestLogin = (bool?)ViewBag.isTestLogin;
 }
-@section css{
-
-}
-@section script{
-
+@if (isTestLogin == true)
+{
+    <div class="row">
+        <h2 class="col-md-12">What You're About To See</h2>
+        <div class="col-md-6">
+            <p>
+                This is the site that faculty for the LEDE/ECSEL program use to grade student assignments.
+            </p>
+            <p>
+                I wrote this site as part of a team. I was <i>not</i> responsible for the navbar presentation and most of the CSS, and
+                I worked as part of a group to design the relational database.
+                I <i>was</i> fully responsible for everything else (HTML, Bootstrap, Javascript, C#, SQL & LINQ queries).
+            </p>
+        </div>
+    </div>
 }
 <h2>Log In</h2>
 
-@Html.ValidationSummary() 
+@Html.ValidationSummary()
 
 @using (Html.BeginForm())
 {
@@ -18,11 +29,11 @@
     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
     <div class="form-group">
         <label>User name</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.TextBox("Name", (string)ViewBag.TestUser, new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Password</label>
-        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+        @Html.Password("Password", (string)ViewBag.TestPassword, new { @class = "form-control" })
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
 }

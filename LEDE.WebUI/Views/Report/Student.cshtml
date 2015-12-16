@@ -10,18 +10,36 @@
     }
 }
 
-<h2>@UserName Rating Summary by Core Topic</h2>
+<div class="page-header row">
+    <h2>@UserName Rating Summary</h2>
+</div>
+
+<h3 class="col-md-6 col-md-offset-4 text-center">Log Totals</h3>
 <div class="row">
-    <div class="col-md-6">
-        <h3>Total Score by Knowledge Type</h3>
+    <div class="col-md-5 col-md-offset-2">
+        <div class="progress">
+            <div class="progress-bar bar-kt-c" style="width:100%">Number of Internship Log Hours</div>
+        </div>
+        <div class="text-center">@Model.Logs.NumHrs</div>
+    </div>
+    <div class="col-md-5">
+        <div class="progress">
+            <div class="progress-bar bar-sd-1" style="width:100%">Number of Reading Log Entries</div>
+        </div>
+        <div class="text-center">@Model.Logs.NumEntries</div>
+    </div>
+</div>
+
+<h3 class="col-md-6 col-md-offset-4 text-center">Core Topic Totals</h3>
+<div class="row">
+    <div class="col-md-5 col-md-offset-2">
         <div class="progress">
             <div class="progress-bar bar-kt-c" style="width:33.3%">Conceptual</div>
             <div class="progress-bar bar-kt-s" style="width: 33.3%">Strategic</div>
             <div class="progress-bar bar-kt-p" style="width: 33.3%">Personal</div>
         </div>
     </div>
-    <div class="col-md-6">
-        <h3>Score Distribution by Rating</h3>
+    <div class="col-md-5">
         <div class="progress">
             <div class="progress-bar bar-sd-1" style="width:33.3%">1s</div>
             <div class="progress-bar bar-sd-2" style="width: 33.3%">2s</div>
@@ -36,38 +54,25 @@
 }
 else
 {
-    int rowcount = 0;
     foreach (RatingQuery totals in Model.RatingsList)
-	{
-		bool worthShowing = totals.CScore>0 || totals.SScore>0 || totals.PScore>0 || 
-							totals.OneCount>0 || totals.TwoCount>0 || totals.ThreeCount>0;
-		if( worthShowing ) 
-		{
-		    string rowclass = (rowcount % 2 == 0) ? "even" : "odd";
-		        
-		    <div class="well @rowclass">
-		   <h4>@(totals.CoreTopicNum): @totals.CoreTopicDesc</h4>
-		    <div class="row">
-		        <div class="col-md-6">
-		            <div class="progress">
-		                <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
-		                <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
-		                <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
-		            </div>
-		        </div>
-		        <div class="col-md-6">
-		            <div class="progress">
-		                <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
-		                <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
-		                <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
-		            </div>
-		        </div>
-		    </div>
-		        </div>
-		    rowcount++;
-	    }
-	}
+    {
+        <div class="row bar-row">
+            <div class="col-md-2">@(totals.CoreTopicNum): @totals.CoreTopicDesc</div>
+            <div class="col-md-5">
+                <div class="progress">
+                    <div class="progress-bar bar-kt-c" style="width: @totals.CPercentage%">@(totals.CScore ?? 0)</div>
+                    <div class="progress-bar bar-kt-s" style="width: @totals.SPercentage%">@(totals.SScore ?? 0)</div>
+                    <div class="progress-bar bar-kt-p" style="width: @totals.PPercentage%">@(totals.PScore ?? 0)</div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="progress">
+                    <div class="progress-bar bar-sd-1" style="width: @totals.OnePercentage%">@totals.OneCount</div>
+                    <div class="progress-bar bar-sd-2" style="width: @totals.TwoPercentage%">@totals.TwoCount</div>
+                    <div class="progress-bar bar-sd-3" style="width: @totals.ThreePercentage%">@totals.ThreeCount</div>
+                </div>
+            </div>
+        </div>
+    }
 
 }
-
-

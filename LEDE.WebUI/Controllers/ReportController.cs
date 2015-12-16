@@ -12,7 +12,7 @@ using LEDE.WebUI.DTOs;
 
 namespace LEDE.WebUI.Controllers
 {
-    [Authorize(Roles = "Faculty")]
+    [Authorize(Roles = "Faculty, LEDE Admin, ECSEL Admin, Super Admin")]
     public class ReportController : Controller
     {
         private ISummaryRepository db;
@@ -52,6 +52,9 @@ namespace LEDE.WebUI.Controllers
 
         public SelectList ProgramCohortsForUser(int? ProgramCohortID)
         {
+            int FacultyID; 
+            if (User.IsInRole("Super Admin") || User.IsInRole("LEDE Admin") || User.IsInRole("ECSEL Admin")) FacultyID = 0;
+            else FacultyID = Int32.Parse(User.Identity.GetUserId());
             IEnumerable<ProgramCohort> FacultyCohorts = db.getCohorts(FacultyID);
             int selectedProgramCohortID = ProgramCohortID ?? FacultyCohorts.First().ProgramCohortID;
 
@@ -60,11 +63,14 @@ namespace LEDE.WebUI.Controllers
             return programCohorts;
         }
 
+        [AllowAnonymous]
+        [Authorize]
         public ActionResult Student(int? UserID, int? ProgramCohortID)
         {
             int userID = UserID ?? Convert.ToInt32(User.Identity.GetUserId());
             int programCohortID = ProgramCohortID ?? db.getStudentCohortID(userID);
             StudentSummary model = db.getStudentTotals(programCohortID, userID);
+            model.Logs = CohortTotals.GetHoursTotals(programCohortID).SingleOrDefault(ht => ht.Id == userID);
             Calculator.CalculateStudentPercentages(model);
             return View(model);
         }

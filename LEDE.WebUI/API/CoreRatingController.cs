@@ -8,9 +8,11 @@ using LEDE.Domain.Repositories;
 using LEDE.Domain.Entities;
 using LEDE.Domain.Entities.DTOs;
 using Microsoft.AspNet.Identity;
+using LEDE.Domain.Concrete;
 
 namespace LEDE.WebUI.Controllers
 {
+    [Authorize(Roles="Faculty")]
     public class CoreRatingController : ApiController
     {
         private ITaskVersionRepository TaskVersions;
@@ -21,16 +23,9 @@ namespace LEDE.WebUI.Controllers
 
         private ICoreRatingRepository CoreRatings;
 
-        private int FacultyID; 
+        private DbContext db;
 
-        public CoreRatingController(ITaskVersionRepository TaskVersions, IProgramRepository Programs, 
-            ITaskRatingRepository TaskRatings, ICoreRatingRepository CoreRatings)
-        {
-            this.TaskVersions = TaskVersions;
-            this.Programs = Programs;
-            this.TaskRatings = TaskRatings;
-            this.CoreRatings = CoreRatings;             
-        }
+        private int FacultyID; 
 
         public CoreRatingController()
         {
@@ -39,6 +34,7 @@ namespace LEDE.WebUI.Controllers
             this.CoreRatings = new CoreRatingRepository();
             this.TaskRatings = new TaskRatingRepository();
             this.FacultyID = Convert.ToInt32(User.Identity.GetUserId());
+            this.db = new DbContext();
         }
 
         // GET api/<controller>/5

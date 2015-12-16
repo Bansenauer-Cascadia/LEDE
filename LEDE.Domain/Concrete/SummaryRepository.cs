@@ -61,6 +61,8 @@ namespace LEDE.Domain.Concrete
             model.MaxTotal = CombinedTotals.Any() ? (CombinedTotals.Max(t => t.Total)) : 0;
             model.MaxCount = CombinedCounts.Any() ? CombinedCounts.Max(c => c.Count) : 0;
 
+            
+
             return model;
         }
 

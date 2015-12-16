@@ -9,10 +9,7 @@ using LEDE.Domain.Concrete;
 
 namespace LEDE.WebUI.Controllers
 {
-    public class Modela
-    {
-        public int VersID { get; set; }
-    }
+    [Authorize(Roles = "Faculty")]
     public class TaskVersionController : ApiController
     {
         private DbContext db; 

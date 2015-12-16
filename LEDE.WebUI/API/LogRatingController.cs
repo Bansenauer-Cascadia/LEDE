@@ -16,6 +16,8 @@ namespace LEDE.WebUI.Controllers
 
         public int NumEntries { get; set; }
     }
+
+    [Authorize(Roles = "Faculty")]
     public class LogRatingController : ApiController
     {
         private DbContext db;

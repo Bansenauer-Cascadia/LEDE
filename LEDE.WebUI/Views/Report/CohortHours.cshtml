@@ -5,10 +5,10 @@
 {
     <div class="row page-header">
         <div class="col-md-5">
-            <h2>Cohort Log Totals</h2>
+            <h2>Log Totals</h2>
         </div>        
         <div class="col-md-3">
-            @Html.ActionLink("View Core Topic Totals", "Seminar")
+            @Html.ActionLink("View Core Topic Totals", "Seminar", null, new {@class = "btn btn-default" })
         </div>
         <div class="col-md-4">
             @Html.DropDownList("ProgramCohortID", (SelectList)ViewBag.Cohorts, new { @class = "form-control", onchange = "this.form.submit();" })

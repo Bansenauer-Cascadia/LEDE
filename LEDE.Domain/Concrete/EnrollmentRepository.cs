@@ -204,6 +204,7 @@ namespace LEDE.Domain.Concrete
             editTask.TaskTypeID = task.TaskTypeID;
             editTask.TaskCode = task.TaskCode;
             editTask.TaskName = task.TaskName;
+            editTask.SumScores = task.SumScores;
 
             db.SaveChanges(); 
         }

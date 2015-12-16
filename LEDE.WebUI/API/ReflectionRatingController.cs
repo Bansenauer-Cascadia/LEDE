@@ -17,6 +17,7 @@ namespace LEDE.WebUI.Controllers
         public double NumHours { get; set; }
     }
 
+    [Authorize(Roles = "Faculty")]
     public class ReflectionRatingController : ApiController
     {
         private DbContext db;
