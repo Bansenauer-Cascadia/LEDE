@@ -1,0 +1,88 @@
+﻿@using LEDE.Domain.Entities
+@model CohortUsers
+@{AjaxOptions DeleteOptions = new AjaxOptions()
+{
+    UpdateTargetId = "CohortDetails",
+    LoadingElementId = "loading",
+    Url = Url.Action("RemoveCohortUsers")
+};
+  AjaxOptions AddOptions = new AjaxOptions()
+  {
+      UpdateTargetId = "CohortDetails",
+      LoadingElementId = "loading",
+      Url = Url.Action("AddCohortUsers")
+  };
+}
+
+<div class="row">
+
+    @using (Ajax.BeginForm(DeleteOptions))
+    {
+        @Html.HiddenFor(model => model.ProgramCohortID)
+        @Html.Hidden("Command","RemoveUsers")
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <h3>Enrolled Users</h3>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>Candidates</th>
+                        <th style="text-align:center">
+                            <input type="submit" value="Remove" class="btn btn-danger btn-sm enroll" />
+                        </th>
+                    </tr>
+                    @Html.EditorFor(model => model.EnrolledCandidates)
+                    @if (Model.EnrolledCandidates.FirstOrDefault() == null)
+                    {
+                        <tr><td colspan="2">No Candidates Enrolled</td></tr>
+                    }
+                    <tr><th>Faculty</th><th style="text-align:center"></th></tr>
+                    @Html.EditorFor(model => model.EnrolledFaculty)
+                    @if (Model.EnrolledCandidates.FirstOrDefault() == null)
+                    {
+                        <tr><td colspan="2">No Faculty Enrolled</td></tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    }
+
+    @using (Ajax.BeginForm(AddOptions))
+    {
+        @Html.HiddenFor(model => model.ProgramCohortID)
+        @Html.Hidden("Command","AddUsers")
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <h3>Non-Enrolled Users</h3>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>Candidates</th>
+                        <th style="text-align:center">
+                            <input type="submit" value="Add" class="btn btn-success btn-sm enroll" />
+                        </th>
+                    </tr>
+                    @Html.EditorFor(model => model.NonEnrolledCandidates)
+                    <tr>
+                        <th>Faculty</th>
+                        <th style="text-align:center"></th>
+                    </tr>
+                    @Html.EditorFor(model => model.NonEnrolledFaculty)
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+@section script{
+    <script type="text/javascript">
+        $(function () {
+            $('.enroll').on('click', function () {
+                $('#CohortDetails').children().remove();
+                var foo = 0;
+            })
+        });
+    </script>
+}
+

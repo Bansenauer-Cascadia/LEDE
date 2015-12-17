@@ -1,0 +1,49 @@
+﻿@using LEDE.Domain.Entities
+@model CohortDropDown
+@section css {
+    <style>
+        .LoadPlaceholder{
+            text-align:center;
+        }
+    </style>
+}
+@{
+    ViewBag.Title = "Summary";
+    AjaxOptions opts = new AjaxOptions()
+    {
+        Url = Url.Action("SummaryTable"),
+        UpdateTargetId = "SummaryTable",
+        LoadingElementId = "ajaxgif"
+    };
+}
+
+@using (Ajax.BeginForm(opts))
+{
+    <div class="row page-header">
+        <div class="col-md-5">
+            <h2>Candidate Task Submissions</h2>
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.ProgramCohortID, Model.UserCohorts,
+               new { @class = "form-control", style="display:inline;", onchange="$(this.form).submit();"})
+        </div>
+        <div class="LoadPlaceholder">
+            <img id="ajaxgif" src="~/Images/ajax-loader.gif" alt="Loading..." style="display:none;" />
+        </div>
+    </div>
+}
+
+<div id="SummaryTable">
+@if(Model.ProgramCohortID > 0){
+    @Html.Action("SummaryTable", new { ProgramCohortID = Model.ProgramCohortID})
+}
+</div>
+@section script {
+<script type="text/javascript">
+    $(function(){
+        $('#submit').on('click', function (e) {
+            $('#SummaryTable').empty(); 
+        });
+    });
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@using LEDE.Domain.Entities
+@model GenericEnrollment<SelectableItem>
+@{
+    AjaxOptions addOpts = new AjaxOptions()
+    {
+        Url = "AddItems",
+        UpdateTargetId = "EnrollmentPanel"
+    };
+
+    AjaxOptions removeOpts = new AjaxOptions()
+    {
+        Url = "RemoveItems",
+        UpdateTargetId = "EnrollmentPanel"
+    };
+}
+
+<div class="row" id="EnrollmentPanel">
+
+    @using (Ajax.BeginForm(removeOpts))
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("Type")
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <h3>Enrolled Items</h3>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>Items</th>
+                        <th style="text-align:center">
+                            <input type="submit" value="Remove" class="btn btn-danger btn-sm enroll" />
+                        </th>
+                    </tr>
+                    @Html.EditorFor(model => model.enrolledItems)
+                    @if (!Model.enrolledItems.Any())
+                    {
+                        <tr><td colspan="2">No Items To Display</td></tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+
+    @using (Ajax.BeginForm(addOpts))
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("Type")
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <h3>Non-Enrolled Items</h3>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>Items</th>
+                        <th style="text-align:center">
+                            <input type="submit" value="Add" class="btn btn-success btn-sm enroll" />
+                        </th>
+                    </tr>
+                    @Html.EditorFor(model => model.nonEnrolledItems)
+                    @if (!Model.nonEnrolledItems.Any())
+                    {
+                        <tr><td colspan="2">No Items To Display</td></tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,12 @@
+﻿@model SelectList
+@using (Html.BeginForm("CohortGraphs", "Report"))
+{
+    <div class="row page-header">
+        <div class="col-md-4">
+            <h2>Cohort Rating Totals</h2>
+        </div>        
+        <div class="col-md-4 pull-right">
+            @Html.DropDownList("ProgramCohortID", Model, new { @class = "form-control", onchange = "this.form.submit();" })
+        </div>
+    </div>
+}

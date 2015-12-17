@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F3D8D0C0-B4E4-449C-9FC2-E06CA993DF5A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LEDE.Domain</RootNamespace>
+    <AssemblyName>LEDE.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.4.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity.Repository">
+      <HintPath>..\packages\System.Data.Entity.Repository.2.0.0.1\lib\net45\System.Data.Entity.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\ICandidateRepository.cs" />
+    <Compile Include="Abstract\IEnrollmentRepository.cs" />
+    <Compile Include="Abstract\IPercentageCalculator.cs" />
+    <Compile Include="Abstract\IRatingRepository.cs" />
+    <Compile Include="Abstract\ISummaryRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
+    <Compile Include="Concrete\AppRoleManager.cs" />
+    <Compile Include="Concrete\AppUserManager.cs" />
+    <Compile Include="Concrete\CandidateRepository.cs" />
+    <Compile Include="Concrete\EnrollmentRepository.cs" />
+    <Compile Include="Concrete\FacultyCohortAccess.cs" />
+    <Compile Include="Concrete\FileManager.cs" />
+    <Compile Include="Concrete\PercentageCalculator.cs" />
+    <Compile Include="Concrete\RatingRepository.cs" />
+    <Compile Include="Concrete\SummaryRepository.cs" />
+    <Compile Include="Concrete\UserRepository.cs" />
+    <Compile Include="Entities\CoreTaskRating.cs" />
+    <Compile Include="Entities\CoreTaskVersion.cs" />
+    <Compile Include="Entities\CoreTopicScore.cs" />
+    <Compile Include="Entities\DTO\CoreRatingDTO.cs" />
+    <Compile Include="Entities\DTO\HoursTotalDTO.cs" />
+    <Compile Include="Entities\ViewModels\CandidateViewModels.cs" />
+    <Compile Include="Entities\CohortEnrollment.cs" />
+    <Compile Include="Entities\CoreRating.cs" />
+    <Compile Include="Entities\CoreTopic.cs" />
+    <Compile Include="Entities\Document.cs" />
+    <Compile Include="Entities\ViewModels\CohortViewModels.cs" />
+    <Compile Include="Entities\ViewModels\EnrollmentViewModels.cs" />
+    <Compile Include="Entities\IdentityModels.cs" />
+    <Compile Include="Concrete\AppIdentityDbContext.cs" />
+    <Compile Include="Concrete\CustomUserValidator.cs" />
+    <Compile Include="Entities\ImpactTypeRating.cs" />
+    <Compile Include="Entities\InternReflection.cs" />
+    <Compile Include="Entities\Program.cs" />
+    <Compile Include="Entities\ProgramCohort.cs" />
+    <Compile Include="Entities\Rater.cs" />
+    <Compile Include="Entities\ViewModels\RatingViewModels.cs" />
+    <Compile Include="Entities\ReadingLogEntry.cs" />
+    <Compile Include="Entities\Seminar.cs" />
+    <Compile Include="Entities\SubjectiveType.cs" />
+    <Compile Include="Entities\SummaryCoreRating.cs" />
+    <Compile Include="Entities\ViewModels\SummaryViewModels.cs" />
+    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Entities\TaskRating.cs" />
+    <Compile Include="Entities\TaskType.cs" />
+    <Compile Include="Entities\TaskVersion.cs" />
+    <Compile Include="Entities\ViewModels\AdminViewModels.cs" />
+    <Compile Include="Entities\ImpactTaskRating.cs" />
+    <Compile Include="Entities\MaxVersID.cs" />
+    <Compile Include="Migrations\201408070238393_intialize.cs" />
+    <Compile Include="Migrations\201408070238393_intialize.Designer.cs">
+      <DependentUpon>201408070238393_intialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408070528511_backtonormal.cs" />
+    <Compile Include="Migrations\201408070528511_backtonormal.Designer.cs">
+      <DependentUpon>201408070528511_backtonormal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408110532328_docchanges.cs" />
+    <Compile Include="Migrations\201408110532328_docchanges.Designer.cs">
+      <DependentUpon>201408110532328_docchanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408110545335_document2.cs" />
+    <Compile Include="Migrations\201408110545335_document2.Designer.cs">
+      <DependentUpon>201408110545335_document2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408270305527_seminaridnullable.cs" />
+    <Compile Include="Migrations\201408270305527_seminaridnullable.Designer.cs">
+      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408270310523_seminarnullable.cs" />
+    <Compile Include="Migrations\201408270310523_seminarnullable.Designer.cs">
+      <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408270604316_re-sync.cs" />
+    <Compile Include="Migrations\201408270604316_re-sync.Designer.cs">
+      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282117191_staging.cs" />
+    <Compile Include="Migrations\201408282117191_staging.Designer.cs">
+      <DependentUpon>201408282117191_staging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282119179_stagin.cs" />
+    <Compile Include="Migrations\201408282119179_stagin.Designer.cs">
+      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408282124151_undo stupid changes.cs" />
+    <Compile Include="Migrations\201408282124151_undo stupid changes.Designer.cs">
+      <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408300102338_8-29-2014.cs" />
+    <Compile Include="Migrations\201408300102338_8-29-2014.Designer.cs">
+      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408302007530_testforseminarid.cs" />
+    <Compile Include="Migrations\201408302007530_testforseminarid.Designer.cs">
+      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408302207272_8-30-14.cs" />
+    <Compile Include="Migrations\201408302207272_8-30-14.Designer.cs">
+      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130126319_feedbackdocid.cs" />
+    <Compile Include="Migrations\201409130126319_feedbackdocid.Designer.cs">
+      <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130131527_feedbackdocid2.cs" />
+    <Compile Include="Migrations\201409130131527_feedbackdocid2.Designer.cs">
+      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130134381_feedbackdocid3.cs" />
+    <Compile Include="Migrations\201409130134381_feedbackdocid3.Designer.cs">
+      <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130542123_teafe.cs" />
+    <Compile Include="Migrations\201409130542123_teafe.Designer.cs">
+      <DependentUpon>201409130542123_teafe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409130548185_checkifnull.cs" />
+    <Compile Include="Migrations\201409130548185_checkifnull.Designer.cs">
+      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.cs" />
+    <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.Designer.cs">
+      <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\TaskSeminarCoreTopic.cs" />
+    <Compile Include="Entities\TaskVersionMax.cs" />
+    <Compile Include="Repositories\ICoreRatingRepository.cs" />
+    <Compile Include="Repositories\ICohortTotalsRepository.cs" />
+    <Compile Include="Repositories\IProgramRepository.cs" />
+    <Compile Include="Repositories\ITaskRatingRepository.cs" />
+    <Compile Include="Repositories\ITaskVersionRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408070238393_intialize.resx">
+      <DependentUpon>201408070238393_intialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408070528511_backtonormal.resx">
+      <DependentUpon>201408070528511_backtonormal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408110532328_docchanges.resx">
+      <DependentUpon>201408110532328_docchanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408110545335_document2.resx">
+      <DependentUpon>201408110545335_document2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270305527_seminaridnullable.resx">
+      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270310523_seminarnullable.resx">
+      <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408270604316_re-sync.resx">
+      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282117191_staging.resx">
+      <DependentUpon>201408282117191_staging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282119179_stagin.resx">
+      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408282124151_undo stupid changes.resx">
+      <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408300102338_8-29-2014.resx">
+      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408302007530_testforseminarid.resx">
+      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408302207272_8-30-14.resx">
+      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130126319_feedbackdocid.resx">
+      <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130131527_feedbackdocid2.resx">
+      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130134381_feedbackdocid3.resx">
+      <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130542123_teafe.resx">
+      <DependentUpon>201409130542123_teafe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409130548185_checkifnull.resx">
+      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503012135433_AddSummableTaskColumn.resx">
+      <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>65138</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:65138/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

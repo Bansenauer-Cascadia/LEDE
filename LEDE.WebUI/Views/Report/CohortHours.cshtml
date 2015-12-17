@@ -1,0 +1,50 @@
+﻿@using LEDE.Domain.Entities
+@model IEnumerable<LogAndReadingGraphsDTO>
+
+@using (Html.BeginForm("CohortHours", "Report"))
+{
+    <div class="row page-header">
+        <div class="col-md-5">
+            <h2>Log Totals</h2>
+        </div>        
+        <div class="col-md-3">
+            @Html.ActionLink("View Core Topic Totals", "Seminar", null, new {@class = "btn btn-default" })
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownList("ProgramCohortID", (SelectList)ViewBag.Cohorts, new { @class = "form-control", onchange = "this.form.submit();" })
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-5 col-md-offset-2">
+        <div class="progress">
+            <div class="progress-bar bar-kt-c" style="width:100%">Number of Internship Log Hours</div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="progress">
+            <div class="progress-bar bar-sd-1" style="width:100%">Number of Reading Log Entries</div>
+        </div>
+    </div>
+</div>
+@foreach (LogAndReadingGraphsDTO total in Model)
+{
+    <div class="row bar-row">
+        <div class="col-md-2">
+            @total.LastName, @total.FirstName
+        </div>
+        <div class="col-md-5">
+            <div class="progress">
+                <div class="progress-bar bar-kt-c" style="width: @total.PercentHrs%">@total.NumHrs</div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="progress">
+                <div class="progress-bar bar-sd-1" style="width: @total.PercentEntries%">@total.NumEntries</div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

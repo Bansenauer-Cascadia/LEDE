@@ -1,0 +1,25 @@
+﻿@using LEDE.Domain.Entities
+@model int
+@{
+    AjaxOptions opts = new AjaxOptions()
+    {
+        Url = Url.Action("Upload", "Rating", new { SelectedUserID = ViewBag.SelectedUserID, VersID = Model, returnUrl = ViewBag.ReturnUrl }),
+        UpdateTargetId = "upload-popup",
+    };
+}
+<div id="upload-popup" class="white-popup" style="position: relative; background: #FFF; padding: 20px; width: auto; max-width: 750px; margin: 20px auto;">
+    @if (Model == -1)
+    {
+        @ViewBag.Message
+    }
+    else
+    {
+        <h3>Upload Feedback</h3>
+    <h4>@ViewBag.User - @ViewBag.TaskName (V@(ViewBag.Version))</h4>
+    using(Html.BeginForm("Upload","Rating",new { SelectedUserID = ViewBag.SelectedUserID, VersID = Model, returnUrl = ViewBag.ReturnUrl },
+        FormMethod.Post ,new { enctype = "multipart/form-data" })){
+        <input type="file" name="file" style="display:inline;"/>
+        <input type="submit" value="Submit" style="display:inline;" id="filesubmit"/>
+    }
+    }
+</div>
