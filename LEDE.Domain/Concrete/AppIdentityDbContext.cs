@@ -11,7 +11,7 @@ namespace LEDE.Domain.Concrete
 
         static DbContext()
         {
-            Database.SetInitializer<DbContext>(new IdentityDbInit());
+           // Database.SetInitializer<DbContext>(new IdentityDbInit());
         }
         public static DbContext Create()
         {
