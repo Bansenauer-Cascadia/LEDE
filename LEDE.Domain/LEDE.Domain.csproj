@@ -226,49 +226,21 @@
     <Compile Include="Migrations\201408110545335_document2.Designer.cs">
       <DependentUpon>201408110545335_document2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408270305527_seminaridnullable.cs" />
-    <Compile Include="Migrations\201408270305527_seminaridnullable.Designer.cs">
-      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201408270310523_seminarnullable.cs" />
     <Compile Include="Migrations\201408270310523_seminarnullable.Designer.cs">
       <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408270604316_re-sync.cs" />
-    <Compile Include="Migrations\201408270604316_re-sync.Designer.cs">
-      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201408282117191_staging.cs" />
     <Compile Include="Migrations\201408282117191_staging.Designer.cs">
       <DependentUpon>201408282117191_staging.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408282119179_stagin.cs" />
-    <Compile Include="Migrations\201408282119179_stagin.Designer.cs">
-      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201408282124151_undo stupid changes.cs" />
     <Compile Include="Migrations\201408282124151_undo stupid changes.Designer.cs">
       <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408300102338_8-29-2014.cs" />
-    <Compile Include="Migrations\201408300102338_8-29-2014.Designer.cs">
-      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408302007530_testforseminarid.cs" />
-    <Compile Include="Migrations\201408302007530_testforseminarid.Designer.cs">
-      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201408302207272_8-30-14.cs" />
-    <Compile Include="Migrations\201408302207272_8-30-14.Designer.cs">
-      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201409130126319_feedbackdocid.cs" />
     <Compile Include="Migrations\201409130126319_feedbackdocid.Designer.cs">
       <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409130131527_feedbackdocid2.cs" />
-    <Compile Include="Migrations\201409130131527_feedbackdocid2.Designer.cs">
-      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201409130134381_feedbackdocid3.cs" />
     <Compile Include="Migrations\201409130134381_feedbackdocid3.Designer.cs">
@@ -278,17 +250,9 @@
     <Compile Include="Migrations\201409130542123_teafe.Designer.cs">
       <DependentUpon>201409130542123_teafe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409130548185_checkifnull.cs" />
-    <Compile Include="Migrations\201409130548185_checkifnull.Designer.cs">
-      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.cs" />
     <Compile Include="Migrations\201503012135433_AddSummableTaskColumn.Designer.cs">
       <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601192121527_01192016.cs" />
-    <Compile Include="Migrations\201601192121527_01192016.Designer.cs">
-      <DependentUpon>201601192121527_01192016.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,38 +277,17 @@
     <EmbeddedResource Include="Migrations\201408110545335_document2.resx">
       <DependentUpon>201408110545335_document2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408270305527_seminaridnullable.resx">
-      <DependentUpon>201408270305527_seminaridnullable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408270310523_seminarnullable.resx">
       <DependentUpon>201408270310523_seminarnullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408270604316_re-sync.resx">
-      <DependentUpon>201408270604316_re-sync.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408282117191_staging.resx">
       <DependentUpon>201408282117191_staging.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408282119179_stagin.resx">
-      <DependentUpon>201408282119179_stagin.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408282124151_undo stupid changes.resx">
       <DependentUpon>201408282124151_undo stupid changes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408300102338_8-29-2014.resx">
-      <DependentUpon>201408300102338_8-29-2014.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408302007530_testforseminarid.resx">
-      <DependentUpon>201408302007530_testforseminarid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201408302207272_8-30-14.resx">
-      <DependentUpon>201408302207272_8-30-14.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409130126319_feedbackdocid.resx">
       <DependentUpon>201409130126319_feedbackdocid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409130131527_feedbackdocid2.resx">
-      <DependentUpon>201409130131527_feedbackdocid2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409130134381_feedbackdocid3.resx">
       <DependentUpon>201409130134381_feedbackdocid3.cs</DependentUpon>
@@ -352,14 +295,8 @@
     <EmbeddedResource Include="Migrations\201409130542123_teafe.resx">
       <DependentUpon>201409130542123_teafe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409130548185_checkifnull.resx">
-      <DependentUpon>201409130548185_checkifnull.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503012135433_AddSummableTaskColumn.resx">
       <DependentUpon>201503012135433_AddSummableTaskColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601192121527_01192016.resx">
-      <DependentUpon>201601192121527_01192016.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
