@@ -631,3 +631,4 @@ H:\Code\Repositories\uwb-lede\LEDE.Domain\obj\Debug\LEDE.Domain.Migrations.AddSu
 H:\Code\Repositories\uwb-lede\LEDE.Domain\obj\Debug\LEDE.Domain.csproj.GenerateResource.Cache
 H:\Code\Repositories\uwb-lede\LEDE.Domain\obj\Debug\LEDE.Domain.dll
 H:\Code\Repositories\uwb-lede\LEDE.Domain\obj\Debug\LEDE.Domain.pdb
+H:\Code\Repositories\uwb-lede\LEDE.Domain\obj\Debug\LEDE.Domain.csprojResolveAssemblyReference.cache
