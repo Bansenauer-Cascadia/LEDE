@@ -11,7 +11,7 @@ namespace LEDE.Domain.Concrete
 
         static DbContext()
         {
-            Database.SetInitializer<DbContext>(new IdentityDbInit());
+           //Database.SetInitializer<DbContext>(new IdentityDbInit());
         }
         public static DbContext Create()
         {
@@ -195,17 +195,17 @@ namespace LEDE.Domain.Concrete
 
 
 
-    public class IdentityDbInit
-            : DropCreateDatabaseIfModelChanges<DbContext>
-    {
-        protected override void Seed(DbContext context)
-        {
-            PerformInitialSetup(context);
-            base.Seed(context);
-        }
-        public void PerformInitialSetup(DbContext context)
-        {
-            // initial configuration will go here
-        }
-    }
+    //public class IdentityDbInit
+    //        : DropCreateDatabaseIfModelChanges<DbContext>
+    //{
+    //    protected override void Seed(DbContext context)
+    //    {
+    //        PerformInitialSetup(context);
+    //        base.Seed(context);
+    //    }
+    //    public void PerformInitialSetup(DbContext context)
+    //    {
+    //        // initial configuration will go here
+    //    }
+    //}
 }

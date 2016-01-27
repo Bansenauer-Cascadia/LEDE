@@ -52,8 +52,8 @@ namespace LEDE.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await UserManager.FindAsync(details.Name,
-                    details.Password);
+                User user = await UserManager.FindAsync(details.Name,details.Password);         
+
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid name or password.");
