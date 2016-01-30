@@ -4,7 +4,7 @@
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         <ul class="nav navbar-nav navbar-right">
-			<li><!--Make this a link when user account settings are implemented--><span class="greeting navbartext">staging-TESTMOVE: @User.Identity.GetUserName()</span></li>
+			<li><!--Make this a link when user account settings are implemented--><span class="greeting navbartext">staging-TASKS: @User.Identity.GetUserName()</span></li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
