@@ -34,6 +34,7 @@ namespace LEDE.WebUI.Controllers
         {            
             SelectList userCohorts = ProgramCohortsForUser(ProgramCohortID);
             int selectedCohortID = ProgramCohortID ?? Convert.ToInt32(userCohorts.SelectedValue);
+            ViewBag.ProgramCohortID = selectedCohortID;
             ViewBag.Cohorts = userCohorts;
 
             IEnumerable<RatingQuery> model = db.getCohortTotals(selectedCohortID);
