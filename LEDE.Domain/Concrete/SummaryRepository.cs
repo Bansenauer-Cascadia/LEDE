@@ -137,10 +137,10 @@ namespace LEDE.Domain.Concrete
             model.Candidates = new SelectList(candidates, "Value", "Text");
         }
 
-
+        // Returns the programCohortID for the latest cohort enrolled 
         public int getStudentCohortID(int UserID)
         {
-            return db.CohortEnrollments.FirstOrDefault(e => e.UserID == UserID).ProgramCohortID; 
+            return db.CohortEnrollments.OrderByDescending(c=>c.CohortEventID).FirstOrDefault(e => e.UserID == UserID).ProgramCohortID; 
         }
     }
 }
