@@ -31,5 +31,12 @@ namespace LEDE.Domain.Entities
         public virtual ICollection<CohortEnrollment> CohortEnrollments { get; set; }
 
         public virtual Program Program { get; set; }
+
+        public virtual String ProgramTitleYear { 
+            get
+            {
+                return Program.ProgramTitle + " (" + AcademicYear + ")";
+            }
+        }
     }
 }

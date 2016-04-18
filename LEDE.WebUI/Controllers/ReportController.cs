@@ -60,7 +60,7 @@ namespace LEDE.WebUI.Controllers
             int selectedProgramCohortID = ProgramCohortID ?? FacultyCohorts.First().ProgramCohortID;
 
             SelectList programCohorts = new SelectList(FacultyCohorts, "ProgramCohortID",
-                "Program.ProgramTitle", selectedProgramCohortID);
+                "ProgramTitleYear", selectedProgramCohortID);
             return programCohorts;
         }
 
